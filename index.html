@@ -32,7 +32,6 @@ textarea{min-height:70px}
 .set input{text-align:center;padding:8px 5px}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
 .set-actions{display:flex;gap:5px;margin-top:7px}.set-actions button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 8px;font-size:11px;font-weight:850}
 .set-actions .complete{flex:1}.set-actions .drop{flex:1}.set-actions .clock{flex:0 0 44px;font-size:15px;padding:5px}.set-actions .done{background:#111;color:#fff}
-.asc-controls button{min-width:70px}
 .dropbox{display:none;margin-top:6px;padding:7px;background:#f7f7f7;border-radius:8px}.dropbox.open{display:block}
 .dropitem{display:grid;grid-template-columns:1fr 1fr 32px;gap:5px;margin:5px 0}.dropitem button{border:1px solid #ccc;background:#fff;border-radius:7px;font-weight:900}
 .dropadd,.dropdel{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:800}
@@ -51,7 +50,7 @@ textarea{min-height:70px}
 </style>
 </head>
 <body>
-<header><h1>Workout Log V20</h1><div class="sub">Power Building｜PRE → BBB → PPP W1〜W8 → TEST</div></header>
+<header><h1>Workout Log V21</h1><div class="sub">Power Building｜PRE → BBB → PPP W1〜W8 → TEST</div></header>
 <main><nav id="nav"></nav><div id="app"></div></main>
 <div id="workClock">トレーニング 00:00:00</div>
 <div id="fixedTimer">
@@ -141,13 +140,7 @@ function exerciseCard(k,e,index){
  <div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?"｜"+esc(e.rx):""}${e.note?"<br>"+esc(e.note):""}</div></div>
  <div class="sectiontitle">Ascending Set</div>${ascRows(k,id,ascCount)}
  <div class="sectiontitle">Main Set（${count}セット）</div>${Array.from({length:count},(_,i)=>mainRow(k,id,i)).join("")}
- <div class="asc-head">
-  <span class="small">Main Set</span>
-  <div class="asc-controls">
-    <button onclick="changeMain('${esc(k)}','${esc(id)}',-1)">セット削除</button>
-    <button onclick="changeMain('${esc(k)}','${esc(id)}',1)">セット追加</button>
-  </div>
-</div>
+ <div class="asc-head"><span class="small">Main Set</span><div class="asc-controls"><button onclick="changeMain('${esc(k)}','${esc(id)}',-1)">セット削除</button><button onclick="changeMain('${esc(k)}','${esc(id)}',1)">セット追加</button></div></div>
  </div>`;
 }
 
