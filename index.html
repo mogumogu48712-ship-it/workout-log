@@ -1,101 +1,452 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff"><title>Workout Log V27</title>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Workout Log V28</title>
 <style>
-*{box-sizing:border-box} :root{--bg:#f2f4f7;--card:#fff;--line:#e1e5ea;--muted:#8a929d;--ink:#17191d;--soft:#f6f7f9;--accent:#8eb800}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}body{padding-bottom:82px}
-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #edf0f3}.top{height:70px;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;padding:0 10px}.top h1{text-align:center;font-size:21px;margin:0;font-weight:900}.top button{width:42px;height:42px;border:0;background:#fff;font-size:31px;color:#657286}.menu{font-size:26px!important}
-nav{display:flex;gap:7px;overflow:auto;padding:8px 12px;background:#fff;border-top:1px solid #f0f1f3;max-height:0;opacity:0;pointer-events:none;transition:.18s}nav.show{max-height:58px;opacity:1;pointer-events:auto}nav button,.tabs button{white-space:nowrap;border:1px solid #d5dbe1;background:#fff;border-radius:999px;padding:8px 13px;font-weight:850;font-size:12px}nav button.active,.tabs button.active{background:#17191d;color:#fff;border-color:#17191d}
-main{max-width:760px;margin:auto;padding:8px 0 18px}.panel{background:#fff}.card{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:8px 0}.panel-head{padding:13px 14px}.panel-head h2{margin:0 0 10px;font-size:20px}.small{font-size:11px;color:#737b86}.notice{font-size:12px;line-height:1.5;color:#555}
-.tabs{display:flex;gap:7px;overflow:auto;padding:0 14px 12px}.tabs.tight{padding-bottom:9px}.tabs button{font-size:11px;padding:8px 12px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 12px}label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #d8dde4;border-radius:9px;background:#fff;padding:9px;color:var(--ink)}textarea{min-height:70px;resize:vertical}.choice{display:flex;gap:4px}.choice button{flex:1;border:1px solid #d8dde4;background:#fff;border-radius:8px;padding:8px 2px;font-weight:800}.choice button.on{background:#17191d;color:#fff}
-.exercise{background:#fff;border-top:1px solid var(--line);padding-bottom:4px}.exhead{padding:14px 14px 8px}.exline{display:flex;align-items:center;gap:8px}.info{width:31px;height:31px;border:2px solid #758197;border-radius:50%;display:grid;place-items:center;color:#758197;font-weight:900;flex:0 0 31px}.badge{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:900;flex:0 0 31px}.b-leg{background:#dff7f4;color:#12a7a5}.b-chest{background:#ffdfe5;color:#e44b67}.b-back{background:#e2e7ff;color:#536bd4}.b-shoulder{background:#eee1ff;color:#8a56c8}.b-tri{background:#ffe8cc;color:#c77b14}.b-bi{background:#e5f1ff;color:#4183c4}.b-fore{background:#e8edf0;color:#66717c}.b-abs{background:#fff0d9;color:#b67920}.b-other{background:#eee;color:#666}.exname{font-size:19px;font-weight:900;flex:1;min-width:0}.exswap,.exdelete{border:0;background:#fff;color:#738096;padding:4px 5px;font-weight:850;font-size:12px}.exdelete{font-size:23px}.rx{margin:5px 0 0 70px;color:#737b86;font-size:11px;line-height:1.5}.worktime{font-size:14px;padding:7px 14px;color:#30343a}.note-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:0 14px 10px}.recent{border:1px solid #cfd5dc;background:#fff;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;white-space:nowrap}
-.section-title{padding:10px 14px 6px;color:#9da4ad;font-size:12px;font-weight:900;border-top:1px solid #edf0f3}.setrow{padding:0 14px 7px}.settop{display:grid;grid-template-columns:48px 1fr 1fr 58px;gap:7px;align-items:end}.setno{background:#f0f2f4;border-radius:7px;padding:10px 3px;text-align:center;font-weight:900}.settop input{text-align:center;padding:10px 4px}.formrow{display:grid;grid-template-columns:82px 1fr;gap:7px;margin-top:5px}.formrow input,.formrow select{padding:7px}.row-actions{display:flex;gap:7px;margin-top:7px}.row-actions button{border:1px solid #cfd4db;background:#fff;border-radius:999px;padding:8px 10px;font-size:10px;font-weight:900}.row-actions .complete{flex:1}.row-actions .drop{flex:1}.row-actions .clock{width:44px;padding:0;font-size:17px}.row-actions .done{background:#17191d;color:#fff;border-color:#17191d}
-.dropbox{display:none;margin:0 14px 10px;background:#f6f7f9;border-radius:10px;padding:8px}.dropbox.open{display:block}.drop-title{font-size:10px;color:#737b86;font-weight:900;margin-bottom:5px}.dropitem{display:grid;grid-template-columns:1fr 1fr 34px;gap:6px;margin:5px 0}.dropitem input{padding:8px;text-align:center}.dropitem button,.dropctrl button{border:1px solid #ccd2d9;background:#fff;border-radius:8px;font-weight:900}.dropctrl{display:flex;gap:6px;margin-top:5px}.dropctrl button{padding:7px 9px;font-size:10px}
-.asc{border-top:1px solid var(--line)}.asc summary{padding:11px 14px;font-weight:900;font-size:12px;cursor:pointer;list-style:none}.asc summary::-webkit-details-marker{display:none}.asc summary:before{content:"▶ ";font-size:9px}.asc[open] summary:before{content:"▼ "}.toolrow{display:flex;gap:7px;padding:0 14px 10px}.toolrow button,.main-tools button{flex:1;border:1px solid #cfd4db;background:#fff;border-radius:999px;padding:8px;font-size:10px;font-weight:900}.main-tools{display:flex;gap:7px;padding:0 14px 12px}.main-tools button{font-size:11px;padding:9px}
-.day-actions{display:flex;gap:8px;padding:12px 14px}.day-actions button{flex:1;border:0;border-radius:11px;padding:12px;font-weight:900}.primary{background:#17191d;color:#fff}.secondary{background:#e8eaed;color:#222}.program-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.program-grid button{border:1px solid #d5dbe1;background:#fff;border-radius:11px;padding:12px;text-align:left;font-weight:900}.history-row{border-top:1px solid #edf0f3;padding:11px 0}.history-row:first-of-type{border-top:0}.history-row button{margin-top:7px;border:1px solid #ccd2d9;background:#fff;border-radius:999px;padding:7px 11px;font-size:10px;font-weight:900}
-#workClock{position:fixed;right:8px;bottom:88px;z-index:180;background:#fff;border:1px solid #ccc;padding:5px 8px;font-size:10px;font-weight:800}.timer{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid #dfe3e7;box-shadow:none;padding:8px 9px calc(8px + env(safe-area-inset-bottom))}.timerbar{max-width:760px;margin:auto;display:grid;grid-template-columns:1.35fr .55fr;gap:8px}.timer-main{background:#f0f2f4;border:0;border-radius:18px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;text-align:center}.timer-main span{display:grid;place-items:center;padding:7px;border-right:1px solid #dce0e4}.timer-main span:last-child{border:0}.timer-label{font-size:10px;font-weight:900}.timer-display{font-size:22px;font-weight:950;font-variant-numeric:tabular-nums}.timer-end{border:0;border-radius:18px;background:#8eb800;color:#fff;font-size:18px;font-weight:950}.timer-panel{max-width:760px;margin:0 auto 5px;background:#fff;display:none}.timer-panel.show{display:block}.timer-inner{padding:10px 2px 2px}.timer-head{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:12px;margin-bottom:8px}.timer-close{border:0;background:#eee;border-radius:50%;width:30px;height:30px}.timer-settings{display:grid;grid-template-columns:1fr 1fr;gap:8px}.timer-actions{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:8px}.timer-actions button{border:1px solid #cfd4db;background:#fff;border-radius:9px;padding:8px 4px;font-size:10px;font-weight:900}.modal{position:fixed;inset:0;background:#0005;z-index:500;display:none;align-items:flex-end}.modal.show{display:flex}.modalbox{width:100%;max-height:82vh;overflow:auto;background:#fff;border-radius:18px 18px 0 0;padding:14px}.modalbox h3{margin:0 0 10px}.modal-tabs{display:flex;gap:6px;overflow:auto;margin-bottom:9px}.modal-tabs button{white-space:nowrap;border:1px solid #d5dbe1;background:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900}.modal-tabs button.active{background:#17191d;color:#fff}.exchoices{display:grid;grid-template-columns:1fr 1fr;gap:7px}.exchoices button{border:1px solid #d2d7dd;background:#fff;border-radius:10px;padding:10px;text-align:left;font-weight:800}.toast{position:fixed;left:50%;bottom:125px;transform:translateX(-50%);background:#17191d;color:#fff;padding:9px 14px;border-radius:999px;font-size:11px;font-weight:800;z-index:700;display:none}.toast.show{display:block}
-@media(min-width:700px){main{padding-top:12px}.exercise{margin:8px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}.card{border:1px solid var(--line);border-radius:14px;overflow:hidden}}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f3f3;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+header{background:#111;color:#fff;padding:13px 12px 10px;position:sticky;top:0;z-index:30}
+h1{font-size:21px;margin:0}header p{font-size:12px;opacity:.72;margin:3px 0 0}
+main{max-width:540px;margin:auto;padding:7px 9px 90px}
+nav{position:sticky;top:61px;z-index:20;display:flex;gap:6px;overflow-x:auto;background:#f3f3f3;padding:5px 0 9px}
+nav button,.daytabs button,.weektabs button{flex:0 0 auto;padding:9px 12px;border:1px solid #ccc;border-radius:10px;background:#fff;font-weight:700}
+nav button.active,.daytabs button.active,.weektabs button.active{background:#111;color:#fff;border-color:#111}
+.card,.exercise{background:#fff;border:1px solid #d2d2d2;border-radius:13px;margin:9px 0}
+.card{padding:12px}.exercise{overflow:hidden}
+h2{font-size:19px;margin:0 0 9px}h3{font-size:16px;margin:15px 0 7px}
+.small{font-size:12px;color:#666}.notice{font-size:13px;line-height:1.55;background:#f7f7f7;border-radius:9px;padding:10px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+label{display:block;font-size:12px;color:#666;margin-bottom:4px}
+input,textarea,select{width:100%;font:inherit;border:1px solid #c8c8c8;border-radius:9px;background:#fff;padding:9px}
+textarea{min-height:68px}
+.choice{display:flex;gap:4px}.choice button{flex:1;border:1px solid #ccc;background:#fff;border-radius:8px;padding:8px 2px}.choice button.on{background:#111;color:#fff}
+.daytabs,.weektabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 9px;padding-bottom:2px}
+.exhead{padding:11px;border-bottom:1px solid #ddd;position:relative}
+.exname{font-size:17px;font-weight:800;padding-right:165px}
+.rx{font-size:12px;line-height:1.5;color:#555;margin-top:4px;padding-right:165px}.rx strong{color:#111}
+.set{padding:9px 10px;border-bottom:1px solid #e7e7e7}.set:last-child{border-bottom:0}
+.settop{display:grid;grid-template-columns:42px 1fr 1fr 1fr;gap:6px;align-items:end}
+.setno{font-size:13px;font-weight:800;padding-bottom:9px}.set input{text-align:center;padding:8px 5px}
+.formrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.action{display:flex;gap:7px;margin-top:10px}.action button{flex:1;border:0;border-radius:10px;padding:11px;font-weight:800;font-size:15px}
+.primary{background:#111;color:#fff}.secondary{background:#e8e8e8}
+.badge{display:inline-block;background:#eee;border-radius:999px;padding:4px 8px;font-size:11px;margin:2px}
+details.asc{border-top:1px solid #e2e2e2;padding:0 10px 8px}
+details.asc summary{cursor:pointer;padding:10px 0;font-weight:750;font-size:13px}
+.sectiontitle{padding:9px 10px 0;font-size:12px;font-weight:800;color:#555;background:#fafafa}
+.replace{display:grid;grid-template-columns:42px 1fr;gap:4px 6px;margin-top:7px;padding-right:0}.replace label{font-size:10px;margin:0;align-self:center}.replace select{padding:5px 7px;font-size:11px}
+.countctl{display:flex;align-items:center;gap:7px;margin-top:8px}.countctl button{border:1px solid #ccc;background:#fff;border-radius:8px;width:36px;height:32px;font-size:19px;font-weight:800}.countctl span{min-width:72px;text-align:center;font-weight:800}
+.worktimer{background:#f7f7f7;border-radius:10px;padding:9px;margin:9px 0;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.workclock{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.worktimer button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 9px;font-weight:700}
+.history-item{cursor:pointer}.history-item:active{background:#eee}
+.history-date{font-weight:800}.history-sub{font-size:12px;color:#666;margin-top:4px}
+@media(max-width:420px){
+ .exname,.rx{padding-right:0}
+}
+@media(max-width:380px){.settop{grid-template-columns:36px 1fr 1fr 1fr}.set input{font-size:14px}}
+</style>
+<style id="v10-style">
+.v10-prev{font-size:10px;color:#777;margin:3px 0}
+.v10-actions{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.v10-actions button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:750}
+.setactions{display:grid;grid-template-columns:1fr auto auto;gap:5px;margin-top:6px}
+.setdone,.dropbtn,.clockbtn{border:1px solid #ccc;background:#f5f5f5;border-radius:7px;padding:7px 8px;font-weight:800;font-size:11px}
+.setdone.done{background:#111;color:#fff}
+.set.drop{background:#f7f7f7;border-left:3px solid #555}.set.extra{background:#fafafa}
+.dropbtn{background:#fff}.clockbtn{min-width:38px}
+.set-control{display:flex;gap:6px;padding:8px 10px;border-top:1px solid #ddd;background:#fafafa}
+.set-control button{border:1px solid #ccc;background:#fff;border-radius:8px;padding:7px 12px;font-weight:800}
+.drop-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px 0;font-size:11px;color:#666}
+.drop-delete{border:1px solid #ccc;background:#fff;border-radius:6px;padding:4px 7px;font-size:10px}
+.timer-tray{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;border-top:1px solid #bbb;padding:7px max(9px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(9px,env(safe-area-inset-left));box-shadow:0 -2px 8px rgba(0,0,0,.08);display:none}
+.timer-tray.open{display:block}
+.timer-tray-inner{max-width:540px;margin:auto;display:grid;grid-template-columns:1fr auto auto;gap:6px;align-items:center}
+.timer-clock{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.timer-name{font-size:11px;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timer-tray button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 9px;font-weight:800}
+.timer-tray button.primary-t{background:#111;color:#fff}
+.settag{font-size:10px;font-weight:800;color:#666;margin-bottom:4px}
+.exercise-note{padding:8px 10px;border-top:1px solid #ddd}.exercise-note input{font-size:12px}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:7px}.summary .stat{background:#f7f7f7;border-radius:9px;padding:9px}
+.stat b{display:block;font-size:16px}.stat span{font-size:10px;color:#666}
 </style></head>
 <body>
-<header><div class="top"><button onclick="goHome()">‹</button><h1 id="title">トレーニング</h1><button class="menu" onclick="toggleNav()">☰</button></div><nav id="nav"></nav></header>
-<main id="app"></main><div id="workClock">トレーニング 00:00:00</div>
-<div id="fixedTimer" class="timer"><div id="timerPanel" class="timer-panel"><div class="timer-inner"><div class="timer-head"><span id="timerName">種目タイマー</span><button class="timer-close" onclick="closeTimerPanel()">×</button></div><div class="timer-settings"><div><label>セット間（秒）</label><input id="restInput" type="number" min="0" max="900" step="5"></div><div><label>種目間（秒）</label><input id="exerciseInput" type="number" min="0" max="900" step="5"></div></div><div class="timer-actions"><button onclick="startTimer('rest')">セット間 ▶</button><button onclick="startTimer('exercise')">種目間 ▶</button><button onclick="stopTimer()">停止</button><button onclick="resetTimer()">リセット</button></div></div></div><div class="timerbar"><button class="timer-main" onclick="toggleTimerPanel()"><span><span class="timer-label">休憩タイマー</span><span id="timerDisplay" class="timer-display">00:00</span></span><span><span class="timer-label">総時間</span><span id="totalDisplay" class="timer-display">00:00</span></span></button><button class="timer-end" onclick="closeTimer()">終了</button></div></div>
-<div id="exerciseModal" class="modal" onclick="if(event.target===this)closeExerciseModal()"><div class="modalbox"><h3>種目を差し替え</h3><div id="modalTabs" class="modal-tabs"></div><div id="exerciseChoices" class="exchoices"></div><button class="secondary" style="width:100%;border:0;border-radius:10px;padding:11px;margin-top:9px;font-weight:900" onclick="closeExerciseModal()">閉じる</button></div></div><div id="toast" class="toast"></div>
+<header><h1>Workout Log</h1><p>Power Building｜PRE → BBB → PPP W1〜W8 → TEST</p></header>
+<main><nav id="nav"></nav><div id="app"></div></main>
+<div id="timerTray" class="timer-tray"></div>
+
 <script>
-const STORAGE='workoutLogV27';
-const LEGACY_STORAGE='workoutLogV25';
-const PARTS=['脚','胸','背中','肩','三頭','二頭','前腕','腹筋'];
-const EXERCISES={
-'脚':['バーベルスクワット','ハックスクワット','レッグプレス','レッグエクステンション','レッグカール','スミスマシンスクワット','ブルガリアンスクワット'],
-'胸':['ベンチプレス','ポーズベンチプレス','ラーセンベンチ','インクラインベンチプレス','ダンベルベンチプレス','ダンベルフライ','チェストプレスマシン','ディップス'],
-'背中':['デッドリフト','トップサイドデッドリフト','バーベルベントオーバーロウ','Tバーロウマシン','シーテッドロー','ラットプルダウン','ハイローマシン'],
-'肩':['OHP','スミスバックプレス','ケーブルアップライトロウ','ダンベルサイドレイズ','リアデルトフライ','ショルダープレスマシン'],
-'三頭':['クローズグリップベンチ','JMプレス','ライイングトライセプスエクステンション','スミスOHエクステンション'],
-'二頭':['バーベルカール','ケーブルカール','プリーチャーカール','インクラインカール','ハンマーカール'],
-'前腕':['リストカール','リバースリストカール','リバースカール','ハンマーカール'],
-'腹筋':['アブドミナルマシン','ケーブルクランチ','ハンギングレッグレイズ']};
+const tabs=["HOME","PRE","BBB","PPP","HISTORY"];
 const BBB={
-'脚':[['バーベルスクワット',4,'6〜8'],['レッグエクステンション',6,'10〜15'],['ハックスクワット',6,'8〜12'],['レッグプレス',6,'10〜15'],['スミスマシンスクワット',6,'8〜12'],['レッグカール',3,'10〜15']],
-'胸':[['ベンチプレス',15,'6〜10'],['インクラインベンチプレス',10,'8〜12'],['ダンベルベンチプレス',4,'8〜12'],['ダンベルフライ',5,'10〜15'],['チェストプレスマシン',6,'8〜12'],['ディップス',5,'8〜15']],
-'背中':[['デッドリフト',4,'4〜6'],['トップサイドデッドリフト',10,'6〜10'],['バーベルベントオーバーロウ',10,'8〜12'],['Tバーロウマシン',5,'8〜12'],['シーテッドロー',10,'8〜15'],['ラットプルダウン',6,'8〜15']],
-'肩':[['OHP',10,'6〜10'],['スミスバックプレス',10,'8〜12'],['ケーブルアップライトロウ',5,'10〜15'],['ダンベルサイドレイズ',10,'12〜20'],['リアデルトフライ',5,'12〜20'],['ショルダープレスマシン',3,'8〜12']],
-'三頭':[['クローズグリップベンチ',8,''],['JMプレス',8,''],['スミスOHエクステンション',5,'']],
-'二頭':[['バーベルカール',10,'8〜12'],['ケーブルカール',8,'8〜12'],['プリーチャーカール',5,'8〜12']],
-'前腕':[['リストカール',5,'10〜15'],['リバースリストカール',5,'10〜15'],['ハンマーカール',5,'8〜12']],
-'腹筋':[['アブドミナルマシン',5,'10〜15'],['ケーブルクランチ',5,'10〜15'],['ハンギングレッグレイズ',4,'8〜15']]};
-const E=(name,sets,rep,rx='',note='')=>({name,sets,rep,rx,note});
-const PPP={};
-for(let w=1;w<=4;w++)PPP[w]={D1:[E('Competition SQ',3,'2','60〜65% / RPE 5〜6','Technique'),E('Competition BP',3,'2','60〜65% / RPE 5〜6','Technique'),E('Competition DL',2,'2','60〜65% / RPE 5〜6','素手'),E('ブルガリアンスクワット',2,'8/脚','RPE 5〜6')],D2:[E('Competition SQ',3,'3','77.5〜82.5% / RPE 7〜8','Main Strength'),E('Competition BP',3,'3','77.5〜82.5% / RPE 7〜8','Main Strength'),E('Stiff-leg DL',3,'4','65〜72.5% / RPE 6〜7','パワーグリップ'),E('RDL',2,'6〜8','RPE 6〜7'),E('ハイローマシン',3,'8〜12','RPE 7〜8')],D3:[E('High-bar SQ',3,'4','65〜72.5% / RPE 6〜7','SQ variation'),E('Larsen BP',3,'4','67.5〜75% / RPE 6〜7','BP variation'),E('Competition DL',2,'2','60〜65% / RPE 5〜6','素手'),E('バーベルカール',2,'8〜12','RPE 7〜8')],D4:[E('Competition BP',3,'2','82.5〜87.5% / RPE 7.5〜8.5','Heavy / Specificity'),E('Competition DL',3,'1〜2','80〜87.5% / RPE 7〜8.5','パワーグリップ'),E('ナローベンチ',2,'5〜8','RPE 7'),E('OHP',2,'5〜8','RPE 7')],D5:[E('Pause SQ',3,'3','60〜70% / RPE 6前後','Drum Protection'),E('ワイドグリップTバーロウ',2,'8〜10','RPE 6〜7')]};
-PPP[5]={D1:[E('Competition SQ',4,'4','約70%','Competition volume'),E('Competition BP',4,'4','約70%','Competition volume'),E('Competition DL',2,'3','65〜67.5%','素手')],D2:[E('Competition SQ',4,'4','約75%'),E('Competition BP',4,'4','約75%'),E('Competition DL',3,'3','70〜72.5%','パワーグリップ')],D3:[E('Competition SQ',3,'4','約70%'),E('Competition BP',4,'4','72.5〜75%')],D4:[E('Competition BP',3,'3','77.5〜80%'),E('Competition DL',3,'2','75〜80%','パワーグリップ')],D5:[E('Competition SQ',3,'3','65〜70%'),E('Competition BP',3,'3','65〜70%'),E('Competition DL',2,'3','65〜67.5%','素手')]};
-PPP[6]={D1:[E('Competition SQ',1,'3','80%'),E('Competition SQ',1,'2','85%'),E('Competition SQ',1,'1','90%','状態確認上限'),E('Competition BP',1,'3','80%'),E('Competition BP',1,'2','85%'),E('Competition BP',1,'1','90%','状態確認上限')],D2:[E('Competition DL',1,'2','80%','パワーグリップ'),E('Competition DL',1,'1','87.5%','パワーグリップ'),E('Competition DL',1,'1','90%','状態確認上限'),E('Competition BP',1,'3','80%'),E('Competition BP',1,'2','85%')],D3:[E('Competition SQ',1,'2','80%'),E('Competition SQ',1,'1','85%'),E('Competition BP',2,'3','80%')],D4:[E('Competition DL',1,'2','80%'),E('Competition DL',1,'1','85%'),E('Competition BP',1,'2','80%')]};
-PPP[7]={D1:[E('Competition SQ',3,'2','75%'),E('Competition BP',3,'3','75%')],D2:[E('Competition DL',3,'1','70〜75%')],D3:[E('Competition BP',2,'3','75%')]};
-PPP[8]={'TEST前':[E('Competition SQ',1,'2','50〜60%','動作確認のみ'),E('Competition BP',1,'2','50〜60%','動作確認のみ'),E('Competition DL',1,'1','50〜60%','動作確認のみ')],'TEST':[E('SQ 1RM',3,'試技','SQ → BP → DL'),E('BP 1RM',3,'試技','SQ → BP → DL'),E('DL 1RM',3,'試技','SQ → BP → DL')]};
-const state=JSON.parse(localStorage.getItem(STORAGE+'_state')||localStorage.getItem(LEGACY_STORAGE+'_state')||'null')||{page:'HOME',bbbDay:1,bbbPart:'脚',pppWeek:1,pppDay:'D1',current:null};
-state.bbbDay??=1;
-let db=JSON.parse(localStorage.getItem(STORAGE)||localStorage.getItem(LEGACY_STORAGE)||'{"sessions":{}}');db.sessions??={};
-let timerIv=null,timer=null,workStarted=Number(db.workStarted||0),workElapsed=Number(db.workElapsed||0),modal={k:null,id:null,part:'脚'};
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const fmt=s=>String(Math.floor(Math.max(0,s)/60)).padStart(2,'0')+':'+String(Math.floor(Math.max(0,s)%60)).padStart(2,'0');
-const fmtLong=s=>String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(Math.floor(s)%60).padStart(2,'0');
-function save(){localStorage.setItem(STORAGE,JSON.stringify(db));localStorage.setItem(STORAGE+'_state',JSON.stringify(state))}
-function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1200)}
-function navDraw(){document.getElementById('nav').innerHTML=['HOME','PRE','BBB','PPP','HISTORY'].map(t=>`<button class="${state.page===t?'active':''}" onclick="go('${t}')">${t}</button>`).join('')}
-function toggleNav(){document.getElementById('nav').classList.toggle('show')}
-function go(p){state.page=p;save();navDraw();render();scrollTo(0,0)} function goHome(){if(state.page==='HOME')toggleNav();else go('HOME')}
-function changeBBB(p){state.bbbPart=p;save();render()} function changeBBBDay(d){state.bbbDay=Number(d)||1;save();render()} function changePPPWeek(w){state.pppWeek=w;state.pppDay=Object.keys(PPP[w]||{})[0]||'D1';save();render()} function changePPPDay(d){state.pppDay=d;save();render()}
-function key(){if(state.page==='PRE')return 'PRE|Week1';if(state.page==='BBB')return 'BBB|D'+state.bbbDay+'|'+state.bbbPart;if(state.page==='PPP')return 'PPP|W'+state.pppWeek+'|'+state.pppDay;return ''}
-function session(k){db.sessions[k]??={date:'',weight:'',sleep:0,fatigue:0,note:'',exercises:{},savedAt:0,history:[]};return db.sessions[k]}
-function ensureEx(k,i,e){const s=session(k),id='ex'+i;s.exercises[id]??={name:e.name,mainCount:e.sets,ascCount:3,ascOpen:false,note:'',hidden:false,timer:{rest:120,exercise:300}};const x=s.exercises[id];x.name??=e.name;x.mainCount??=e.sets||1;x.ascCount??=3;x.hidden=!!x.hidden;x.timer??={rest:120,exercise:300};return x}
-function row(k,id,key){const s=session(k);s.sets??={};return s.sets[key]??(s.sets[key]={})}
-function drops(k,id,i){const s=session(k);s.drops??={};const key=id+'#main#'+i;s.drops[key]??=[];return s.drops[key]}
-function setMeta(k,f,v){session(k)[f]=v;save()}
-function metaHTML(k){const s=session(k);return `<div class="meta"><div><label>日付</label><input type="date" value="${esc(s.date||'')}" onchange="setMeta('${esc(k)}','date',this.value)"></div><div><label>体重 kg（任意）</label><input inputmode="decimal" value="${esc(s.weight||'')}" oninput="setMeta('${esc(k)}','weight',this.value)"></div><div><label>睡眠</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.sleep==n?'on':''}" onclick="setMeta('${esc(k)}','sleep',${n})">${n}</button>`).join('')}</div></div><div><label>疲労</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.fatigue==n?'on':''}" onclick="setMeta('${esc(k)}','fatigue',${n})">${n}</button>`).join('')}</div></div></div>`}
-function badge(name){if(/SQ|スクワット|レッグ|ブルガリア/.test(name))return ['脚','b-leg'];if(/BP|ベンチ|フライ|ディップ/.test(name))return ['胸','b-chest'];if(/DL|デッド|ロウ|ロー|ラット|RDL|T.?bar|Tバ/.test(name))return ['背','b-back'];if(/OHP|ショルダー|サイド|リア|アップライト/.test(name))return ['肩','b-shoulder'];if(/JM|トライ|クローズグリップ|OHエクステンション/.test(name))return ['三頭','b-tri'];if(/カール|プリーチャー/.test(name))return ['二頭','b-bi'];if(/リスト/.test(name))return ['前腕','b-fore'];if(/腹|アブ|クランチ|レッグレイズ/.test(name))return ['腹筋','b-abs'];return ['種','b-other']}
-function editSet(k,id,key,f,v){row(k,id,key)[f]=v;save()}
-function complete(k,id,key){const r=row(k,id,key);r.completed=!r.completed;save();render()}
-function dropHTML(k,id,i){const r=row(k,id,'main#'+i),arr=drops(k,id,i),open=!!r.dropOpen;return `<div class="dropbox ${open?'open':''}"><div class="drop-title">Set ${i+1} Drop Sets</div>${arr.map((v,j)=>`<div class="dropitem"><input inputmode="decimal" placeholder="重量 kg" value="${esc(v.weight||'')}" oninput="editDrop('${esc(k)}','${esc(id)}',${i},${j},'weight',this.value)"><input inputmode="numeric" placeholder="Rep" value="${esc(v.rep||'')}" oninput="editDrop('${esc(k)}','${esc(id)}',${i},${j},'rep',this.value)"><button onclick="removeDrop('${esc(k)}','${esc(id)}',${i},${j})">×</button></div>`).join('')}<div class="dropctrl"><button onclick="addDrop('${esc(k)}','${esc(id)}',${i})">＋ Drop Set</button>${arr.length?`<button onclick="removeDrop('${esc(k)}','${esc(id)}',${i},${arr.length-1})">最後を削除</button>`:''}</div></div>`}
-function setRow(k,id,i,asc=false){const key=(asc?'asc#':'main#')+i,r=row(k,id,key),done=!!r.completed;return `<div class="setrow"><div class="settop"><div class="setno">${i+1}</div><div><label>重量 kg</label><input inputmode="decimal" placeholder="0" value="${esc(r.weight||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','weight',this.value)"></div><div><label>Rep</label><input inputmode="numeric" placeholder="0" value="${esc(r.rep||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','rep',this.value)"></div><div><label>RPE</label><input inputmode="decimal" value="${esc(r.rpe||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','rpe',this.value)"></div></div><div class="formrow"><div><label>フォーム</label><select onchange="editSet('${esc(k)}','${esc(id)}','${esc(key)}','form',this.value)"><option value="">—</option><option ${r.form==='◎'?'selected':''}>◎</option><option ${r.form==='○'?'selected':''}>○</option><option ${r.form==='△'?'selected':''}>△</option><option ${r.form==='×'?'selected':''}>×</option></select></div><div><label>メモ</label><input value="${esc(r.memo||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','memo',this.value)"></div></div><div class="row-actions"><button class="complete ${done?'done':''}" onclick="complete('${esc(k)}','${esc(id)}','${esc(key)}')">${done?'✓ 完了':'セット完了'}</button>${asc?'':'<button class="drop" onclick="toggleDrop(\''+esc(k)+'\',\''+esc(id)+'\','+i+')">ドロップ</button>'}<button class="clock" onclick="openTimer('${esc(k)}','${esc(id)}')">🕰️</button></div>${asc?'':dropHTML(k,id,i)}</div>`}
-function exerciseCard(k,e,i){const id='ex'+i,x=ensureEx(k,i,e),count=Math.max(1,Math.min(30,Number(x.mainCount)||1)),asc=Math.max(0,Math.min(20,Number(x.ascCount)||0)),b=badge(x.name);return `<section class="exercise"><div class="exhead"><div class="exline"><div class="exname">${esc(x.name)}</div><button class="exswap" onclick="openExerciseModal('${esc(k)}','${esc(id)}')">変更</button><button class="exdelete" title="種目を閉じる" onclick="deleteExercise('${esc(k)}','${esc(id)}')">⋯</button></div><div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?'｜'+esc(e.rx):''}${e.note?'<br>'+esc(e.note):''}</div></div><div class="note-row"><input placeholder="メモを入力" value="${esc(x.note||'')}" oninput="editExerciseNote('${esc(k)}','${esc(id)}',this.value)"><button class="recent" onclick="showRecent('${esc(k)}','${esc(id)}')">最近の記録</button></div><details class="asc" ${x.ascOpen?'open':''} ontoggle="setAscOpen('${esc(k)}','${esc(id)}',this.open)"><summary>Ascending Set</summary>${Array.from({length:asc},(_,j)=>setRow(k,id,j,true)).join('')}<div class="toolrow"><button onclick="changeAsc('${esc(k)}','${esc(id)}',-1)">− セット削除</button><button onclick="changeAsc('${esc(k)}','${esc(id)}',1)">＋ セット追加</button></div></details><div class="section-title">MAIN SET（${count}セット）</div>${Array.from({length:count},(_,j)=>setRow(k,id,j,false)).join('')}<div class="main-tools"><button onclick="changeMain('${esc(k)}','${esc(id)}',-1)">− セット削除</button><button onclick="changeMain('${esc(k)}','${esc(id)}',1)">＋ セット追加</button></div></section>`}
-function toggleDrop(k,id,i){const r=row(k,id,'main#'+i);r.dropOpen=!r.dropOpen;save();render()}function addDrop(k,id,i){drops(k,id,i).push({});row(k,id,'main#'+i).dropOpen=true;save();render()}function editDrop(k,id,i,j,f,v){drops(k,id,i)[j][f]=v;save()}function removeDrop(k,id,i,j){drops(k,id,i).splice(j,1);save();render()}
-function changeMain(k,id,d){const x=session(k).exercises[id];x.mainCount=Math.max(1,Math.min(30,(Number(x.mainCount)||1)+d));save();render()}function changeAsc(k,id,d){const x=session(k).exercises[id];x.ascCount=Math.max(0,Math.min(20,(Number(x.ascCount)||0)+d));save();render()}function setAscOpen(k,id,v){session(k).exercises[id].ascOpen=!!v;save()}function editExerciseNote(k,id,v){session(k).exercises[id].note=v;save()}
-function deleteExercise(k,id){const x=session(k).exercises[id];if(!x)return;x.hidden=true;save();render();toast('種目を閉じました')}
-function openExerciseModal(k,id){modal={k,id,part:'脚'};document.getElementById('modalTabs').innerHTML=PARTS.map(p=>`<button class="${p===modal.part?'active':''}" onclick="modalPart('${esc(p)}')">${p}</button>`).join('');modalPart('脚');document.getElementById('exerciseModal').classList.add('show')}
-function modalPart(p){modal.part=p;document.getElementById('modalTabs').innerHTML=PARTS.map(a=>`<button class="${a===p?'active':''}" onclick="modalPart('${esc(a)}')">${a}</button>`).join('');document.getElementById('exerciseChoices').innerHTML=(EXERCISES[p]||[]).map(n=>`<button onclick="replaceExercise('${esc(modal.k)}','${esc(modal.id)}','${esc(n)}')">${esc(n)}</button>`).join('')}
-function closeExerciseModal(){document.getElementById('exerciseModal').classList.remove('show');modal={k:null,id:null,part:'脚'}}function replaceExercise(k,id,name){const x=session(k).exercises[id];x.name=name;save();closeExerciseModal();render();toast('種目を変更しました')}
-function showRecent(k,id){const h=session(k).history||[];const rows=[];h.slice(-10).reverse().forEach(v=>{const ex=v.data?.exercises?.[id];if(ex?.sets)rows.push((v.date||'—')+'：'+Object.values(ex.sets).filter(r=>r.weight&&r.rep).map(r=>r.weight+'kg × '+r.rep).join(' / '))});alert(rows.length?rows.join('\n'):'まだ記録なし')}
-function currentExercises(){let list;if(state.page==='PRE')list=[E('High-bar SQ',1,'Ascending → Top 135kg × 4〜6','Back-off：Top −5kg × 1'),E('Competition BP',1,'Ascending → Top 85kg × 4〜6','Back-off：Top −2.5kg × 1'),E('Competition DL',1,'Ascending → Top 180kg × 1','必要なら185〜190kg確認')];else if(state.page==='BBB')list=(BBB[state.bbbPart]||BBB['脚']).map(a=>E(a[0],a[1],a[2]));else list=PPP[state.pppWeek]?.[state.pppDay]||[];const ss=session(key());return list.filter((e,i)=>!ss.exercises?.['ex'+i]?.hidden)}
-function programHeader(){if(state.page==='BBB')return `<div class="panel-head"><h2>BBB　Day ${state.bbbDay}　${esc(state.bbbPart)}</h2></div><div class="tabs">${[1,2,3,4,5,6,7].map(d=>`<button class="${state.bbbDay===d?'active':''}" onclick="changeBBBDay(${d})">Day ${d}</button>`).join('')}</div><div class="tabs">${PARTS.map(p=>`<button class="${state.bbbPart===p?'active':''}" onclick="changeBBB('${esc(p)}')">${p}</button>`).join('')}</div>`;if(state.page==='PPP'){const days=Object.keys(PPP[state.pppWeek]||{});return `<div class="panel-head"><h2>PPP</h2><div class="tabs tight">${[1,2,3,4,5,6,7,8].map(w=>`<button class="${state.pppWeek===w?'active':''}" onclick="changePPPWeek(${w})">W${w}</button>`).join('')}</div><div class="tabs">${days.map(d=>`<button class="${state.pppDay===d?'active':''}" onclick="changePPPDay('${esc(d)}')">${esc(d)}</button>`).join('')}</div></div>`}return `<div class="panel-head"><h2>${state.page==='PRE'?'PRE Week 1':'Training'}</h2></div>`}
-function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="startWork()">トレーニング開始</button><button class="secondary" onclick="restoreExercises('${esc(k)}')">閉じた種目を戻す</button></div></div>`}
-function renderHome(){document.getElementById('title').textContent=new Date().getMonth()+1+'月'+new Date().getDate()+'日　トレーニング';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>Workout Log</h2><div class="notice">処方と実績を分離。Main / Ascending / セット別Drop / 種目別タイマー / BBB / PPPを一つにまとめたログ。</div><h3>プログラムから一発呼び出し</h3><div class="program-grid"><button onclick="go('PRE')">PRE Week 1</button><button onclick="state.bbbDay=1;state.bbbPart='脚';go('BBB')">BBB</button>${[1,2,3,4,5,6,7,8].map(w=>`<button onclick="state.pppWeek=${w};state.pppDay=Object.keys(PPP[${w}]||{})[0]||'D1';go('PPP')">PPP W${w}</button>`).join('')}</div><h3>トレーニング時間</h3><div class="day-actions" style="padding:0"><button class="primary" onclick="startWork()">開始</button><button class="secondary" onclick="stopWork()">停止</button><button class="secondary" onclick="resetWork()">リセット</button></div></div></div>`}
-function renderHistory(){const arr=[];Object.entries(db.sessions).forEach(([k,s])=>{(s.history||[]).forEach((h,i)=>arr.push({k,s,h,i}))});arr.sort((a,b)=>b.h.savedAt-a.h.savedAt);document.getElementById('title').textContent='履歴';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>履歴</h2><div class="small">同じ曜日・同じ種目でも、保存するたびに別ログとして残る。</div>${arr.length?arr.map((o,idx)=>`<div class="history-row"><b>${esc(o.h.label||o.k)}</b><div class="small">${esc(o.h.date||'—')}　保存：${new Date(o.h.savedAt).toLocaleString('ja-JP')}　体重 ${esc(o.h.weight||'—')}kg</div><button onclick="openHistory(${idx})">この記録を開く</button></div>`).join(''):'<div class="small" style="margin-top:10px">保存履歴なし</div>'}</div></div>`;window._history=arr}
-function restoreExercises(k){Object.values(session(k).exercises||{}).forEach(x=>x.hidden=false);save();render();toast('閉じた種目を戻しました')}
-function saveDay(k){const s=session(k);s.history??=[];s.history.push({savedAt:Date.now(),date:s.date,weight:s.weight,label:k,data:JSON.parse(JSON.stringify(s))});s.savedAt=Date.now();save();toast('記録を保存しました')}
-function openHistory(i){const o=window._history?.[i];if(!o)return;const h=o.h.data;db.sessions[o.k]=JSON.parse(JSON.stringify(h));db.sessions[o.k].history=o.s.history||[];if(o.k.startsWith('BBB|')){const q=o.k.split('|');state.page='BBB';state.bbbDay=Number((q[1]||'D1').replace('D',''))||1;state.bbbPart=q[2]||'脚'}else if(o.k.startsWith('PPP|')){const q=o.k.split('|');state.page='PPP';state.pppWeek=Number(q[1].slice(1));state.pppDay=q[2]}else state.page='PRE';save();render();scrollTo(0,0)}
-function openTimer(k,id){const x=session(k).exercises[id];if(!x)return;x.timer??={rest:120,exercise:300};state.current={k,id};save();document.getElementById('timerName').textContent=x.name+'　🕰️';document.getElementById('restInput').value=x.timer.rest;document.getElementById('exerciseInput').value=x.timer.exercise;document.getElementById('timerDisplay').textContent=fmt(x.timer.rest);document.getElementById('timerPanel').classList.add('show')}
-function closeTimerPanel(){document.getElementById('timerPanel').classList.remove('show')}function toggleTimerPanel(){document.getElementById('timerPanel').classList.toggle('show')}
-function saveTimerSetting(type){if(!state.current)return;const x=session(state.current.k).exercises[state.current.id];const el=document.getElementById(type==='rest'?'restInput':'exerciseInput');x.timer[type]=Math.max(0,Math.min(900,Number(el.value)||0));save()}
-document.getElementById('restInput').onchange=()=>saveTimerSetting('rest');document.getElementById('exerciseInput').onchange=()=>saveTimerSetting('exercise');
-function startTimer(type){if(!state.current)return;saveTimerSetting(type);clearInterval(timerIv);const x=session(state.current.k).exercises[state.current.id],seconds=Number(x.timer[type]||0);timer={end:Date.now()+seconds*1000};document.getElementById('timerPanel').classList.add('show');const tick=()=>{const left=Math.max(0,Math.ceil((timer.end-Date.now())/1000));document.getElementById('timerDisplay').textContent=fmt(left);if(left<=0){clearInterval(timerIv);timerIv=null;beep();}};tick();timerIv=setInterval(tick,200)}function stopTimer(){clearInterval(timerIv);timerIv=null}function resetTimer(){stopTimer();if(state.current){const x=session(state.current.k).exercises[state.current.id];document.getElementById('timerDisplay').textContent=fmt(x.timer.rest)}}function closeTimer(){stopTimer();state.current=null;save();closeTimerPanel();document.getElementById('timerDisplay').textContent='00:00'}
-function beep(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const c=new A,o=c.createOscillator(),g=c.createGain();o.frequency.value=880;g.gain.value=.18;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.18)}catch(e){}}
-function startWork(){if(!workStarted){workStarted=Date.now();db.workStarted=workStarted;save()}}function stopWork(){if(workStarted){workElapsed+=Date.now()-workStarted;workStarted=0;db.workStarted=0;db.workElapsed=workElapsed;save()}}function resetWork(){workStarted=0;workElapsed=0;db.workStarted=0;db.workElapsed=0;save();updateWorkClock()}function updateWorkClock(){const sec=(workElapsed+(workStarted?Date.now()-workStarted:0))/1000;document.getElementById('workClock').textContent='トレーニング '+fmtLong(sec);document.getElementById('totalDisplay').textContent=fmt(sec)}setInterval(updateWorkClock,500)
-function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='HISTORY')renderHistory();else renderProgram();updateWorkClock()}render();
-</script></body></html>
+"Legs":[["バーベルスクワット",4,"6〜8"],["レッグエクステンション",6,"10〜15"],["ハックスクワット",6,"8〜12"],["レッグプレス",6,"10〜15"],["スミスマシンスクワット",6,"8〜12"],["レッグカール",3,"10〜15"]],
+"Chest":[["ベンチプレス",15,"6〜10"],["インクラインベンチプレス",10,"8〜12"],["ダンベルベンチプレス",4,"8〜12"],["ダンベルフライ",5,"10〜15"],["チェストプレスマシン",6,"8〜12"],["ディップチンアシスト",5,"8〜15"]],
+"Shoulders":[["OHP",10,"6〜10"],["スミスバックプレス",10,"8〜12"],["ケーブルアップライトロウ",5,"10〜15"],["ダンベルサイドレイズ",10,"12〜20"],["リアデルトフライ",5,"12〜20"],["ショルダープレスマシン",3,"8〜12"]],
+"Back":[["デッドリフト",4,"4〜6"],["トップサイドデッドリフト",10,"6〜10"],["バーベルベントオーバーロウ",10,"8〜12"],["Tバーロウマシン",5,"8〜12"],["シーテッドロー",10,"8〜15"],["ラットプルダウン",6,"8〜15"]],
+"Arms":[["クローズグリップベンチ",8,""],["JMプレス",8,""],["スミスOHエクステンション",5,""],["バーベルカール",10,"8〜12"],["ケーブルカール",8,"8〜12"],["プリーチャーカール",5,"8〜12"]]
+};
+const EXLIB={
+"脚":["バーベルスクワット","ハイバースクワット","ローバースクワット","フロントスクワット","ブルガリアンスクワット","ハックスクワット","レッグプレス","レッグエクステンション","レッグカール","RDL","スティッフレッグデッドリフト"],
+"胸":["ベンチプレス","ポーズベンチプレス","ラーセンベンチ","インクラインベンチプレス","ダンベルベンチプレス","ダンベルフライ","チェストプレスマシン","ディップス"],
+"背中":["デッドリフト","トップサイドデッドリフト","ベントオーバーロウ","ワンハンドロウ","Tバーロウマシン","シーテッドロー","ラットプルダウン","ワイドグリップTバーロウ"],
+"肩":["OHP","スミスバックプレス","ダンベルショルダープレス","ショルダープレスマシン","ダンベルサイドレイズ","ケーブルアップライトロウ","リアデルトフライ","フェイスプル"],
+"三頭":["クローズグリップベンチ","JMプレス","スミスOHエクステンション","ライイングトライセプスエクステンション","ローププレスダウン","ディップス"],
+"二頭":["バーベルカール","EZバーカール","ダンベルカール","インクラインカール","ケーブルカール","プリーチャーカール","ハンマーカール"],
+"前腕":["リストカール","リバースリストカール","リバースカール","ハンマーカール","ケーブルリストカール"],
+"腹筋":["アブローラー","ケーブルクランチ","マシンクランチ","ハンギングレッグレイズ","レッグレイズ","プランク"]
+};
+const BODYFOR={
+"Legs":"脚","Chest":"胸","Shoulders":"肩","Back":"背中",
+"Arms":"三頭"
+};
+const PRE=[
+["High-bar SQ","Ascending → Top 135kg × 4〜6","Back-off：Top −5kg × 1"],
+["Competition BP","Ascending → Top 85kg × 4〜6","Back-off：Top −2.5kg × 1"],
+["Competition DL","Ascending → Top 180kg × 1","必要なら185〜190kg確認"]
+];
+const E=(name,sets,rep,rx="",note="")=>({name,sets,rep,rx,note});
+const P={};
+for(let w=1;w<=4;w++)P["PPP W"+w]={
+D1:[E("Competition SQ",3,"2","60〜65% / RPE 5〜6","Technique"),E("Competition BP",3,"2","60〜65% / RPE 5〜6","Technique"),E("Competition DL",2,"2","60〜65% / RPE 5〜6","素手"),E("ブルガリアンスクワット",2,"8/脚","RPE 5〜6")],
+D2:[E("Competition SQ",3,"3","77.5〜82.5% / RPE 7〜8","Main Strength"),E("Competition BP",3,"3","77.5〜82.5% / RPE 7〜8","Main Strength"),E("Stiff-leg DL",3,"4","65〜72.5% / RPE 6〜7","パワーグリップ"),E("RDL",2,"6〜8","RPE 6〜7"),E("ハイローマシン",3,"8〜12","RPE 7〜8")],
+D3:[E("High-bar SQ",3,"4","65〜72.5% / RPE 6〜7","SQ variation"),E("Larsen BP",3,"4","67.5〜75% / RPE 6〜7","BP variation"),E("Competition DL",2,"2","60〜65% / RPE 5〜6","素手"),E("バーベルカール",2,"8〜12","RPE 7〜8")],
+D4:[E("Competition BP",3,"2","82.5〜87.5% / RPE 7.5〜8.5","Heavy / Specificity"),E("Competition DL",3,"1〜2","80〜87.5% / RPE 7〜8.5","パワーグリップ"),E("ナローベンチ",2,"5〜8","RPE 7"),E("OHP",2,"5〜8","RPE 7")],
+D5:[E("Pause SQ",3,"3","60〜70% / RPE 6前後","Drum Protection"),E("ワイドグリップTバーロウ",2,"8〜10","RPE 6〜7","低疲労")]
+};
+P["PPP W5"]={D1:[E("Competition SQ",4,"4","約70%","Competition volume"),E("Competition BP",4,"4","約70%","Competition volume"),E("Competition DL",2,"3","65〜67.5%","素手")],D2:[E("Competition SQ",4,"4","約75%"),E("Competition BP",4,"4","約75%"),E("Competition DL",3,"3","70〜72.5%","パワーグリップ")],D3:[E("Competition SQ",3,"4","約70%"),E("Competition BP",4,"4","72.5〜75%")],D4:[E("Competition BP",3,"3","77.5〜80%"),E("Competition DL",3,"2","75〜80%","パワーグリップ")],D5:[E("Competition SQ",3,"3","65〜70%"),E("Competition BP",3,"3","65〜70%"),E("Competition DL",2,"3","65〜67.5%","素手")]};
+P["PPP W6"]={D1:[E("Competition SQ",1,"3","80%"),E("Competition SQ",1,"2","85%"),E("Competition SQ",1,"1","90%","状態確認上限"),E("Competition BP",1,"3","80%"),E("Competition BP",1,"2","85%"),E("Competition BP",1,"1","90%","状態確認上限")],D2:[E("Competition DL",1,"2","80%","パワーグリップ"),E("Competition DL",1,"1","87.5%","パワーグリップ"),E("Competition DL",1,"1","90%","状態確認上限"),E("Competition BP",1,"3","80%"),E("Competition BP",1,"2","85%")],D3:[E("Competition SQ",1,"2","80%"),E("Competition SQ",1,"1","85%"),E("Competition BP",2,"3","80%")],D4:[E("Competition DL",1,"2","80%"),E("Competition DL",1,"1","85%"),E("Competition BP",1,"2","80%")]};
+P["PPP W7"]={D1:[E("Competition SQ",3,"2","75%"),E("Competition BP",3,"3","75%")],D2:[E("Competition DL",3,"1","70〜75%")],D3:[E("Competition BP",2,"3","75%")]};
+P["PPP W8"]={"TEST前":[E("Competition SQ",1,"2","50〜60%","動作確認のみ"),E("Competition BP",1,"2","50〜60%","動作確認のみ"),E("Competition DL",1,"1","50〜60%","動作確認のみ")],"TEST":[E("SQ 1RM",3,"試技","SQ → BP → DL"),E("BP 1RM",3,"試技","SQ → BP → DL"),E("DL 1RM",3,"試技","SQ → BP → DL")]};
+
+let current="HOME";
+let bbbDay=localStorage.getItem("bbbDay")||"Legs";
+let selectedWeek=localStorage.getItem("selectedWeek")||"PPP W1";
+let selectedDay=localStorage.getItem("selectedDay")||"D1";
+let activeSession=null;
+let store=JSON.parse(localStorage.getItem("pbWorkoutV6")||"{}");
+let runtime={};
+let workout={elapsed:0,running:false,interval:null};
+
+const nav=document.getElementById("nav"),app=document.getElementById("app");
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const fmt=s=>String(Math.floor(Math.max(0,s)/60)).padStart(2,"0")+":"+String(Math.max(0,s)%60).padStart(2,"0");
+const today=()=>new Date().toISOString().slice(0,10);
+
+function beep(){
+ try{
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+  const c=new C(),o=c.createOscillator(),g=c.createGain();
+  o.frequency.value=880;g.gain.value=.16;o.connect(g);g.connect(c.destination);
+  o.start();o.stop(c.currentTime+.22);
+ }catch(e){}
+}
+function sessionKey(type,day,date){return type+"|"+day+"|"+date}
+function newSession(type,day){
+ const date=today(),key=sessionKey(type,day,date);
+ activeSession=key;
+ if(!store[key])store[key]={type,day,date,sets:{},rest:{},exerciseRest:{},counts:{},note:"",weight:"",sleep:"",fatigue:"",elapsed:0,savedAt:null};
+ save();resetRuntime();workout.elapsed=store[key].elapsed||0;
+}
+function getSession(){
+ if(!activeSession){newSession(current==="BBB"?"BBB":current==="PRE"?"PRE":selectedWeek, current==="BBB"?bbbDay:current==="PRE"?"D1":selectedDay)}
+ return store[activeSession];
+}
+function save(){localStorage.setItem("pbWorkoutV6",JSON.stringify(store))}
+function resetRuntime(){Object.values(runtime).forEach(t=>{if(t.interval)clearInterval(t.interval)});runtime={}}
+function timerKey(id,type){return id+"|"+type}
+function timer(id,type,seconds){
+ const key=timerKey(id,type);
+ if(!runtime[key])runtime[key]={left:Math.max(0,Number(seconds)||0),running:false,interval:null};
+ return runtime[key];
+}
+function timerSettings(id){
+ const s=getSession();s.rest??={};s.exerciseRest??={};
+ return {rest:Math.max(0,Number(s.rest[id]??90)||0),exercise:Math.max(0,Number(s.exerciseRest[id]??180)||0)};
+}
+function startTimer(id,type){
+ const set=timerSettings(id),t=timer(id,type,set[type]);
+ if(t.running)return;
+ if(t.left<=0)t.left=set[type];
+ t.running=true;
+ clearInterval(t.interval);
+ t.interval=setInterval(()=>{
+   t.left=Math.max(0,t.left-1);
+   if(t.left===0){
+     clearInterval(t.interval);t.interval=null;t.running=false;beep();
+   }
+   updateTimerTray();
+ },1000);
+ updateTimerTray();
+}
+function pauseTimer(id,type){
+ const t=timer(id,type,0);
+ if(t.interval)clearInterval(t.interval);
+ t.interval=null;t.running=false;updateTimerTray();
+}
+function resetTimer(id,type,seconds){
+ pauseTimer(id,type);
+ timer(id,type,0).left=Math.min(900,Math.max(0,Number(seconds)||0));
+ updateTimerTray();
+}
+function setTimerSetting(id,type,v){
+ const n=Math.min(900,Math.max(0,Number(v)||0)),s=getSession();
+ if(type==="rest"){s.rest??={};s.rest[id]=n}else{s.exerciseRest??={};s.exerciseRest[id]=n}
+ save();resetTimer(id,type,n);selectTimer(id);
+}
+let timerExercise=null;
+function selectTimer(id){
+ timerExercise=id;
+ const tray=document.getElementById("timerTray");
+ if(tray){tray.classList.add("open");updateTimerTray()}
+}
+function closeTimer(){
+ timerExercise=null;
+ const tray=document.getElementById("timerTray");if(tray)tray.classList.remove("open");
+}
+function timerForSet(exId,setId){
+ selectTimer(exId);
+}
+function updateTimerTray(){
+ const tray=document.getElementById("timerTray");
+ if(!tray)return;
+ if(!timerExercise){tray.classList.remove("open");return}
+ const id=timerExercise,set=timerSettings(id);
+ const r=timer(id,"rest",set.rest),x=timer(id,"exercise",set.exercise);
+ const active=r.running?"rest":x.running?"exercise":null;
+ const left=active==="rest"?r.left:active==="exercise"?x.left:r.left;
+ const title=id.split("|").slice(-1)[0];
+ tray.innerHTML=`<div class="timer-tray-inner">
+   <div><div class="timer-name">${esc(title)}｜${active==="rest"?"セット間":"種目間"}</div>
+   <div id="timerClock" class="timer-clock">${fmt(left)}</div></div>
+   <button class="primary-t" onclick="startTimer('${esc(id)}','rest')">SET</button>
+   <button onclick="startTimer('${esc(id)}','exercise')">種目</button>
+   <button onclick="pauseTimer('${esc(id)}','rest')">停止</button>
+   <button onclick="resetTimer('${esc(id)}','rest',${set.rest})">リセット</button>
+   <button onclick="closeTimer()">閉じる</button>
+ </div>
+ <div class="mini-settings" style="max-width:540px;margin:6px auto 0">
+   <input type="number" min="0" max="900" value="${set.rest}" onchange="setTimerSetting('${esc(id)}','rest',this.value)" placeholder="セット間秒">
+   <input type="number" min="0" max="900" value="${set.exercise}" onchange="setTimerSetting('${esc(id)}','exercise',this.value)" placeholder="種目間秒">
+ </div>`;
+ tray.classList.add("open");
+}
+function exerciseTimerButton(id){
+ const set=timerSettings(id),r=timer(id,"rest",set.rest),x=timer(id,"exercise",set.exercise);
+ const running=r.running||x.running;
+ return `<button class="clockbtn ${running?"running":""}" title="タイマー" onclick="timerForSet('${esc(id)}','')">🕰️</button>`;
+}
+function meta(){
+ const s=getSession();return `<div class="meta">
+  <div><label>日付</label><input type="date" value="${esc(s.date)}" onchange="changeSessionDate(this.value)"></div>
+  <div><label>体重 kg（任意）</label><input inputmode="decimal" value="${esc(s.weight)}" oninput="setMeta('weight',this.value)"></div>
+ </div>
+ <div class="meta">
+  <div><label>睡眠</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.sleep==n?"on":""}" onclick="setMeta('sleep',${n})">${n}</button>`).join("")}</div></div>
+  <div><label>疲労</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.fatigue==n?"on":""}" onclick="setMeta('fatigue',${n})">${n}</button>`).join("")}</div></div>
+ </div>`
+}
+function setMeta(f,v){getSession()[f]=v;save();render()}
+function changeSessionDate(date){
+ const old=getSession(),type=old.type,day=old.day,newKey=sessionKey(type,day,date);
+ if(newKey!==activeSession){
+  if(store[newKey]){activeSession=newKey}
+  else{store[newKey]={...old,date,savedAt:null};delete store[activeSession];activeSession=newKey}
+  save()
+ }
+ render()
+}
+function setField(id,f,v){const s=getSession();s.sets??={};s.sets[id]??={};s.sets[id][f]=v;save()}
+function exerciseList(k){
+ if(k==="BBB")return BBB[bbbDay]||[];
+ if(k==="PRE")return PRE;
+ return P[selectedWeek]?.[selectedDay]||[];
+}
+function exerciseOverrideKey(k,idx){return k+"|"+idx}
+function exerciseFor(k,e,idx){
+ const s=getSession();s.exerciseNames??={};
+ const name=s.exerciseNames[exerciseOverrideKey(k,idx)]||((Array.isArray(e)?e[0]:e.name));
+ const rep=Array.isArray(e)?e[2]:e.rep;
+ const sets=Array.isArray(e)?e[1]:e.sets;
+ const body=s.exerciseBodies?.[exerciseOverrideKey(k,idx)]|| (Array.isArray(e)?(BODYFOR[bbbDay]||"胸"):(e.body||BODYFOR[k]||"胸"));
+ return {name,rep,sets,rx:Array.isArray(e)?"":e.rx,note:Array.isArray(e)?"":e.note,body};
+}
+function changeExerciseBody(k,idx,body){
+ const next=EXLIB[body]?.[0];if(next)replaceExercise(k,idx,next,body);
+}
+function replaceExercise(k,idx,name,body){
+ const s=getSession();s.exerciseNames??={};
+ s.exerciseNames[exerciseOverrideKey(k,idx)]=name;
+ s.exerciseBodies??={};s.exerciseBodies[exerciseOverrideKey(k,idx)]=body;
+ save();render();
+}
+function setBlockData(type,day){
+ activeSession=sessionKey(type,day,today());
+ if(!store[activeSession])newSession(type,day);else{resetRuntime();workout.elapsed=store[activeSession].elapsed||0}
+}
+function setData(id){
+ const s=getSession();s.sets??={};s.sets[id]??={};
+ return s.sets[id];
+}
+function inputSet(k,id,index,kind,parentId=""){
+ const r=setData(id),prev=v10Previous(k,id,kind);
+ const label=kind==="ASC"?"A":"Set";
+ return `<div class="set ${kind==="DROP"?"drop":kind==="EXTRA"?"extra":""}">
+  <div class="settag">${kind==="ASC"?"ASCENDING":kind==="DROP"?"DROP SET":kind==="EXTRA"?"追加 SET":"MAIN SET"}</div>
+  <div class="settop"><div class="setno">${label} ${index+1}</div>
+   <div><label>重量 kg</label><input inputmode="decimal" value="${esc(r.weight||"")}" oninput="setField('${esc(id)}','weight',this.value)"></div>
+   <div><label>Rep</label><input inputmode="numeric" value="${esc(r.rep||"")}" oninput="setField('${esc(id)}','rep',this.value)"></div>
+   <div><label>RPE</label><input inputmode="decimal" value="${esc(r.rpe||"")}" oninput="setField('${esc(id)}','rpe',this.value)"></div>
+  </div>
+  ${prev?`<div class="v10-prev">前回：${esc(prev.weight||"—")}kg × ${esc(prev.rep||"—")}${prev.rpe?" @ RPE "+esc(prev.rpe):""}</div>`:""}
+  <div class="formrow"><div><label>フォーム</label><select onchange="setField('${esc(id)}','form',this.value)"><option value="">—</option><option ${r.form==="◎"?"selected":""}>◎</option><option ${r.form==="○"?"selected":""}>○</option><option ${r.form==="△"?"selected":""}>△</option><option ${r.form==="×"?"selected":""}>×</option></select></div>
+  <div><label>メモ</label><input value="${esc(r.memo||"")}" oninput="setField('${esc(id)}','memo',this.value)"></div></div>
+  <div class="setactions">
+   <button class="setdone ${r.done?"done":""}" onclick="v10FinishSet('${esc(id)}')">${r.done?"✓ 完了":"セット完了"}</button>
+   ${kind==="MAIN"?`<button class="dropbtn" onclick="addDrop('${esc(id)}')">ドロップ</button>`:""}
+   ${kind==="MAIN"?exerciseTimerButton(parentId):""}
+  </div>
+  ${kind==="DROP"?`<div class="drop-row"><span>このセットのドロップ</span><button class="drop-delete" onclick="deleteDrop('${esc(id)}')">削除</button></div>`:""}
+ </div>`;
+}
+function exerciseCard(k,e,idx,variable=false){
+ const s=getSession(),ex=exerciseFor(k,e,idx),name=ex.name;
+ const mainCount=Math.max(1,Math.min(30,Number(s.mainCounts?.[name]??ex.sets)||ex.sets||1));
+ const ascCount=Math.max(0,Math.min(20,Number(s.ascCounts?.[name]??3)));
+ let asc="",main="";
+ for(let i=0;i<ascCount;i++)asc+=inputSet(k,k+"|"+name+"|ASC|"+i,i,"ASC",k+"|"+name);
+ for(let i=0;i<mainCount;i++){
+   const id=k+"|"+name+"|MAIN|"+i;
+   main+=inputSet(k,id,i,"MAIN",k+"|"+name);
+   const drops=s.dropCounts?.[id]||0;
+   for(let d=0;d<drops;d++)main+=inputSet(k,id+"|DROP|"+d,d,"DROP",k+"|"+name);
+ }
+ const options=(EXLIB[ex.body]||[]).map(x=>`<option ${x===name?"selected":""}>${esc(x)}</option>`).join("");
+ const selector=`<div class="replace"><label>部位</label><select onchange="changeExerciseBody('${esc(k)}',${idx},this.value)">${Object.keys(EXLIB).map(b=>`<option ${b===ex.body?"selected":""}>${b}</option>`).join("")}</select><label>種目</label><select onchange="replaceExercise('${esc(k)}',${idx},this.value,'${esc(ex.body)}')">${options}</select></div>`;
+ const st=v10Stats(k,name);
+ const ascControls=`<div class="set-control"><button onclick="changeSetCount('${esc(k)}','${esc(name)}','ASC',-1,${ascCount})">− セット削除</button><button onclick="changeSetCount('${esc(k)}','${esc(name)}','ASC',1,${ascCount})">＋ セット追加</button></div>`;
+ const mainControls=`<div class="set-control"><button onclick="changeSetCount('${esc(k)}','${esc(name)}','MAIN',-1,${mainCount})">− セット削除</button><button onclick="changeSetCount('${esc(k)}','${esc(name)}','MAIN',1,${mainCount})">＋ セット追加</button></div>`;
+ return `<div class="exercise">
+  <div class="exhead"><div class="exname">${esc(name)}</div>${selector}
+   <div class="rx"><strong>処方：</strong>${mainCount}セット × ${esc(ex.rep||"")}${ex.rx?"｜"+esc(ex.rx):""}${ex.note?"<br>"+esc(ex.note):""}</div>
+   <div class="v10-actions"><button onclick="v10CopyPrevious('${esc(k)}','${esc(name)}',${mainCount})">↻ 前回コピー</button></div>
+   <div class="small">完了 ${st.done}/${st.total}｜Volume ${Math.round(st.volume).toLocaleString()}kg</div>
+  </div>
+  <details class="asc" ${ascCount>0?"":"open"}><summary>▶ Ascending Set（${ascCount}）</summary>${asc}${ascControls}</details>
+  <div class="sectiontitle">MAIN SET</div>${main}${mainControls}
+  <div class="exercise-note"><label>種目メモ</label><input value="${esc(s.exerciseNotes?.[name]||"")}" onchange="v10Note('${esc(k)}','${esc(name)}',this.value)" placeholder="次回へのメモ・重量判断など"></div>
+ </div>`;
+}
+function changeSetCount(k,name,type,delta,current){
+ const s=getSession();
+ if(type==="MAIN"){s.mainCounts??={};s.mainCounts[name]=Math.max(1,Math.min(30,(s.mainCounts[name]??current)+delta))}
+ else{s.ascCounts??={};s.ascCounts[name]=Math.max(0,Math.min(20,(s.ascCounts[name]??current)+delta))}
+ save();render();
+}
+function addDrop(parentId){
+ const s=getSession();s.dropCounts??={};s.dropCounts[parentId]=(s.dropCounts[parentId]||0)+1;save();render();
+}
+function deleteDrop(dropId){
+ const parts=dropId.split("|"),d=parts.pop(),type=parts.pop();
+ const parent=parts.join("|"),s=getSession();
+ if(!s.dropCounts?.[parent])return;
+ s.dropCounts[parent]=Math.max(0,(s.dropCounts[parent]||0)-1);
+ if(!s.dropCounts[parent])delete s.dropCounts[parent];
+ delete s.sets[dropId];
+ save();render();
+}
+function v10Stats(k,name){
+ const d=get(k),a=Object.entries(d.sets||{}).filter(([id])=>id.startsWith(k+"|"+name+"|"));
+ return {total:a.length,done:a.filter(([,r])=>r.done).length,volume:a.reduce((n,[,r])=>n+(+r.weight||0)*(+r.rep||0),0)}
+}
+function v10Previous(k,id,kind){
+ const base=id.split("|").slice(-3).join("|");
+ const logs=Object.entries(store).filter(([key,v])=>key!==k&&v?.savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt);
+ for(const [,v] of logs)for(const [sid,r] of Object.entries(v.sets||{})){
+  if(sid.split("|").slice(-3).join("|")===base && sid.includes("|"+kind+"|"))return r;
+ }
+ return null;
+}
+function v10Add(k,name,type){
+ const s=getSession();
+ if(type==="DROP"){s.dropCounts??={};const id=k+"|"+name+"|MAIN|"+Math.max(0,(s.mainCounts?.[name]??1)-1);s.dropCounts[id]=(s.dropCounts[id]||0)+1}
+ else{s.extraCounts??={};s.extraCounts[name]=(s.extraCounts[name]||0)+1}
+ save();render();
+}
+function v10Note(k,name,v){const d=get(k);d.exerciseNotes??={};d.exerciseNotes[name]=v;save()}
+function v10CopyPrevious(k,name,n){
+ const d=get(k),logs=Object.entries(store).filter(([key,v])=>key!==k&&v?.savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt);
+ for(const [,v] of logs){
+  const prev=Object.entries(v.sets||{}).filter(([id])=>id.includes("|"+name+"|MAIN|"));
+  if(!prev.length)continue;
+  for(let i=0;i<n;i++){
+   const p=prev.find(([id])=>id.endsWith("|MAIN|"+i));
+   if(p)d.sets[k+"|"+name+"|MAIN|"+i]={...p[1],done:false};
+  }
+  break;
+ }
+ save();render()
+}
+function v10FinishSet(id){
+ const d=getSession();d.sets??={};d.sets[id]??={};d.sets[id].done=!d.sets[id].done;save();
+ if(d.sets[id].done){
+   const parts=id.split("|");
+   const mainIndex=parts.indexOf("MAIN");
+   const ex=mainIndex>=0?parts.slice(0,mainIndex).join("|"):parts.slice(0,-2).join("|");
+   selectTimer(ex);startTimer(ex,"rest");
+ }
+ render()
+}
+function v10Summary(){
+ const d=getSession(),a=Object.values(d.sets||{}),vol=a.reduce((n,r)=>n+(+r.weight||0)*(+r.rep||0),0);
+ return `<div class="card"><h2>セッションサマリー</h2><div class="summary"><div class="stat"><b>${a.filter(r=>r.done).length}</b><span>完了セット</span></div><div class="stat"><b>${a.length}</b><span>総セット</span></div><div class="stat"><b>${Math.round(vol).toLocaleString()}kg</b><span>総ボリューム</span></div><div class="stat"><b>${v10Duration(d)}</b><span>トレーニング時間</span></div></div></div>`
+}
+function v10Duration(d){
+ if(!d.startedAt)return"00:00";
+ let s=Math.max(0,Math.floor(((d.finishedAt||Date.now())-d.startedAt)/1000)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;
+ return `${h?String(h).padStart(2,"0")+":":""}${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`
+}
+function workTimer(){
+ const s=getSession();return `<div class="worktimer"><div><div class="small">トレーニング時間</div><div id="workClock" class="workclock">${fmt(workout.elapsed||s.elapsed||0)}</div></div><div><button onclick="startWorkout()">開始</button><button onclick="pauseWorkout()">停止</button><button onclick="resetWorkout()">リセット</button></div></div>`
+}
+function end(){
+ const s=getSession();return v10Summary()+`<label>当日メモ・特記事項</label><textarea oninput="setMeta('note',this.value)">${esc(s.note||"")}</textarea><div class="action"><button class="primary" onclick="commit()">保存</button><button class="secondary" onclick="resetSession()">リセット</button></div>`
+}
+function commit(){getSession().finishedAt=Date.now();save();const s=getSession();s.savedAt=Date.now();s.elapsed=workout.elapsed;save();alert("保存しました")}
+function resetSession(){if(confirm("このトレーニングログをリセットしますか？")){delete store[activeSession];save();newSession(getSession().type,getSession().day);render()}}
+function navDraw(){nav.innerHTML=tabs.map(t=>`<button class="${t===current?"active":""}" onclick="go('${t}')">${t}</button>`).join("")}
+function go(t){pauseWorkout();resetRuntime();current=t;activeSession=null;navDraw();render();scrollTo(0,0)}
+function selectBBB(n){bbbDay=n;localStorage.setItem("bbbDay",n);activeSession=null;render()}
+function selectWeek(w){selectedWeek=w;localStorage.setItem("selectedWeek",w);selectedDay=Object.keys(P[w]||{})[0]||"D1";localStorage.setItem("selectedDay",selectedDay);activeSession=null;render()}
+function selectDay(d){selectedDay=d;localStorage.setItem("selectedDay",d);activeSession=null;render()}
+function openHistory(k){activeSession=k;const s=store[k];current=s.type==="BBB"?"BBB":s.type==="PRE"?"PRE":"PPP";if(current==="BBB")bbbDay=s.day;if(current==="PPP"){selectedWeek=s.type;selectedDay=s.day}resetRuntime();workout.elapsed=s.elapsed||0;navDraw();render();scrollTo(0,0)}
+function history(){
+ const a=Object.entries(store).filter(([k,v])=>v.savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt);
+ return `<div class="card"><h2>履歴</h2><div class="small">同じ種目・同じ曜日でも、日付ごとに別ログとして保存。</div></div>`+
+ (a.length?a.map(([k,v])=>`<div class="card history-item" onclick="openHistory('${esc(k)}')"><div class="history-date">${esc(v.date||"—")}｜${esc(v.type)}｜${esc(v.day)}</div><div class="history-sub">保存：${new Date(v.savedAt).toLocaleString("ja-JP")}｜体重 ${esc(v.weight||"—")}kg｜トレーニング ${fmt(v.elapsed||0)}</div></div>`).join(""):"<div class='card'>保存履歴なし</div>")
+}
+function render(){
+ if(current==="HOME"){
+  app.innerHTML=`<div class="card"><h2>Workout Log</h2><div class="notice">1回のトレーニングを1ログとして保存。Ascending / Mainを分離し、タイマーは各種目カード内に配置。</div><h3>構成</h3><span class="badge">PRE</span><span class="badge">BBB</span><span class="badge">PPP W1〜W8</span><h3>タイマー</h3><div class="small">🕰️は各セットの横。種目ごとにセット間・種目間の秒数を記憶。</div></div>`;
+ }
+ else if(current==="PRE"){
+  setBlockData("PRE","D1");let k="PRE";
+  app.innerHTML=`<div class="card"><h2>PRE Week 1</h2><div class="notice">初期キャリブレーション。固定1RM決定ではなく、BBB初期重量・フォーム・動作を校正。</div>${meta()}${workTimer()}${PRE.map((x,i)=>exerciseCard(k,{name:x[0],sets:1,rep:x[1],rx:x[2]},i)).join("")}${end()}</div>`;
+ }
+ else if(current==="BBB"){
+  const days=[["月","Legs"],["水","Chest"],["木","Shoulders"],["土","Back"],["日","Arms"]];
+  setBlockData("BBB",bbbDay);let k="BBB";
+  app.innerHTML=`<div class="card"><h2>BBB</h2><div class="daytabs">${days.map(([d,n])=>`<button class="${n===bbbDay?"active":""}" onclick="selectBBB('${n}')">${d} ${n}</button>`).join("")}</div><div class="small">各種目のMainセット数を − / ＋ で変更可能。</div></div><div class="card"><h2>${days.find(x=>x[1]===bbbDay)[0]}：${bbbDay}</h2>${meta()}${workTimer()}${BBB[bbbDay].map((x,i)=>exerciseCard(k,{name:x[0],sets:x[1],rep:x[2],body:(bbbDay==="Arms"?(i<3?"三頭":"二頭"):(BODYFOR[bbbDay]||"胸"))},i,true)).join("")}${end()}</div>`;
+ }
+ else if(current==="PPP"){
+  const weeks=Object.keys(P);if(!weeks.includes(selectedWeek))selectedWeek=weeks[0];const days=Object.keys(P[selectedWeek]||{});if(!days.includes(selectedDay))selectedDay=days[0];
+  setBlockData(selectedWeek,selectedDay);let k="PPP";
+  app.innerHTML=`<div class="card"><h2>PPP</h2><div class="weektabs">${weeks.map(w=>`<button class="${w===selectedWeek?"active":""}" onclick="selectWeek('${w}')">${w.replace("PPP ","W")}</button>`).join("")}</div><div class="daytabs">${days.map(d=>`<button class="${d===selectedDay?"active":""}" onclick="selectDay('${d}')">${d}</button>`).join("")}</div><div class="small">週とDayをタブで切替。</div></div><div class="card"><h2>${selectedWeek}：${selectedDay}</h2>${meta()}${workTimer()}${P[selectedWeek][selectedDay].map((e,i)=>exerciseCard(k,e,i)).join("")}${end()}</div>`;
+ }
+ else app.innerHTML=history();
+}
+navDraw();render();
+</script>
+</body>
+</html>
