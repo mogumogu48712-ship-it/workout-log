@@ -12,106 +12,56 @@ main{max-width:760px;margin:auto;padding:8px 0 18px}.panel{background:#fff}.card
 .dropbox{display:none;margin:0 14px 10px;background:#f6f7f9;border-radius:10px;padding:8px}.dropbox.open{display:block}.drop-title{font-size:10px;color:#737b86;font-weight:900;margin-bottom:5px}.dropitem{display:grid;grid-template-columns:1fr 1fr 34px;gap:6px;margin:5px 0}.dropitem input{padding:8px;text-align:center}.dropitem button,.dropctrl button{border:1px solid #ccd2d9;background:#fff;border-radius:8px;font-weight:900}.dropctrl{display:flex;gap:6px;margin-top:5px}.dropctrl button{padding:7px 9px;font-size:10px}
 .asc{border-top:1px solid var(--line)}.asc summary{padding:11px 14px;font-weight:900;font-size:12px;cursor:pointer;list-style:none}.asc summary::-webkit-details-marker{display:none}.asc summary:before{content:"▶ ";font-size:9px}.asc[open] summary:before{content:"▼ "}.toolrow{display:flex;gap:7px;padding:0 14px 10px}.toolrow button,.main-tools button{flex:1;border:1px solid #cfd4db;background:#fff;border-radius:999px;padding:8px;font-size:10px;font-weight:900}.main-tools{display:flex;gap:7px;padding:0 14px 12px}.main-tools button{font-size:11px;padding:9px}
 .day-actions{display:flex;gap:8px;padding:12px 14px}.day-actions button{flex:1;border:0;border-radius:11px;padding:12px;font-weight:900}.primary{background:#17191d;color:#fff}.secondary{background:#e8eaed;color:#222}.program-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.program-grid button{border:1px solid #d5dbe1;background:#fff;border-radius:11px;padding:12px;text-align:left;font-weight:900}.history-row{border-top:1px solid #edf0f3;padding:11px 0}.history-row:first-of-type{border-top:0}.history-row button{margin-top:7px;border:1px solid #ccd2d9;background:#fff;border-radius:999px;padding:7px 11px;font-size:10px;font-weight:900}
-#workClock{position:fixed;right:8px;bottom:88px;z-index:180;background:#fff;border:1px solid #ccc;padding:5px 8px;font-size:10px;font-weight:800}.modal{position:fixed;inset:0;background:#0005;z-index:500;display:none;align-items:flex-end}.modal.show{display:flex}.modalbox{width:100%;max-height:82vh;overflow:auto;background:#fff;border-radius:18px 18px 0 0;padding:14px}.modalbox h3{margin:0 0 10px}.modal-tabs{display:flex;gap:6px;overflow:auto;margin-bottom:9px}.modal-tabs button{white-space:nowrap;border:1px solid #d5dbe1;background:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900}.modal-tabs button.active{background:#17191d;color:#fff}.exchoices{display:grid;grid-template-columns:1fr 1fr;gap:7px}.exchoices button{border:1px solid #d2d7dd;background:#fff;border-radius:10px;padding:10px;text-align:left;font-weight:800}.toast{position:fixed;left:50%;bottom:125px;transform:translateX(-50%);background:#17191d;color:#fff;padding:9px 14px;border-radius:999px;font-size:11px;font-weight:800;z-index:700;display:none}.toast.show{display:block}
+.modal{position:fixed;inset:0;background:#0005;z-index:500;display:none;align-items:flex-end}.modal.show{display:flex}.modalbox{width:100%;max-height:82vh;overflow:auto;background:#fff;border-radius:18px 18px 0 0;padding:14px}.modalbox h3{margin:0 0 10px}.modal-tabs{display:flex;gap:6px;overflow:auto;margin-bottom:9px}.modal-tabs button{white-space:nowrap;border:1px solid #d5dbe1;background:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900}.modal-tabs button.active{background:#17191d;color:#fff}.exchoices{display:grid;grid-template-columns:1fr 1fr;gap:7px}.exchoices button{border:1px solid #d2d7dd;background:#fff;border-radius:10px;padding:10px;text-align:left;font-weight:800}.toast{position:fixed;left:50%;bottom:125px;transform:translateX(-50%);background:#17191d;color:#fff;padding:9px 14px;border-radius:999px;font-size:11px;font-weight:800;z-index:700;display:none}.toast.show{display:block}
 @media(min-width:700px){main{padding-top:12px}.exercise{margin:8px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}.card{border:1px solid var(--line);border-radius:14px;overflow:hidden}}
 
 .setminus,.setplus{border:1px solid #cfd4db;background:#fff;border-radius:7px;padding:5px 9px;font-size:12px;font-weight:900;min-width:34px}.drop{border:1px solid #cfd4db;background:#fff;border-radius:7px;padding:5px 9px;font-size:11px;font-weight:900}.dropbox.open{display:block}.row-actions{display:flex;gap:5px;align-items:center;margin-top:5px;flex-wrap:wrap}
 
-/* Dark gym mode: same layout, higher contrast, less glare. */
-:root{--bg:#15171a;--card:#202328;--line:#343941;--muted:#9aa3af;--ink:#f1f3f5;--soft:#292d33;--accent:#a9cf22}
-html,body{background:var(--bg);color:var(--ink)}
-header{background:#1b1e22;border-bottom-color:#343941}
-.top button{background:#1b1e22;color:#c8d0da}
-.panel,.card,.exercise{background:#202328;color:var(--ink)}
-input,select,textarea{background:#292d33;color:#f1f3f5;border-color:#454b55}
-.choice button,.tabs button,.program-grid button,.history-row button,.toolrow button,.main-tools button,
-.day-actions .secondary,.modalbox,.modal-tabs button,.exchoices button,.row-actions button,
-.setminus,.setplus,.drop,.dropbox,.dropitem button,.dropctrl button{background:#292d33;color:#f1f3f5;border-color:#454b55}
-.tabs button.active,.choice button.on,.primary,.row-actions .done{background:#a9cf22;color:#10120d;border-color:#a9cf22}
-.exercise{border-color:#343941}
-.exhead,.panel-head,.note-row,.setrow{border-color:#343941}
-.dropbox{background:#191c20}
-#workClock{background:#202328;color:#f1f3f5;border-color:#454b55}
-.modal{background:#0009}
-.toast{background:#a9cf22;color:#10120d}
-.small,.notice,label{color:#9aa3af}
-.rx{color:#d5dbe3}
-.settag,.section-title{color:#cbd2db}
-
-/* Final dark readability pass */
-body{background:#111316!important;color:#f2f4f7!important}
-header,.panel,.card,.exercise,.modalbox,.choice,.program,.history-row,.set,.asc,.dropbox{background:#1c2025!important;color:#f2f4f7!important}
-.settag,.sectiontitle,.section-title,.exname,.rx,.setno,summary,strong{color:#f2f4f7!important}
-.small,label,.notice{color:#aeb7c2!important}
-input,select,textarea{background:#272c32!important;color:#f4f6f8!important;border-color:#444b55!important}
-input::placeholder,textarea::placeholder{color:#7f8995!important}
-.choice button,.tabs button,.program-grid button,.history-row button,.toolrow button,.main-tools button,
-.day-actions .secondary,.modal-tabs button,.excho
+/* FINAL DARK UI — readability first */
+html,body{background:#111316!important;color:#f3f5f7!important}
+header,nav,.top button,.panel,.card,.exercise,.modalbox{background:#1b1f24!important;color:#f3f5f7!important}
+header{border-bottom-color:#343a43!important}
+nav{border-top-color:#343a43!important}
+nav button,.tabs button,.choice button,.program-grid button,.history-row button,
+.secondary,.modal-tabs button,.exchoices button,.row-actions button,
+.setminus,.setplus,.drop,.dropbox,.dropitem button,.dropctrl button,
+.dropbtn,.drop-delete,.inline-set-btn{background:#272c32!important;color:#eef1f4!important;border-color:#48505b!important}
+nav button.active,.tabs button.active,.choice button.on,.primary,.row-actions .done{
+background:#a9cf22!important;color:#10120c!important;border-color:#a9cf22!important}
+input,select,textarea{background:#272c32!important;color:#f4f6f8!important;border-color:#48505b!important}
+input::placeholder,textarea::placeholder{color:#808a96!important}
+.set,.asc,.dropbox{background:#1d2126!important;color:#f3f5f7!important;border-color:#343a43!important}
+.settag,.sectiontitle,.section-title,.exname,.rx,.setno,summary,strong,h1,h2,h3{color:#f3f5f7!important}
+.small,label,.notice{color:#aab3be!important}
+.exhead,.panel-head,.setrow,.note-row{border-color:#343a43!important}
+details>summary{background:#20252b!important;color:#f3f5f7!important}
+</style></head>
+<body>
+<header><div class="top"><button onclick="goHome()">‹</button><h1 id="title">トレーニング</h1><button class="menu" onclick="toggleNav()">☰</button></div><nav id="nav"></nav></header>
+<main id="app"></main>
+<div id="exerciseModal" class="modal" onclick="if(event.target===this)closeExerciseModal()"><div class="modalbox"><h3>種目を差し替え</h3><div id="modalTabs" class="modal-tabs"></div><div id="exerciseChoices" class="exchoices"></div><button class="secondary" style="width:100%;border:0;border-radius:10px;padding:11px;margin-top:9px;font-weight:900" onclick="closeExerciseModal()">閉じる</button></div></div><div id="toast" class="toast"></div>
+<script>
 const STORAGE='workoutLogV27';
 const LEGACY_STORAGE='workoutLogV25';
 const PARTS=['脚','胸','背中','肩','三頭','二頭','前腕','腹筋'];
 const EXERCISES={
-'脚':['バーベルスクワット','フロントスクワット','ハイバースクワット','ローバースクワット','ポーズスクワット','セーフティスクワット','ハックスクワット','レッグプレス','45度レッグプレス','スミスマシンスクワット','ブルガリアンスクワット','ウォーキングランジ','リバースランジ','ダンベルランジ','ステップアップ','レッグエクステンション','シシースクワット','ルーマニアンデッドリフト','スティッフレッグデッドリフト','グッドモーニング','レッグカール','シーテッドレッグカール','ライイングレッグカール','ノルディックハムストリング','ヒップスラスト','バーベルグルートブリッジ','スタンディングカーフレイズ','シーテッドカーフレイズ'],
-'胸':['ベンチプレス','ポーズベンチプレス','ラーセンベンチ','Spotoプレス','クローズグリップベンチ','ワイドグリップベンチ','インクラインベンチプレス','デクラインベンチプレス','ダンベルベンチプレス','インクラインダンベルプレス','ニュートラルグリップダンベルプレス','ダンベルフライ','インクラインダンベルフライ','ケーブルフライ','ハイ・トゥ・ローケーブルフライ','ロー・トゥ・ハイケーブルフライ','ペックデック','チェストプレスマシン','インクラインチェストプレスマシン','ディップス','加重ディップス','スミスマシンベンチプレス','スミスインクラインプレス','プッシュアップ'],
-'背中':['デッドリフト','トップサイドデッドリフト','ラックプル','ルーマニアンデッドリフト','バーベルベントオーバーロウ','ペンドレイロウ','Yatesロウ','ワンアームダンベルロウ','チェストサポートロウ','Tバーロウ','Tバーロウマシン','ハイローマシン','シーテッドロー','ワイドグリップシーテッドロー','ナローグリップシーテッドロー','ラットプルダウン','ワイドグリップラットプルダウン','ナローグリップラットプルダウン','リバースグリップラットプルダウン','ワンアームラットプルダウン','ストレートアームプルダウン','アシストプルアップ','チンニング','ワイドグリッププルアップ','ニュートラルグリッププルアップ','フェイスプル','マシンロウ'],
-'肩':['OHP','シーテッドバーベルプレス','ダンベルショルダープレス','アーノルドプレス','スミスショルダープレス','スミスバックプレス','マシンショルダープレス','ランドマインプレス','ダンベルサイドレイズ','ケーブルサイドレイズ','ワンアームケーブルサイドレイズ','マシンサイドレイズ','リーンアウェイサイドレイズ','ダンベルフロントレイズ','プレートフロントレイズ','ケーブルフロントレイズ','リアデルトフライ','リバースペックデック','ベントオーバーリアレイズ','ケーブルリアレイズ','ケーブルアップライトロウ','バーベルアップライトロウ','ダンベルシュラッグ','バーベルシュラッグ','フェイスプル'],
-'三頭':['クローズグリップベンチ','JMプレス','ライイングトライセプスエクステンション','EZバートライセプスエクステンション','ダンベルライイングトライセプスエクステンション','スミスOHエクステンション','ダンベルオーバーヘッドエクステンション','ケーブルオーバーヘッドエクステンション','ロープオーバーヘッドエクステンション','ケーブルプレスダウン','ローププレスダウン','ストレートバープレスダウン','Vバープレスダウン','リバースグリッププレスダウン','ワンアームプレスダウン','クロスボディケーブルエクステンション','ディップス','ベンチディップス','ナロープッシュアップ','スカルクラッシャー'],
-'二頭':['バーベルカール','EZバーカール','ダンベルカール','オルタネイトダンベルカール','インクラインカール','プリーチャーカール','EZバープリーチャーカール','ワンアームプリーチャーカール','コンセントレーションカール','ケーブルカール','ストレートバーケーブルカール','ロープケーブルカール','ハイケーブルカール','ベイズィアンカール','ドラッグカール','スパイダーカール','ハンマーカール','クロスボディハンマーカール','リバースカール','マシンカール'],
-'前腕':['リストカール','リバースリストカール','ダンベルリストカール','ダンベルリバースリストカール','バーベルリストカール','リバースカール','EZバーリバースカール','ハンマーカール','クロスボディハンマーカール','ファーマーズウォーク','デッドハング','プレートピンチ','プレートカール','グリッパー','フィンガーカール','リストローラー','ケーブルリストカール','ケーブルリバースリストカール'],
-'腹筋':['アブドミナルマシン','ケーブルクランチ','ロープケーブルクランチ','ハンギングレッグレイズ','ハンギングニーアップ','キャプテンズチェアニーアップ','アブローラー','バーベルロールアウト','デクラインシットアップ','ウェイテッドクランチ','リバースクランチ','デクラインリバースクランチ','ドラゴンフラッグ','Vシット','トゥータッチクランチ','バイシクルクランチ','プランク','RKCプランク','サイドプランク','パロフプレス','ウッドチョップ','ケーブルサイドベンド']};
+'脚':['バーベルスクワット','ハックスクワット','レッグプレス','レッグエクステンション','レッグカール','スミスマシンスクワット','ブルガリアンスクワット'],
+'胸':['ベンチプレス','ポーズベンチプレス','ラーセンベンチ','インクラインベンチプレス','ダンベルベンチプレス','ダンベルフライ','チェストプレスマシン','ディップス'],
+'背中':['デッドリフト','トップサイドデッドリフト','バーベルベントオーバーロウ','Tバーロウマシン','シーテッドロー','ラットプルダウン','ハイローマシン'],
+'肩':['OHP','スミスバックプレス','ケーブルアップライトロウ','ダンベルサイドレイズ','リアデルトフライ','ショルダープレスマシン'],
+'三頭':['クローズグリップベンチ','JMプレス','ライイングトライセプスエクステンション','スミスOHエクステンション'],
+'二頭':['バーベルカール','ケーブルカール','プリーチャーカール','インクラインカール','ハンマーカール'],
+'前腕':['リストカール','リバースリストカール','リバースカール','ハンマーカール'],
+'腹筋':['アブドミナルマシン','ケーブルクランチ','ハンギングレッグレイズ']};
 const BBB={
-'脚':[
- ['バーベルスクワット',4,'6〜8','RIR 1〜2｜休憩 2〜3分','主動作。毎セット同じフォームを維持'],
- ['レッグエクステンション',6,'10〜15','RIR 1〜2｜休憩 60〜90秒','収縮を止め、反動なし'],
- ['ハックスクワット',6,'8〜12','RIR 1〜2｜休憩 2分','深さを固定して連続セット'],
- ['レッグプレス',6,'10〜15','RIR 1〜2｜休憩 90〜120秒','可動域を固定'],
- ['スミスマシンスクワット',6,'8〜12','RIR 1〜2｜休憩 2分','軌道を固定して脚に集中'],
- ['レッグカール',3,'10〜15','RIR 1〜2｜休憩 60〜90秒','ハムストリングを完全収縮']
-],
-'胸':[
- ['ベンチプレス',15,'6〜10','RIR 1〜2｜休憩 2〜3分','全セットでタッチ位置・軌道を統一'],
- ['インクラインベンチプレス',10,'8〜12','RIR 1〜2｜休憩 2分','上胸狙い。反動なし'],
- ['ダンベルベンチプレス',4,'8〜12','RIR 1〜2｜休憩 90〜120秒','左右差を抑えて深く下ろす'],
- ['ダンベルフライ',5,'10〜15','RIR 1〜2｜休憩 60〜90秒','ストレッチ重視。肘角度固定'],
- ['チェストプレスマシン',6,'8〜12','RIR 1〜2｜休憩 90秒','肩をすくめず胸で押す'],
- ['ディップス',5,'8〜15','RIR 1〜2｜休憩 90〜120秒','胸郭を前傾。可動域を固定']
-],
-'背中':[
- ['デッドリフト',4,'4〜6','RIR 1〜2｜休憩 2〜3分','毎レップ同じセットアップ'],
- ['トップサイドデッドリフト',10,'6〜10','RIR 1〜2｜休憩 2分','開始位置を固定'],
- ['バーベルベントオーバーロウ',10,'8〜12','RIR 1〜2｜休憩 90〜120秒','上体角度を固定'],
- ['Tバーロウマシン',5,'8〜12','RIR 1〜2｜休憩 90秒','肩甲骨を寄せて戻す'],
- ['シーテッドロー',10,'8〜15','RIR 1〜2｜休憩 90秒','反動を使わず背中で引く'],
- ['ラットプルダウン',6,'8〜15','RIR 1〜2｜休憩 60〜90秒','胸を起こし肘を下へ']
-],
-'肩':[
- ['OHP',10,'6〜10','RIR 1〜2｜休憩 2〜3分','体幹を固定して垂直に押す'],
- ['スミスバックプレス',10,'8〜12','RIR 1〜2｜休憩 2分','無理に深く下ろさない'],
- ['ケーブルアップライトロウ',5,'10〜15','RIR 1〜2｜休憩 60〜90秒','肩をすくめず肘主導'],
- ['ダンベルサイドレイズ',10,'12〜20','RIR 1〜2｜休憩 60〜90秒','反動を最小限にして一定テンポ'],
- ['リアデルトフライ',5,'12〜20','RIR 1〜2｜休憩 60〜90秒','肩甲骨より後部三角筋を優先'],
- ['ショルダープレスマシン',3,'8〜12','RIR 1〜2｜休憩 90〜120秒','シート位置を固定']
-],
-'三頭':[
- ['クローズグリップベンチ',8,'6〜10','RIR 1〜2｜休憩 2分','肘を過度に開かない'],
- ['JMプレス',8,'8〜12','RIR 1〜2｜休憩 90〜120秒','肘位置を固定'],
- ['スミスOHエクステンション',5,'10〜15','RIR 1〜2｜休憩 60〜90秒','長頭のストレッチ重視']
-],
-'二頭':[
- ['バーベルカール',10,'8〜12','RIR 1〜2｜休憩 90秒','肩を前後させない'],
- ['ケーブルカール',8,'8〜12','RIR 1〜2｜休憩 60〜90秒','張力を抜かずに反復'],
- ['プリーチャーカール',5,'8〜12','RIR 1〜2｜休憩 60〜90秒','下ろしをコントロール']
-],
-'前腕':[
- ['リストカール',5,'10〜15','RIR 1〜2｜休憩 60秒','手首だけを動かす'],
- ['リバースリストカール',5,'10〜15','RIR 1〜2｜休憩 60秒','反動なし'],
- ['ハンマーカール',5,'8〜12','RIR 1〜2｜休憩 60〜90秒','ニュートラルグリップ固定']
-],
-'腹筋':[
- ['アブドミナルマシン',5,'10〜15','RIR 1〜2｜休憩 60秒','骨盤を丸めて腹直筋を収縮'],
- ['ケーブルクランチ',5,'10〜15','RIR 1〜2｜休憩 60秒','腰ではなく脊柱を屈曲'],
- ['ハンギングレッグレイズ',4,'8〜15','RIR 1〜2｜休憩 60〜90秒','反動を抑えて骨盤を後傾']
-]};
+'脚':[['バーベルスクワット',4,'6〜8'],['レッグエクステンション',6,'10〜15'],['ハックスクワット',6,'8〜12'],['レッグプレス',6,'10〜15'],['スミスマシンスクワット',6,'8〜12'],['レッグカール',3,'10〜15']],
+'胸':[['ベンチプレス',15,'6〜10'],['インクラインベンチプレス',10,'8〜12'],['ダンベルベンチプレス',4,'8〜12'],['ダンベルフライ',5,'10〜15'],['チェストプレスマシン',6,'8〜12'],['ディップス',5,'8〜15']],
+'背中':[['デッドリフト',4,'4〜6'],['トップサイドデッドリフト',10,'6〜10'],['バーベルベントオーバーロウ',10,'8〜12'],['Tバーロウマシン',5,'8〜12'],['シーテッドロー',10,'8〜15'],['ラットプルダウン',6,'8〜15']],
+'肩':[['OHP',10,'6〜10'],['スミスバックプレス',10,'8〜12'],['ケーブルアップライトロウ',5,'10〜15'],['ダンベルサイドレイズ',10,'12〜20'],['リアデルトフライ',5,'12〜20'],['ショルダープレスマシン',3,'8〜12']],
+'三頭':[['クローズグリップベンチ',8,''],['JMプレス',8,''],['スミスOHエクステンション',5,'']],
+'二頭':[['バーベルカール',10,'8〜12'],['ケーブルカール',8,'8〜12'],['プリーチャーカール',5,'8〜12']],
+'前腕':[['リストカール',5,'10〜15'],['リバースリストカール',5,'10〜15'],['ハンマーカール',5,'8〜12']],
+'腹筋':[['アブドミナルマシン',5,'10〜15'],['ケーブルクランチ',5,'10〜15'],['ハンギングレッグレイズ',4,'8〜15']]};
 const E=(name,sets,rep,rx='',note='')=>({name,sets,rep,rx,note});
 const PPP={};
 for(let w=1;w<=4;w++)PPP[w]={D1:[E('Competition SQ',3,'2','60〜65% / RPE 5〜6','Technique'),E('Competition BP',3,'2','60〜65% / RPE 5〜6','Technique'),E('Competition DL',2,'2','60〜65% / RPE 5〜6','素手'),E('ブルガリアンスクワット',2,'8/脚','RPE 5〜6')],D2:[E('Competition SQ',3,'3','77.5〜82.5% / RPE 7〜8','Main Strength'),E('Competition BP',3,'3','77.5〜82.5% / RPE 7〜8','Main Strength'),E('Stiff-leg DL',3,'4','65〜72.5% / RPE 6〜7','パワーグリップ'),E('RDL',2,'6〜8','RPE 6〜7'),E('ハイローマシン',3,'8〜12','RPE 7〜8')],D3:[E('High-bar SQ',3,'4','65〜72.5% / RPE 6〜7','SQ variation'),E('Larsen BP',3,'4','67.5〜75% / RPE 6〜7','BP variation'),E('Competition DL',2,'2','60〜65% / RPE 5〜6','素手'),E('バーベルカール',2,'8〜12','RPE 7〜8')],D4:[E('Competition BP',3,'2','82.5〜87.5% / RPE 7.5〜8.5','Heavy / Specificity'),E('Competition DL',3,'1〜2','80〜87.5% / RPE 7〜8.5','パワーグリップ'),E('ナローベンチ',2,'5〜8','RPE 7'),E('OHP',2,'5〜8','RPE 7')],D5:[E('Pause SQ',3,'3','60〜70% / RPE 6前後','Drum Protection'),E('ワイドグリップTバーロウ',2,'8〜10','RPE 6〜7')]};
@@ -122,7 +72,7 @@ PPP[8]={'TEST前':[E('Competition SQ',1,'2','50〜60%','動作確認のみ'),E('
 const state=JSON.parse(localStorage.getItem(STORAGE+'_state')||localStorage.getItem(LEGACY_STORAGE+'_state')||'null')||{page:'HOME',bbbDay:1,bbbPart:'脚',pppWeek:1,pppDay:'D1',current:null};
 state.bbbDay??=1;
 let db=JSON.parse(localStorage.getItem(STORAGE)||localStorage.getItem(LEGACY_STORAGE)||'{"sessions":{}}');db.sessions??={};
-let workStarted=Number(db.workStarted||0),workElapsed=Number(db.workElapsed||0),modal={k:null,id:null,part:'脚'};
+let modal={k:null,id:null,part:'脚'};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const fmt=s=>String(Math.floor(Math.max(0,s)/60)).padStart(2,'0')+':'+String(Math.floor(Math.max(0,s)%60)).padStart(2,'0');
 const fmtLong=s=>String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(Math.floor(s)%60).padStart(2,'0');
@@ -152,19 +102,14 @@ function openExerciseModal(k,id){modal={k,id,part:'脚'};document.getElementById
 function modalPart(p){modal.part=p;document.getElementById('modalTabs').innerHTML=PARTS.map(a=>`<button class="${a===p?'active':''}" onclick="modalPart('${esc(a)}')">${a}</button>`).join('');document.getElementById('exerciseChoices').innerHTML=(EXERCISES[p]||[]).map(n=>`<button onclick="replaceExercise('${esc(modal.k)}','${esc(modal.id)}','${esc(n)}')">${esc(n)}</button>`).join('')}
 function closeExerciseModal(){document.getElementById('exerciseModal').classList.remove('show');modal={k:null,id:null,part:'脚'}}function replaceExercise(k,id,name){const x=session(k).exercises[id];x.name=name;save();closeExerciseModal();render();toast('種目を変更しました')}
 function showRecent(k,id){const h=session(k).history||[];const rows=[];h.slice(-10).reverse().forEach(v=>{const ex=v.data?.exercises?.[id];if(ex?.sets)rows.push((v.date||'—')+'：'+Object.values(ex.sets).filter(r=>r.weight&&r.rep).map(r=>r.weight+'kg × '+r.rep).join(' / '))});alert(rows.length?rows.join('\n'):'まだ記録なし')}
-function currentExercises(){let list;if(state.page==='PRE')list=[E('High-bar SQ',1,'Ascending → Top 135kg × 4〜6','Back-off：Top −5kg × 1'),E('Competition BP',1,'Ascending → Top 85kg × 4〜6','Back-off：Top −2.5kg × 1'),E('Competition DL',1,'Ascending → Top 180kg × 1','必要なら185〜190kg確認')];else if(state.page==='BBB')list=(BBB[state.bbbPart]||BBB['脚']).map(a=>E(a[0],a[1],a[2],a[3]||'',a[4]||''));else list=PPP[state.pppWeek]?.[state.pppDay]||[];const ss=session(key());return list.filter((e,i)=>!ss.exercises?.['ex'+i]?.hidden)}
+function currentExercises(){let list;if(state.page==='PRE')list=[E('High-bar SQ',1,'Ascending → Top 135kg × 4〜6','Back-off：Top −5kg × 1'),E('Competition BP',1,'Ascending → Top 85kg × 4〜6','Back-off：Top −2.5kg × 1'),E('Competition DL',1,'Ascending → Top 180kg × 1','必要なら185〜190kg確認')];else if(state.page==='BBB')list=(BBB[state.bbbPart]||BBB['脚']).map(a=>E(a[0],a[1],a[2]));else list=PPP[state.pppWeek]?.[state.pppDay]||[];const ss=session(key());return list.filter((e,i)=>!ss.exercises?.['ex'+i]?.hidden)}
 function programHeader(){if(state.page==='BBB')return `<div class="panel-head"><h2>BBB　Day ${state.bbbDay}　${esc(state.bbbPart)}</h2></div><div class="tabs">${[1,2,3,4,5,6,7].map(d=>`<button class="${state.bbbDay===d?'active':''}" onclick="changeBBBDay(${d})">Day ${d}</button>`).join('')}</div><div class="tabs">${PARTS.map(p=>`<button class="${state.bbbPart===p?'active':''}" onclick="changeBBB('${esc(p)}')">${p}</button>`).join('')}</div>`;if(state.page==='PPP'){const days=Object.keys(PPP[state.pppWeek]||{});return `<div class="panel-head"><h2>PPP</h2><div class="tabs tight">${[1,2,3,4,5,6,7,8].map(w=>`<button class="${state.pppWeek===w?'active':''}" onclick="changePPPWeek(${w})">W${w}</button>`).join('')}</div><div class="tabs">${days.map(d=>`<button class="${state.pppDay===d?'active':''}" onclick="changePPPDay('${esc(d)}')">${esc(d)}</button>`).join('')}</div></div>`}return `<div class="panel-head"><h2>${state.page==='PRE'?'PRE Week 1':'Training'}</h2></div>`}
-function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="startWork()">トレーニング開始</button><button class="secondary" onclick="restoreExercises('${esc(k)}')">閉じた種目を戻す</button></div></div>`}
-function renderHome(){document.getElementById('title').textContent=new Date().getMonth()+1+'月'+new Date().getDate()+'日　トレーニング';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>Workout Log</h2><div class="notice">処方と実績を分離。Main / Ascending / セット別Drop / BBB / PPPを一つにまとめたログ。</div><h3>プログラムから一発呼び出し</h3><div class="program-grid"><button onclick="go('PRE')">PRE Week 1</button><button onclick="state.bbbDay=1;state.bbbPart='脚';go('BBB')">BBB</button>${[1,2,3,4,5,6,7,8].map(w=>`<button onclick="state.pppWeek=${w};state.pppDay=Object.keys(PPP[${w}]||{})[0]||'D1';go('PPP')">PPP W${w}</button>`).join('')}</div><h3></h3><div class="day-actions" style="padding:0"><button class="primary" onclick="startWork()">開始</button><button class="secondary" onclick="stopWork()">停止</button><button class="secondary" onclick="resetWork()">リセット</button></div></div></div>`}
+function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="restoreExercises('${esc(k)}')">閉じた種目を戻す</button></div></div>`}
+function renderHome(){document.getElementById('title').textContent=new Date().getMonth()+1+'月'+new Date().getDate()+'日　トレーニング';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>Workout Log</h2><div class="notice">処方と実績を分離。Main / Ascending / セット別Drop / BBB / PPPを一つにまとめたログ。</div><h3>プログラムから一発呼び出し</h3><div class="program-grid"><button onclick="go('PRE')">PRE Week 1</button><button onclick="state.bbbDay=1;state.bbbPart='脚';go('BBB')">BBB</button>${[1,2,3,4,5,6,7,8].map(w=>`<button onclick="state.pppWeek=${w};state.pppDay=Object.keys(PPP[${w}]||{})[0]||'D1';go('PPP')">PPP W${w}</button>`).join('')}</div></div></div>`}
 function renderHistory(){const arr=[];Object.entries(db.sessions).forEach(([k,s])=>{(s.history||[]).forEach((h,i)=>arr.push({k,s,h,i}))});arr.sort((a,b)=>b.h.savedAt-a.h.savedAt);document.getElementById('title').textContent='履歴';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>履歴</h2><div class="small">同じ曜日・同じ種目でも、保存するたびに別ログとして残る。</div>${arr.length?arr.map((o,idx)=>`<div class="history-row"><b>${esc(o.h.label||o.k)}</b><div class="small">${esc(o.h.date||'—')}　保存：${new Date(o.h.savedAt).toLocaleString('ja-JP')}　体重 ${esc(o.h.weight||'—')}kg</div><button onclick="openHistory(${idx})">この記録を開く</button></div>`).join(''):'<div class="small" style="margin-top:10px">保存履歴なし</div>'}</div></div>`;window._history=arr}
 function restoreExercises(k){Object.values(session(k).exercises||{}).forEach(x=>x.hidden=false);save();render();toast('閉じた種目を戻しました')}
 function saveDay(k){const s=session(k);s.history??=[];s.history.push({savedAt:Date.now(),date:s.date,weight:s.weight,label:k,data:JSON.parse(JSON.stringify(s))});s.savedAt=Date.now();save();toast('記録を保存しました')}
 function openHistory(i){const o=window._history?.[i];if(!o)return;const h=o.h.data;db.sessions[o.k]=JSON.parse(JSON.stringify(h));db.sessions[o.k].history=o.s.history||[];if(o.k.startsWith('BBB|')){const q=o.k.split('|');state.page='BBB';state.bbbDay=Number((q[1]||'D1').replace('D',''))||1;state.bbbPart=q[2]||'脚'}else if(o.k.startsWith('PPP|')){const q=o.k.split('|');state.page='PPP';state.pppWeek=Number(q[1].slice(1));state.pppDay=q[2]}else state.page='PRE';save();render();scrollTo(0,0)}
-document.getElementById('restInput').onchange=()=>saveTimerSetting('rest');document.getElementById('exerciseInput').onchange=()=>saveTimerSetting('exercise');
-function startWork(){if(!workStarted){workStarted=Date.now();db.workStarted=workStarted;save()}}function stopWork(){if(workStarted){workElapsed+=Date.now()-workStarted;workStarted=0;db.workStarted=0;db.workElapsed=workElapsed;save()}}function resetWork(){workStarted=0;workElapsed=0;db.workStarted=0;db.workElapsed=0;save();updateWorkClock()}function updateWorkClock(){const sec=(workElapsed+(workStarted?Date.now()-workStarted:0))/1000;document.getElementById('workClock').textContent='トレーニング '+fmtLong(sec);document.getElementById('totalDisplay').textContent=fmt(sec)}setInterval(updateWorkClock,500)
-function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='HISTORY')renderHistory();else renderProgram();updateWorkClock()}render();
-.replace('D',''))||1;state.bbbPart=q[2]||'脚'}else if(o.k.startsWith('PPP|')){const q=o.k.split('|');state.page='PPP';state.pppWeek=Number(q[1].slice(1));state.pppDay=q[2]}else state.page='PRE';save();render();scrollTo(0,0)}
-document.getElementById('restInput').onchange=()=>saveTimerSetting('rest');document.getElementById('exerciseInput').onchange=()=>saveTimerSetting('exercise');
-function startWork(){if(!workStarted){workStarted=Date.now();db.workStarted=workStarted;save()}}function stopWork(){if(workStarted){workElapsed+=Date.now()-workStarted;workStarted=0;db.workStarted=0;db.workElapsed=workElapsed;save()}}function resetWork(){workStarted=0;workElapsed=0;db.workStarted=0;db.workElapsed=0;save();updateWorkClock()}function updateWorkClock(){const sec=(workElapsed+(workStarted?Date.now()-workStarted:0))/1000;document.getElementById('workClock').textContent='トレーニング '+fmtLong(sec);document.getElementById('totalDisplay').textContent=fmt(sec)}setInterval(updateWorkClock,500)
-function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='HISTORY')renderHistory();else renderProgram();updateWorkClock()}render();
+
+function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='HISTORY')renderHistory();else renderProgram()}render();
 </script></body></html>
