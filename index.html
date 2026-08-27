@@ -49,6 +49,71 @@ main{min-height:calc(100vh - 70px);overflow:visible!important}
 .meta>div:first-child{grid-column:1/-1}
 .modal{overflow:hidden}
 .modalbox{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+
+/* FINAL MOBILE UI */
+:root{--bg:#111316;--card:#1b1f24;--line:#3c444f;--muted:#a7b0bc;--ink:#f3f5f7;--soft:#252a30;--accent:#a9cf22}
+html{background:#111316!important;min-height:100%;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+body{margin:0;background:#111316!important;color:#f3f5f7!important;min-height:100%;overflow-y:auto!important;overflow-x:hidden!important;padding-bottom:30px}
+header{background:#171a1f!important;color:#f3f5f7!important;border-color:#30363f!important}
+.top button,.menu{background:transparent!important;color:#f3f5f7!important}
+main{max-width:760px;margin:auto;padding:8px 0 24px;overflow:visible!important}
+.card,.panel,.exercise,.history-row,.program-grid,.modalbox{background:#1b1f24!important;color:#f3f5f7!important;border-color:#3c444f!important}
+.panel-head,.exhead,.note-row,.meta{color:#f3f5f7!important}
+label,.small{color:#a7b0bc!important}
+.notice{color:#c3c9d0!important}
+input,select,textarea{background:#252a30!important;color:#f3f5f7!important;border:1px solid #4a535f!important}
+input::placeholder,textarea::placeholder{color:#7f8995!important}
+button{color:#f3f5f7!important}
+.tabs{overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch}
+.tabs button,.choice button,.row-actions button,.day-actions button,.exswap,.exdelete,.recent,
+.asc-controls button{background:#252a30!important;color:#f3f5f7!important;border:1px solid #4a535f!important}
+.tabs button.active,.choice button.on,.primary,.row-actions .done{background:#a9cf22!important;color:#111!important;border-color:#a9cf22!important}
+.setno{background:#252a30!important;color:#f3f5f7!important;border:1px solid #4a535f!important}
+.setrow{background:#1b1f24!important;color:#f3f5f7!important}
+.row-actions{display:flex;gap:7px;flex-wrap:nowrap}
+.row-actions .complete,.row-actions .drop{flex:1}
+.rpe-select{width:100%!important}
+.meta{grid-template-columns:1fr 1fr!important}
+.meta>div:first-child{grid-column:1/-1}
+.choice{display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:5px!important}
+.choice button{min-width:0!important;padding:9px 2px!important}
+.asc summary{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+.asc-controls{display:inline-flex;align-items:center;gap:6px}
+.asc-controls button{width:30px;height:30px;padding:0;border-radius:8px}
+.modal{z-index:500}
+.modalbox{max-height:82vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+.exerciseChoices,.modal-tabs{overflow:auto!important;-webkit-overflow-scrolling:touch}
+.day-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+
+/* FINAL UI / interaction fixes */
+html,body{background:#111316!important;color:#f3f5f7!important;min-height:100%;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch}
+body{padding-bottom:30px}
+header{background:#171a1f!important;color:#f3f5f7!important;border-color:#30363f!important}
+.top button{background:transparent!important;color:#f3f5f7!important}
+main{overflow:visible!important}
+.card,.panel,.exercise,.history-row,.modalbox{background:#1b1f24!important;color:#f3f5f7!important;border-color:#3c444f!important}
+label,.small{color:#a7b0bc!important}
+.notice{color:#c3c9d0!important}
+input,select,textarea{background:#252a30!important;color:#f3f5f7!important;border:1px solid #4a535f!important}
+input::placeholder,textarea::placeholder{color:#7f8995!important}
+button{color:#f3f5f7!important}
+.tabs,.modal-tabs,.exerciseChoices{overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch}
+.tabs button,.choice button,.row-actions button,.day-actions button,.exswap,.exdelete,.recent,.asc-controls button{background:#252a30!important;color:#f3f5f7!important;border:1px solid #4a535f!important}
+.tabs button.active,.choice button.on,.primary,.row-actions .done{background:#a9cf22!important;color:#111!important;border-color:#a9cf22!important}
+.meta{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;padding:0 14px 12px!important}
+.meta-date{grid-column:1/-1!important}
+.meta-choice{min-width:0!important}
+.choice{display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:5px!important}
+.choice button{min-width:0!important;min-height:40px!important;padding:8px 2px!important;pointer-events:auto!important;position:relative!important;z-index:2!important}
+.setno{background:#252a30!important;color:#f3f5f7!important;border:1px solid #4a535f!important}
+.setrow{background:#1b1f24!important;color:#f3f5f7!important}
+.rpe-select{width:100%!important}
+.asc summary{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+.asc-controls{display:inline-flex;align-items:center;gap:6px}
+.asc-controls button{width:30px;height:30px;padding:0;border-radius:8px}
+.day-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+.modal{z-index:500!important}
+.modalbox{max-height:82vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 </style></head>
 <body>
 <header><div class="top"><button onclick="goHome()">‹</button><h1 id="title">トレーニング</h1><button class="menu" onclick="toggleNav()">☰</button></div><nav id="nav"></nav></header>
@@ -101,28 +166,91 @@ function session(k){db.sessions[k]??={date:'',weight:'',sleep:0,fatigue:0,note:'
 function ensureEx(k,i,e){const s=session(k),id='ex'+i;s.exercises[id]??={name:e.name,mainCount:e.sets,ascCount:3,ascOpen:false,note:'',hidden:false,};const x=s.exercises[id];x.name??=e.name;x.mainCount??=e.sets||1;x.ascCount??=3;x.hidden=!!x.hidden;x.timer??={rest:120,exercise:300};return x}
 function row(k,id,key){const s=session(k);s.sets??={};return s.sets[key]??(s.sets[key]={})}
 function drops(k,id,i){const s=session(k);s.drops??={};const key=id+'#main#'+i;s.drops[key]??=[];return s.drops[key]}
-function setMeta(k,f,v){session(k)[f]=v;save()}
-function metaHTML(k){const s=session(k);return `<div class="meta"><div><label>日付</label><input type="date" value="${esc(s.date||'')}" onchange="setMeta('${esc(k)}','date',this.value)"></div><div><label>睡眠</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.sleep==n?'on':''}" onclick="setMeta('${esc(k)}','sleep',${n})">${n}</button>`).join('')}</div></div><div><label>疲労</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.fatigue==n?'on':''}" onclick="setMeta('${esc(k)}','fatigue',${n})">${n}</button>`).join('')}</div></div></div>`}
+function setMeta(k,f,v){const s=session(k);if(f==='sleep'||f==='fatigue')v=Number(v)||0;s[f]=v;save();render()}
+function metaHTML(k){
+  const s=session(k);
+  const pick=(f)=>[1,2,3,4,5].map(n=>`<button type="button" class="${Number(s[f])===n?'on':''}" onclick="setMeta('${esc(k)}','${f}',${n})">${n}</button>`).join('');
+  return `<div class="meta">
+    <div class="meta-date"><label>日付</label><input type="date" value="${esc(s.date||'')}" onchange="setMeta('${esc(k)}','date',this.value)"></div>
+    <div class="meta-choice"><label>睡眠</label><div class="choice">${pick('sleep')}</div></div>
+    <div class="meta-choice"><label>疲労</label><div class="choice">${pick('fatigue')}</div></div>
+  </div>`
+}
 function badge(name){if(/SQ|スクワット|レッグ|ブルガリア/.test(name))return ['脚','b-leg'];if(/BP|ベンチ|フライ|ディップ/.test(name))return ['胸','b-chest'];if(/DL|デッド|ロウ|ロー|ラット|RDL|T.?bar|Tバ/.test(name))return ['背','b-back'];if(/OHP|ショルダー|サイド|リア|アップライト/.test(name))return ['肩','b-shoulder'];if(/JM|トライ|クローズグリップ|OHエクステンション/.test(name))return ['三頭','b-tri'];if(/カール|プリーチャー/.test(name))return ['二頭','b-bi'];if(/リスト/.test(name))return ['前腕','b-fore'];if(/腹|アブ|クランチ|レッグレイズ/.test(name))return ['腹筋','b-abs'];return ['種','b-other']}
 function editSet(k,id,key,f,v){row(k,id,key)[f]=v;save()}
 function complete(k,id,key){const r=row(k,id,key);r.completed=!r.completed;save();render()}
 function dropHTML(k,id,i){const arr=drops(k,id,i);if(!arr.length)return '';return `<div class="dropbox open"><div class="drop-title">Set ${i+1} Drop Sets</div>${arr.map((v,j)=>`<div class="dropitem"><input inputmode="decimal" placeholder="重量 kg" value="${esc(v.weight||'')}" oninput="editDrop('${esc(k)}','${esc(id)}',${i},${j},'weight',this.value)"><input inputmode="numeric" placeholder="Rep" value="${esc(v.rep||'')}" oninput="editDrop('${esc(k)}','${esc(id)}',${i},${j},'rep',this.value)"><button onclick="removeDrop('${esc(k)}','${esc(id)}',${i},${j})">×</button></div>`).join('')}</div>`}
-function setRow(k,id,i,asc=false){const key=(asc?'asc#':'main#')+i,r=row(k,id,key),done=!!r.completed;return `<div class="setrow"><div class="settop"><div class="setno">${i+1}</div><div><label>重量 kg</label><input inputmode="decimal" placeholder="0" value="${esc(r.weight||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','weight',this.value)"></div><div><label>Rep</label><input inputmode="numeric" placeholder="0" value="${esc(r.rep||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','rep',this.value)"></div><div><label>RPE</label><input inputmode="decimal" value="${esc(r.rpe||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','rpe',this.value)"></div></div><div class="formrow"><div><label>フォーム</label><select onchange="editSet('${esc(k)}','${esc(id)}','${esc(key)}','form',this.value)"><option value="">—</option><option ${r.form==='◎'?'selected':''}>◎</option><option ${r.form==='○'?'selected':''}>○</option><option ${r.form==='△'?'selected':''}>△</option><option ${r.form==='×'?'selected':''}>×</option></select></div><div><label>メモ</label><input value="${esc(r.memo||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','memo',this.value)"></div></div><div class="row-actions"><button class="complete ${done?'done':''}" onclick="complete('${esc(k)}','${esc(id)}','${esc(key)}')">${done?'✓ 完了':'セット完了'}</button>${asc?'':`<button class="drop" onclick="addDrop('${esc(k)}','${esc(id)}',${i})">ドロップ</button>`}<button class="setminus" onclick="${asc?`changeAsc('${esc(k)}','${esc(id)}',-1)`: `changeMain('${esc(k)}','${esc(id)}',-1)`}">−</button><button class="setplus" onclick="${asc?`changeAsc('${esc(k)}','${esc(id)}',1)`: `changeMain('${esc(k)}','${esc(id)}',1)`}">＋</button></div>${asc?'':dropHTML(k,id,i)}</div>`}
-function exerciseCard(k,e,i){const id='ex'+i,x=ensureEx(k,i,e),count=Math.max(1,Math.min(30,Number(x.mainCount)||1)),asc=Math.max(0,Math.min(20,Number(x.ascCount)||0)),b=badge(x.name);return `<section class="exercise"><div class="exhead"><div class="exline"><div class="exname">${esc(x.name)}</div><button class="exswap" onclick="openExerciseModal('${esc(k)}','${esc(id)}')">変更</button><button class="exdelete" title="種目を閉じる" onclick="deleteExercise('${esc(k)}','${esc(id)}')">⋯</button></div><div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?'｜'+esc(e.rx):''}${e.note?'<br>'+esc(e.note):''}</div></div><div class="note-row"><input placeholder="メモを入力" value="${esc(x.note||'')}" oninput="editExerciseNote('${esc(k)}','${esc(id)}',this.value)"><button class="recent" onclick="showRecent('${esc(k)}','${esc(id)}')">最近の記録</button></div><details class="asc" ${x.ascOpen?'open':''} ontoggle="setAscOpen('${esc(k)}','${esc(id)}',this.open)"><summary>Ascending Set</summary>${Array.from({length:asc},(_,j)=>setRow(k,id,j,true)).join('')}</details><div class="section-title">MAIN SET（${count}セット）</div>${Array.from({length:count},(_,j)=>setRow(k,id,j,false)).join('')}</section>`}
+function rpeHTML(k,id,key,rpe){
+  return `<select class="rpe-select" onchange="editSet('${esc(k)}','${esc(id)}','${esc(key)}','rpe',this.value)">
+    <option value="">—</option>
+    ${Array.from({length:10},(_,j)=>{const n=j+1;return `<option value="${n}" ${String(rpe??'')===String(n)?'selected':''}>${n}</option>`}).join('')}
+  </select>`;
+}
+function setRow(k,id,i,asc=false){
+  const key=(asc?'asc#':'main#')+i,r=row(k,id,key),done=!!r.completed;
+  return `<div class="setrow">
+    <div class="settop">
+      <div class="setno">${i+1}</div>
+      <div><label>重量 kg</label><input inputmode="decimal" placeholder="0" value="${esc(r.weight||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','weight',this.value)"></div>
+      <div><label>Rep</label><input inputmode="numeric" placeholder="0" value="${esc(r.rep||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','rep',this.value)"></div>
+      <div><label>RPE</label>${rpeHTML(k,id,key,r.rpe)}</div>
+    </div>
+    <div class="formrow">
+      <div><label>フォーム</label><select onchange="editSet('${esc(k)}','${esc(id)}','${esc(key)}','form',this.value)"><option value="">—</option><option ${r.form==='◎'?'selected':''}>◎</option><option ${r.form==='○'?'selected':''}>○</option><option ${r.form==='△'?'selected':''}>△</option><option ${r.form==='×'?'selected':''}>×</option></select></div>
+      <div><label>メモ</label><input value="${esc(r.memo||'')}" oninput="editSet('${esc(k)}','${esc(id)}','${esc(key)}','memo',this.value)"></div>
+    </div>
+    <div class="row-actions">
+      <button type="button" class="complete ${done?'done':''}" onclick="complete('${esc(k)}','${esc(id)}','${esc(key)}')">${done?'✓ 完了':'セット完了'}</button>
+      ${asc?'':`<button type="button" class="drop" onclick="addDrop('${esc(k)}','${esc(id)}',${i})">ドロップ</button>`}
+      <button type="button" class="setminus" onclick="${asc?`changeAsc('${esc(k)}','${esc(id)}',-1)`: `changeMain('${esc(k)}','${esc(id)}',-1)`}">−</button>
+      <button type="button" class="setplus" onclick="${asc?`changeAsc('${esc(k)}','${esc(id)}',1)`: `changeMain('${esc(k)}','${esc(id)}',1)`}">＋</button>
+    </div>
+    ${asc?'':dropHTML(k,id,i)}
+  </div>`
+}
+function exerciseCard(k,e,i){const id='ex'+i,x=ensureEx(k,i,e),count=Math.max(1,Math.min(30,Number(x.mainCount)||1)),asc=Math.max(0,Math.min(20,Number(x.ascCount)||0)),b=badge(x.name);return `<section class="exercise"><div class="exhead"><div class="exline"><div class="exname">${esc(x.name)}</div><button class="exswap" onclick="openExerciseModal('${esc(k)}','${esc(id)}')">変更</button><button class="exdelete" title="種目を閉じる" onclick="deleteExercise('${esc(k)}','${esc(id)}')">⋯</button></div><div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?'｜'+esc(e.rx):''}${e.note?'<br>'+esc(e.note):''}</div></div><div class="note-row"><input placeholder="メモを入力" value="${esc(x.note||'')}" oninput="editExerciseNote('${esc(k)}','${esc(id)}',this.value)"><button class="recent" onclick="showRecent('${esc(k)}','${esc(id)}')">最近の記録</button></div><details class="asc" ${x.ascOpen?'open':''} ontoggle="setAscOpen('${esc(k)}','${esc(id)}',this.open)"><summary>Ascending Set <span class="asc-controls"><button type="button" onclick="event.preventDefault();event.stopPropagation();changeAsc('${esc(k)}','${esc(id)}',-1)">−</button><b>${asc}セット</b><button type="button" onclick="event.preventDefault();event.stopPropagation();changeAsc('${esc(k)}','${esc(id)}',1)">＋</button></span></summary>${Array.from({length:asc},(_,j)=>setRow(k,id,j,true)).join('')}</details><div class="section-title">MAIN SET（${count}セット）</div>${Array.from({length:count},(_,j)=>setRow(k,id,j,false)).join('')}</section>`}
 function toggleDrop(k,id,i){const r=row(k,id,'main#'+i);r.dropOpen=!r.dropOpen;save();render()}function addDrop(k,id,i){drops(k,id,i).push({});row(k,id,'main#'+i).dropOpen=true;save();render()}function editDrop(k,id,i,j,f,v){drops(k,id,i)[j][f]=v;save()}function removeDrop(k,id,i,j){drops(k,id,i).splice(j,1);save();render()}
 function changeMain(k,id,d){const x=session(k).exercises[id];x.mainCount=Math.max(1,Math.min(30,(Number(x.mainCount)||1)+d));save();render()}function changeAsc(k,id,d){const x=session(k).exercises[id];x.ascCount=Math.max(0,Math.min(20,(Number(x.ascCount)||0)+d));save();render()}function setAscOpen(k,id,v){session(k).exercises[id].ascOpen=!!v;save()}function editExerciseNote(k,id,v){session(k).exercises[id].note=v;save()}
 function deleteExercise(k,id){const x=session(k).exercises[id];if(!x)return;x.hidden=true;save();render();toast('種目を閉じました')}
 function openExerciseModal(k,id){modal={k,id,part:'脚'};document.getElementById('modalTabs').innerHTML=PARTS.map(p=>`<button class="${p===modal.part?'active':''}" onclick="modalPart('${esc(p)}')">${p}</button>`).join('');modalPart('脚');document.getElementById('exerciseModal').classList.add('show')}
 function modalPart(p){modal.part=p;document.getElementById('modalTabs').innerHTML=PARTS.map(a=>`<button class="${a===p?'active':''}" onclick="modalPart('${esc(a)}')">${a}</button>`).join('');document.getElementById('exerciseChoices').innerHTML=(EXERCISES[p]||[]).map(n=>`<button onclick="replaceExercise('${esc(modal.k)}','${esc(modal.id)}','${esc(n)}')">${esc(n)}</button>`).join('')}
 function closeExerciseModal(){document.getElementById('exerciseModal').classList.remove('show');modal={k:null,id:null,part:'脚'}}function replaceExercise(k,id,name){const x=session(k).exercises[id];x.name=name;save();closeExerciseModal();render();toast('種目を変更しました')}
-function showRecent(k,id){const h=session(k).history||[];const rows=[];h.slice(-10).reverse().forEach(v=>{const ex=v.data?.exercises?.[id];if(ex?.sets)rows.push((v.date||'—')+'：'+Object.values(ex.sets).filter(r=>r.weight&&r.rep).map(r=>r.weight+'kg × '+r.rep).join(' / '))});alert(rows.length?rows.join('\n'):'まだ記録なし')}
+function showRecent(k,id){
+  const s=session(k),rows=[];
+  (s.history||[]).slice().reverse().forEach(v=>{
+    const ex=v.data?.exercises?.[id],sets=ex?.sets||{};
+    const vals=Object.entries(sets)
+      .filter(([kk,r])=>kk.startsWith('main#')&&r&&r.weight!==''&&r.rep!=='')
+      .sort((a,b)=>Number(a[0].split('#')[1])-Number(b[0].split('#')[1]))
+      .map(([kk,r])=>`${r.weight}kg × ${r.rep}${r.rpe?` (RPE ${r.rpe})`:''}`);
+    if(vals.length)rows.push(`${v.date||'—'}：${vals.join(' / ')}`);
+  });
+  alert(rows.slice(0,10).join('\n')||'まだ記録なし');
+}
 function currentExercises(){let list;if(state.page==='PRE')list=[E('High-bar SQ',1,'Ascending → Top 135kg × 4〜6','Back-off：Top −5kg × 1'),E('Competition BP',1,'Ascending → Top 85kg × 4〜6','Back-off：Top −2.5kg × 1'),E('Competition DL',1,'Ascending → Top 180kg × 1','必要なら185〜190kg確認')];else if(state.page==='BBB')list=(BBB[state.bbbPart]||BBB['脚']).map(a=>E(a[0],a[1],a[2]));else list=PPP[state.pppWeek]?.[state.pppDay]||[];const ss=session(key());return list.filter((e,i)=>!ss.exercises?.['ex'+i]?.hidden)}
 function programHeader(){if(state.page==='BBB')return `<div class="panel-head"><h2>BBB　Day ${state.bbbDay}　${esc(state.bbbPart)}</h2></div><div class="tabs">${[1,2,3,4,5,6,7].map(d=>`<button class="${state.bbbDay===d?'active':''}" onclick="changeBBBDay(${d})">Day ${d}</button>`).join('')}</div><div class="tabs">${PARTS.map(p=>`<button class="${state.bbbPart===p?'active':''}" onclick="changeBBB('${esc(p)}')">${p}</button>`).join('')}</div>`;if(state.page==='PPP'){const days=Object.keys(PPP[state.pppWeek]||{});return `<div class="panel-head"><h2>PPP</h2><div class="tabs tight">${[1,2,3,4,5,6,7,8].map(w=>`<button class="${state.pppWeek===w?'active':''}" onclick="changePPPWeek(${w})">W${w}</button>`).join('')}</div><div class="tabs">${days.map(d=>`<button class="${state.pppDay===d?'active':''}" onclick="changePPPDay('${esc(d)}')">${esc(d)}</button>`).join('')}</div></div>`}return `<div class="panel-head"><h2>${state.page==='PRE'?'PRE Week 1':'Training'}</h2></div>`}
-function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="restoreExercises('${esc(k)}')">閉じた種目を戻す</button></div></div>`}
+function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="saveAndReset('${esc(k)}')">保存して新規開始</button><button class="secondary" onclick="resetCurrent('${esc(k)}')">現在の記録をリセット</button><button class="secondary" onclick="restoreExercises('${esc(k)}')">閉じた種目を戻す</button></div></div>`}
 function renderHome(){document.getElementById('title').textContent=new Date().getMonth()+1+'月'+new Date().getDate()+'日　トレーニング';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>Workout Log</h2><div class="notice">処方と実績を分離。Main / Ascending / セット別Drop / BBB / PPPを一つにまとめたログ。</div><h3>プログラムから一発呼び出し</h3><div class="program-grid"><button onclick="go('PRE')">PRE Week 1</button><button onclick="state.bbbDay=1;state.bbbPart='脚';go('BBB')">BBB</button>${[1,2,3,4,5,6,7,8].map(w=>`<button onclick="state.pppWeek=${w};state.pppDay=Object.keys(PPP[${w}]||{})[0]||'D1';go('PPP')">PPP W${w}</button>`).join('')}</div></div></div>`}
 function renderHistory(){const arr=[];Object.entries(db.sessions).forEach(([k,s])=>{(s.history||[]).forEach((h,i)=>arr.push({k,s,h,i}))});arr.sort((a,b)=>b.h.savedAt-a.h.savedAt);document.getElementById('title').textContent='履歴';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>履歴</h2><div class="small">同じ曜日・同じ種目でも、保存するたびに別ログとして残る。</div>${arr.length?arr.map((o,idx)=>`<div class="history-row"><b>${esc(o.h.label||o.k)}</b><div class="small">${esc(o.h.date||'—')}　保存：${new Date(o.h.savedAt).toLocaleString('ja-JP')}</div><button onclick="openHistory(${idx})">この記録を開く</button></div>`).join(''):'<div class="small" style="margin-top:10px">保存履歴なし</div>'}</div></div>`;window._history=arr}
 function restoreExercises(k){Object.values(session(k).exercises||{}).forEach(x=>x.hidden=false);save();render();toast('閉じた種目を戻しました')}
-function saveDay(k){const s=session(k);s.history??=[];s.history.push({savedAt:Date.now(),date:s.date,weight:s.weight,label:k,data:JSON.parse(JSON.stringify(s))});s.savedAt=Date.now();save();toast('記録を保存しました')}
+function saveDay(k){
+  const s=session(k);
+  s.history??=[];
+  s.history.push({savedAt:Date.now(),date:s.date,label:k,data:JSON.parse(JSON.stringify(s))});
+  s.savedAt=Date.now();save();toast('記録を保存しました');
+}
+function saveAndReset(k){
+  const s=session(k),history=s.history||[];
+  history.push({savedAt:Date.now(),date:s.date,label:k,data:JSON.parse(JSON.stringify(s))});
+  db.sessions[k]={date:'',weight:'',sleep:0,fatigue:0,note:'',exercises:{},savedAt:0,history};
+  save();render();scrollTo(0,0);toast('保存して新しい記録を開始しました');
+}
+function resetCurrent(k){
+  if(!confirm('現在の未保存記録をリセットしますか？'))return;
+  const history=session(k).history||[];
+  db.sessions[k]={date:'',weight:'',sleep:0,fatigue:0,note:'',exercises:{},savedAt:0,history};
+  save();render();scrollTo(0,0);
+}
 function openHistory(i){const o=window._history?.[i];if(!o)return;const h=o.h.data;db.sessions[o.k]=JSON.parse(JSON.stringify(h));db.sessions[o.k].history=o.s.history||[];if(o.k.startsWith('BBB|')){const q=o.k.split('|');state.page='BBB';state.bbbDay=Number((q[1]||'D1').replace('D',''))||1;state.bbbPart=q[2]||'脚'}else if(o.k.startsWith('PPP|')){const q=o.k.split('|');state.page='PPP';state.pppWeek=Number(q[1].slice(1));state.pppDay=q[2]}else state.page='PRE';save();render();scrollTo(0,0)}
 
 function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='HISTORY')renderHistory();else renderProgram()}render();
