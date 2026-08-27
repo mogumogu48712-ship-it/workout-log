@@ -62,6 +62,10 @@ textarea{min-height:64px;resize:vertical}
 .history-item{border-top:1px solid #eee;padding:9px 0}.history-item:first-child{border-top:0}
 .workbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}.worktime{font-variant-numeric:tabular-nums;font-weight:800}.workbar button{border:1px solid #ccc;background:#fff;border-radius:8px;padding:6px 8px;font-size:11px}
 @media(max-width:390px){.meta{grid-template-columns:1fr 1fr}.settop{grid-template-columns:36px 1fr 1fr 1fr}.set input{font-size:14px}.timer-grid{grid-template-columns:1fr}}
+.exercise-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.exercise-actions button{flex:1 1 auto;border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 8px;font-size:11px;font-weight:800}
+.complete-btn{margin-top:7px;border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:800;width:100%}
+.complete-btn.done{background:#111;color:#fff}
 </style>
 </head>
 <body>
@@ -139,15 +143,14 @@ function meta(k){
 function setMetaNum(k,f,n){get(k)[f]=n;save();render()}
 
 function row(k,id,i,r){
- return `<div class="set">
- <div class="settop"><div class="setno">Set ${i+1}</div>
- <div><label>重量 kg</label><input inputmode="decimal" data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="weight" value="${esc(r.weight||"")}"></div>
- <div><label>Rep</label><input inputmode="numeric" data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="rep" value="${esc(r.rep||"")}"></div>
- <div><label>RPE</label><input inputmode="decimal" data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="rpe" value="${esc(r.rpe||"")}"></div></div>
- <div class="formrow"><div><label>フォーム</label><select data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="form"><option value="">—</option><option ${r.form=="◎"?"selected":""}>◎</option><option ${r.form=="○"?"selected":""}>○</option><option ${r.form=="△"?"selected":""}>△</option><option ${r.form=="×"?"selected":""}>×</option></select></div>
- <div><label>メモ</label><input data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="memo" value="${esc(r.memo||"")}"></div></div>
- <div class="set-actions"><button class="${r.done?"done":""}" onclick="toggleDone('${esc(k)}','${esc(id)}#${i}')">${r.done?"✓ 完了":"セット完了"}</button></div>
- </div>`;
+ const d=get(k),key=id+"#"+i,r2=r||{};
+ return `<div class="set"><div class="settop"><div class="setno">Set ${i+1}</div>
+ <div><label>重量 kg</label><input inputmode="decimal" data-row="${esc(k)}" data-id="${esc(key)}" data-f="weight" value="${esc(r2.weight||"")}"></div>
+ <div><label>Rep</label><input inputmode="numeric" data-row="${esc(k)}" data-id="${esc(key)}" data-f="rep" value="${esc(r2.rep||"")}"></div>
+ <div><label>RPE</label><input inputmode="decimal" data-row="${esc(k)}" data-id="${esc(key)}" data-f="rpe" value="${esc(r2.rpe||"")}"></div></div>
+ <div class="formrow"><div><label>フォーム</label><select data-row="${esc(k)}" data-id="${esc(key)}" data-f="form"><option value="">—</option><option ${r2.form=="◎"?"selected":""}>◎</option><option ${r2.form=="○"?"selected":""}>○</option><option ${r2.form=="△"?"selected":""}>△</option><option ${r2.form=="×"?"selected":""}>×</option></select></div>
+ <div><label>メモ</label><input data-row="${esc(k)}" data-id="${esc(key)}" data-f="memo" value="${esc(r2.memo||"")}"></div></div>
+ <button class="complete-btn ${r2.completed?"done":""}" onclick="completeSet('${esc(k)}','${esc(id)}',${i},this)">${r2.completed?"✓ 完了":"✓ セット完了"}</button></div>`;
 }
 function dropRows(k,id,i){
  const d=get(k), key=id+"#"+i+"#drops", arr=d.sets[key]||[];
@@ -178,8 +181,13 @@ function exerciseCard(k,e,index,opts={}){
  return `<div class="exercise"><div class="exhead"><div class="exname">${esc(name)}</div><button class="timer-btn" onclick="openExerciseTimer('${esc(k)}','${esc(id)}')">⏱</button>
  <div class="rx"><strong>処方：</strong>${count}セット × ${esc(e.rep)}${e.rx?"｜"+esc(e.rx):""}${e.note?"<br>"+esc(e.note):""}</div>
  ${opts.bbb?replaceUI(k,id,base):""}${opts.bbb?`<div class="countctl"><button onclick="changeCount('${esc(k)}','${esc(id)}',-1)">−</button><span>Main ${count}セット</span><button onclick="changeCount('${esc(k)}','${esc(id)}',1)">＋</button></div>`:""}
- <div class="tools"><button onclick="copyPrevious('${esc(k)}','${esc(id)}',${count})">前回コピー</button></div></div>
- ${timerPanel(k,id)}
+ <div class="tools exercise-actions">
+  <button onclick="changeCount('${esc(k)}','${esc(id)}',-1)">−セット</button>
+  <button onclick="changeCount('${esc(k)}','${esc(id)}',1)">＋セット</button>
+  <button onclick="openExerciseTimer('${esc(k)}','${esc(id)}')">⏱ 時計</button>
+  <button onclick="addDrop('${esc(k)}','${esc(id)}',${Math.max(0,count-1)})">＋Drop</button>
+  <button onclick="copyPrevious('${esc(k)}','${esc(id)}',${count})">前回</button>
+</div></div>
  <div class="ascbox"><div class="asctop"><b>Ascending Set</b><span>${ascCount}セット</span><button onclick="changeAscCount('${esc(k)}','${esc(id)}',-1)">−</button><button onclick="changeAscCount('${esc(k)}','${esc(id)}',1)">＋</button></div>
  ${Array.from({length:ascCount},(_,i)=>row(k,ascKey,i,d.sets[ascKey+"#"+i]||{})).join("")}</div>
  <div class="sectiontitle">Main Set</div>${rows}</div>`;
@@ -229,6 +237,7 @@ function setBBBDay(v){bbbDay=v;localStorage.setItem("pbBBBDayV13",v);render()}
 function changeCount(k,id,delta){const d=get(k),e=d.exercises[id]??={count:1};e.count=Math.max(1,Math.min(30,(e.count??1)+delta));save();render()}
 function replaceExercise(k,id,val,part){if(!val)return;const d=get(k);d.exercises[id]??={};d.exercises[id].part=val;d.exercises[id].name=(PARTS[val]||[])[0]||"";save();render()}
 function setExerciseName(k,id,name){if(!name)return;const d=get(k);d.exercises[id]??={};d.exercises[id].name=name;save();render()}
+function completeSet(k,id,i,btn){const d=get(k),key=id+"#"+i;d.sets[key]??={};d.sets[key].completed=!d.sets[key].completed;save();btn.classList.toggle("done",!!d.sets[key].completed);btn.textContent=d.sets[key].completed?"✓ 完了":"✓ セット完了"}
 function addDrop(k,id,i){const d=get(k),key=id+"#"+i+"#drops";d.sets[key]??=[];d.sets[key].push({});save();render()}
 function removeDrop(k,id,i,j){const d=get(k),key=id+"#"+i+"#drops",a=d.sets[key]||[];a.splice(j,1);save();render()}
 function changeAscCount(k,id,delta){const d=get(k),key=id+"#asc";d.exercises[key]??={count:3};d.exercises[key].count=Math.max(1,Math.min(15,(d.exercises[key].count??3)+delta));save();render()}
