@@ -13,6 +13,9 @@ button{cursor:pointer}
 header{position:sticky;top:0;z-index:50;background:#111;color:#fff;padding:12px}
 h1{font-size:20px;margin:0}.sub{font-size:11px;opacity:.7;margin-top:3px}
 main{max-width:600px;margin:auto;padding:7px 9px 70px}
+#fixedTimer{position:fixed;right:10px;bottom:10px;z-index:100;background:#111;color:#fff;border-radius:12px;padding:7px 9px;box-shadow:0 3px 14px #0003;display:none;min-width:145px}
+#fixedTimer.show{display:block}.ftop{display:flex;align-items:center;justify-content:space-between;gap:8px}.ftitle{font-size:11px;font-weight:800}.fdisplay{font-size:25px;font-weight:900;font-variant-numeric:tabular-nums}.factions{display:flex;gap:4px}.factions button{border:0;border-radius:6px;padding:4px 7px;font-size:11px;font-weight:800}
+
 .tabs{position:sticky;top:61px;z-index:40;background:#f2f2f2;padding:5px 0 8px;display:flex;gap:6px;overflow-x:auto}
 .tabs button,.daytabs button,.weektabs button{white-space:nowrap;border:1px solid #ccc;background:#fff;border-radius:9px;padding:8px 11px;font-weight:750}
 .tabs button.active,.daytabs button.active,.weektabs button.active{background:#111;color:#fff;border-color:#111}
@@ -48,7 +51,7 @@ textarea{min-height:64px;resize:vertical}
 .countctl span{font-size:12px;font-weight:750}
 .replace{margin-top:7px}
 .tools{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}.tools button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 8px;font-size:11px}
-.dropbox{padding:0 9px 8px}.dropitem{display:grid;grid-template-columns:1fr 1fr auto;gap:5px;margin-top:5px}
+.dropbox{padding:3px 9px 8px}.dropitem{display:grid;grid-template-columns:1fr 1fr auto;gap:5px;margin-top:5px}.dropadd{margin-top:6px;border:1px solid #ccc;background:#fff;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:750}
 .dropitem button{border:1px solid #ccc;background:#fff;border-radius:7px}
 .daytabs,.weektabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:7px}
 .action{display:flex;gap:7px;margin-top:9px}.action button{flex:1;border:0;border-radius:9px;padding:10px;font-weight:800}.primary{background:#111;color:#fff}.secondary{background:#e7e7e7}
@@ -61,6 +64,7 @@ textarea{min-height:64px;resize:vertical}
 <body>
 <header><h1>Workout Log</h1><div class="sub">Power Building｜PRE → BBB → PPP W1〜W8 → TEST</div></header>
 <main><div id="tabs" class="tabs"></div><div id="app"></div></main>
+<div id="fixedTimer"><div class="ftop"><span class="ftitle" id="ftitle">休憩</span><button onclick="closeFixedTimer()" style="border:0;border-radius:6px;padding:3px 6px">×</button></div><div class="fdisplay" id="fdisplay">00:00</div><div class="factions"><button onclick="startFixedTimer()">▶</button><button onclick="stopFixedTimer()">■</button><button onclick="resetFixedTimer()">↺</button></div></div>
 <script>
 "use strict";
 const TABS=["HOME","PRE","BBB","PPP W1","PPP W2","PPP W3","PPP W4","PPP W5","PPP W6","PPP W7","PPP W8","HISTORY"];
@@ -133,10 +137,11 @@ function row(k,id,i,r){
  <div class="set-actions"><button class="${r.done?"done":""}" onclick="toggleDone('${esc(k)}','${esc(id)}#${i}')">${r.done?"✓ 完了":"セット完了"}</button></div>
  </div>`;
 }
-function dropRows(k,id){
- const d=get(k), arr=d.sets[id+"#drops"]||[];
- if(!arr.length)return "";
- return `<div class="dropbox">${arr.map((r,i)=>`<div class="dropitem"><input inputmode="decimal" placeholder="重量 kg" data-row="${esc(k)}" data-id="${esc(id)}#drops#${i}" data-f="weight" value="${esc(r.weight||"")}"><input inputmode="numeric" placeholder="Rep" data-row="${esc(k)}" data-id="${esc(id)}#drops#${i}" data-f="rep" value="${esc(r.rep||"")}"><button onclick="removeDrop('${esc(k)}','${esc(id)}',${i})">×</button></div>`).join("")}</div>`;
+function dropRows(k,id,i){
+ const d=get(k), key=id+"#"+i+"#drops", arr=d.sets[key]||[];
+ return `<div class="dropbox"><div class="small"><b>Drop Set</b></div>
+ ${arr.map((r,j)=>`<div class="dropitem"><input inputmode="decimal" placeholder="重量 kg" data-row="${esc(k)}" data-id="${esc(key)}#${j}" data-f="weight" value="${esc(r.weight||"")}"><input inputmode="numeric" placeholder="Rep" data-row="${esc(k)}" data-id="${esc(key)}#${j}" data-f="rep" value="${esc(r.rep||"")}"><button onclick="removeDrop('${esc(k)}','${esc(id)}',${i},${j})">×</button></div>`).join("")}
+ <button class="dropadd" onclick="addDrop('${esc(k)}','${esc(id)}',${i})">＋ Drop Set追加</button></div>`;
 }
 function timerPanel(k,id){
  const d=get(k), t=d.timer||{};
@@ -149,16 +154,18 @@ function timerPanel(k,id){
 }
 function exerciseCard(k,e,index,opts={}){
  const d=get(k), base=e.name, id=(opts.prefix||"EX")+"|"+index+"|"+base.replace(/[|#]/g,"_");
+ const ascKey=id+"#asc", ascCount=Math.max(1,Math.min(15,Number(d.exercises[ascKey]?.count??3)));
  const custom=d.exercises[id]||{};
  const name=custom.name||base;
  const count=custom.count??e.sets;
  let rows="";
- for(let i=0;i<count;i++)rows+=row(k,id,i,d.sets[id+"#"+i]||{});
+ for(let i=0;i<count;i++)rows+=row(k,id,i,d.sets[id+"#"+i]||{})+dropRows(k,id,i);
  return `<div class="exercise"><div class="exhead"><div class="exname">${esc(name)}</div><button class="timer-btn" onclick="toggleTimer('${esc(id)}')">⏱</button>
  <div class="rx"><strong>処方：</strong>${count}セット × ${esc(e.rep)}${e.rx?"｜"+esc(e.rx):""}${e.note?"<br>"+esc(e.note):""}</div>
  ${opts.bbb?replaceUI(k,id,base):""}${opts.bbb?`<div class="countctl"><button onclick="changeCount('${esc(k)}','${esc(id)}',-1)">−</button><span>${count}セット</span><button onclick="changeCount('${esc(k)}','${esc(id)}',1)">＋</button></div>`:""}
- <div class="tools"><button onclick="addDrop('${esc(k)}','${esc(id)}')">＋ Drop Set</button><button onclick="copyPrevious('${esc(k)}','${esc(id)}',${count})">前回コピー</button></div></div>
- ${timerPanel(k,id)}${rows}${dropRows(k,id)}</div>`;
+ <div class="countctl"><span>Ascending ${ascCount}セット</span><button onclick="changeAscCount('${esc(k)}','${esc(id)}',-1)">−</button><button onclick="changeAscCount('${esc(k)}','${esc(id)}',1)">＋</button></div>
+ <div class="tools"><button onclick="copyPrevious('${esc(k)}','${esc(id)}',${count})">前回コピー</button></div></div>
+ ${timerPanel(k,id)}<div class="sectiontitle">Ascending Set</div>${Array.from({length:ascCount},(_,i)=>row(k,ascKey,i,d.sets[ascKey+"#"+i]||{})).join("")}<div class="sectiontitle">Main Set</div>${rows}</div>`;
 }
 function replaceUI(k,id,base){
  const d=get(k), custom=d.exercises[id]||{}, part=custom.part||"脚";
@@ -205,8 +212,9 @@ function setBBBDay(v){bbbDay=v;localStorage.setItem("pbBBBDayV13",v);render()}
 function changeCount(k,id,delta){const d=get(k),e=d.exercises[id]??={count:1};e.count=Math.max(1,Math.min(30,(e.count??1)+delta));save();render()}
 function replaceExercise(k,id,val,part){if(!val)return;const d=get(k);d.exercises[id]??={};d.exercises[id].part=val;d.exercises[id].name=(PARTS[val]||[])[0]||"";save();render()}
 function setExerciseName(k,id,name){if(!name)return;const d=get(k);d.exercises[id]??={};d.exercises[id].name=name;save();render()}
-function addDrop(k,id){const d=get(k);d.sets[id+"#drops"]??=[];d.sets[id+"#drops"].push({});save();render()}
-function removeDrop(k,id,i){const d=get(k),a=d.sets[id+"#drops"]||[];a.splice(i,1);save();render()}
+function addDrop(k,id,i){const d=get(k),key=id+"#"+i+"#drops";d.sets[key]??=[];d.sets[key].push({});save();render()}
+function removeDrop(k,id,i,j){const d=get(k),key=id+"#"+i+"#drops",a=d.sets[key]||[];a.splice(j,1);save();render()}
+function changeAscCount(k,id,delta){const d=get(k),key=id+"#asc";d.exercises[key]??={count:3};d.exercises[key].count=Math.max(1,Math.min(15,(d.exercises[key].count??3)+delta));save();render()}
 function copyPrevious(k,id,count){const d=get(k),hist=Object.entries(store).filter(([kk,v])=>kk!==k&&v.savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt)[0];if(!hist)return alert("前回保存ログがありません");const src=hist[1].sets||{};for(let i=0;i<count;i++)d.sets[id+"#"+i]={...(src[id+"#"+i]||{})};save();render()}
 function commit(k){get(k).savedAt=Date.now();save();alert("保存しました")}
 function resetDay(k){if(confirm("この日の入力をリセットしますか？")){delete store[k];save();render()}}
@@ -215,8 +223,24 @@ function timerKey(id,type){return id+"|"+type}
 function toggleTimer(id){openTimers[id]=!openTimers[id];localStorage.setItem("pbOpenTimersV13",JSON.stringify(openTimers));const e=document.getElementById("tp-"+id);if(e)e.classList.toggle("hidden",!openTimers[id])}
 function setTimerValue(k,type,v){const d=get(k);d.timer??={};d.timer[type]=Math.max(0,Math.min(900,Number(v)||0));save()}
 function beep(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=880;g.gain.value=.16;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.18);setTimeout(()=>c.close(),400)}catch(e){}if(navigator.vibrate)navigator.vibrate(180)}
-function startRest(k,id,type){stopTimer(id,type);const seconds=Math.max(0,Math.min(900,Number(get(k).timer?.[type]||0)));if(seconds<=0)return;const key=timerKey(id,type),end=Date.now()+seconds*1000;timers[key]={end};const tick=()=>{const left=Math.max(0,Math.ceil((timers[key].end-Date.now())/1000));const el=document.getElementById("td-"+id+"-"+type);if(el)el.textContent=fmt(left);if(left<=0){clearInterval(timers[key].iv);delete timers[key];beep();}else timers[key].iv=setTimeout(tick,250)};tick()}
-function stopTimer(id,type){const key=timerKey(id,type);if(timers[key]){clearTimeout(timers[key].iv);delete timers[key]}const el=document.getElementById("td-"+id+"-"+type);if(el)el.textContent="--:--"}
+function startRest(k,id,type){
+ stopTimer(id,type);
+ const seconds=Math.max(0,Math.min(900,Number(get(k).timer?.[type]||0)));
+ if(seconds<=0)return;
+ const key=timerKey(id,type),end=Date.now()+seconds*1000;
+ timers[key]={end,k,id,type};
+ showFixedTimer(k,id,type);
+ const tick=()=>{const left=Math.max(0,Math.ceil((timers[key].end-Date.now())/1000));
+ const el=document.getElementById("fdisplay");if(el)el.textContent=fmt(left);
+ if(left<=0){clearTimeout(timers[key].iv);delete timers[key];beep();}else timers[key].iv=setTimeout(tick,250)};
+ tick();
+}
+function showFixedTimer(k,id,type){window.fixedTimer={k,id,type};document.getElementById("fixedTimer").classList.add("show");document.getElementById("ftitle").textContent=type==="rest"?"セット間休憩":"種目間休憩";const d=get(k),sec=Number(d.timer?.[type]||0);document.getElementById("fdisplay").textContent=fmt(sec)}
+function closeFixedTimer(){stopFixedTimer();document.getElementById("fixedTimer").classList.remove("show");window.fixedTimer=null}
+function startFixedTimer(){const f=window.fixedTimer;if(f)startRest(f.k,f.id,f.type)}
+function stopFixedTimer(){const f=window.fixedTimer;if(!f)return;stopTimer(f.id,f.type)}
+function resetFixedTimer(){const f=window.fixedTimer;if(!f)return;stopTimer(f.id,f.type);const sec=Number(get(f.k).timer?.[f.type]||0);document.getElementById("fdisplay").textContent=fmt(sec)}
+function stopTimer(id,type){const key=timerKey(id,type);if(timers[key]){clearTimeout(timers[key].iv);delete timers[key]}}
 function startWork(k){if(workIntervals[k])return;const d=get(k);d.workStartedAt=d.workStartedAt||Date.now()-Number(d.workSeconds||0)*1000;workIntervals[k]=setInterval(()=>{d.workSeconds=Math.floor((Date.now()-d.workStartedAt)/1000);const el=document.getElementById("wt-"+k);if(el)el.textContent=fmt(d.workSeconds);save()},1000)}
 function stopWork(k){if(workIntervals[k]){clearInterval(workIntervals[k]);delete workIntervals[k];get(k).workStartedAt=null;save();syncWorkBars()}}
 function resetWork(k){if(workIntervals[k]){clearInterval(workIntervals[k]);delete workIntervals[k]}const d=get(k);d.workSeconds=0;d.workStartedAt=null;save();syncWorkBars()}
