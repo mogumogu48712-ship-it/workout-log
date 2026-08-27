@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111">
-<title>Workout Log V20</title>
+<title>Workout Log V21</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f2f2f2;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
@@ -32,6 +32,7 @@ textarea{min-height:70px}
 .set input{text-align:center;padding:8px 5px}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
 .set-actions{display:flex;gap:5px;margin-top:7px}.set-actions button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 8px;font-size:11px;font-weight:850}
 .set-actions .complete{flex:1}.set-actions .drop{flex:1}.set-actions .clock{flex:0 0 44px;font-size:15px;padding:5px}.set-actions .done{background:#111;color:#fff}
+.asc-controls button{min-width:70px}
 .dropbox{display:none;margin-top:6px;padding:7px;background:#f7f7f7;border-radius:8px}.dropbox.open{display:block}
 .dropitem{display:grid;grid-template-columns:1fr 1fr 32px;gap:5px;margin:5px 0}.dropitem button{border:1px solid #ccc;background:#fff;border-radius:7px;font-weight:900}
 .dropadd,.dropdel{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:800}
@@ -85,12 +86,12 @@ PPP[7]={D1:[E("Competition SQ",3,"2","75%"),E("Competition BP",3,"3","75%")],D2:
 PPP[8]={"TEST前":[E("Competition SQ",1,"2","50〜60%","動作確認のみ"),E("Competition BP",1,"2","50〜60%","動作確認のみ"),E("Competition DL",1,"1","50〜60%","動作確認のみ")],"TEST":[E("SQ 1RM",3,"試技","SQ → BP → DL"),E("BP 1RM",3,"試技","SQ → BP → DL"),E("DL 1RM",3,"試技","SQ → BP → DL")]};
 
 let current="HOME",bbbDay=localStorage.getItem("bbbDay")||"脚",pppWeek=Number(localStorage.getItem("pppWeek")||1);
-let store=JSON.parse(localStorage.getItem("pbWorkoutV20")||"{}");
+let store=JSON.parse(localStorage.getItem("pbWorkoutV21")||"{}");
 let timerState=null,timerIv=null,workStarted=Number(localStorage.getItem("workStarted")||0),workElapsed=Number(localStorage.getItem("workElapsed")||0);
 const nav=document.getElementById("nav"),app=document.getElementById("app");
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const get=k=>(store[k]??={sets:{},exercises:{}});
-const save=()=>localStorage.setItem("pbWorkoutV20",JSON.stringify(store));
+const save=()=>localStorage.setItem("pbWorkoutV21",JSON.stringify(store));
 const fmt=s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
 const fmtWork=s=>{s=Math.max(0,Math.floor(s));return String(Math.floor(s/3600)).padStart(2,"0")+":"+String(Math.floor(s/60)%60).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
 
@@ -140,7 +141,13 @@ function exerciseCard(k,e,index){
  <div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?"｜"+esc(e.rx):""}${e.note?"<br>"+esc(e.note):""}</div></div>
  <div class="sectiontitle">Ascending Set</div>${ascRows(k,id,ascCount)}
  <div class="sectiontitle">Main Set（${count}セット）</div>${Array.from({length:count},(_,i)=>mainRow(k,id,i)).join("")}
- <div class="asc-head"><span class="small">Mainセット数</span><div class="asc-controls"><button onclick="changeMain('${esc(k)}','${esc(id)}',-1)">−</button><button onclick="changeMain('${esc(k)}','${esc(id)}',1)">＋</button></div></div>
+ <div class="asc-head">
+  <span class="small">Main Set</span>
+  <div class="asc-controls">
+    <button onclick="changeMain('${esc(k)}','${esc(id)}',-1)">セット削除</button>
+    <button onclick="changeMain('${esc(k)}','${esc(id)}',1)">セット追加</button>
+  </div>
+</div>
  </div>`;
 }
 
