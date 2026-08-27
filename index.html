@@ -152,6 +152,15 @@ html,body{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 .history-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:13px;opacity:.8}
 .history-bottom button{min-width:72px}
 .empty{padding:18px 4px;opacity:.7}
+
+.record-exercises{display:flex;flex-direction:column;gap:6px}
+.record-exercise{border:1px solid #3b414b;border-radius:10px;background:#15181d;overflow:hidden;cursor:pointer}
+.record-exercise-head{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;font-size:15px}
+.record-exercise-head span{font-size:12px;opacity:.65}
+.record-exercise-detail{display:none;padding:0 12px 10px;border-top:1px solid #30353d}
+.record-exercise.open .record-exercise-detail{display:block}
+.record-set{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #292e35;font-size:13px}
+.record-set:last-child{border-bottom:0}
 </style></head>
 <body>
 <header><div class="top"><button onclick="goHome()">‹</button><h1 id="title">トレーニング</h1><button class="menu" onclick="toggleNav()">☰</button></div><nav id="nav"></nav></header>
@@ -397,26 +406,36 @@ function renderHistory(){
     if(k.startsWith('PPP|'))return 'W'+(k.split('|')[1]?.replace('W','')||'')+' '+(k.split('|')[2]||'');
     return 'Week 1';
   };
-  const countSets=h=>Object.values(h.data?.sets||{}).filter(r=>r&&r.weight!==''&&r.rep!=='').length;
-  const summary=o=>{
+  const records=o=>{
     const exs=Object.values(o.h.data?.exercises||{}).filter(x=>x&&!x.hidden);
-    return exs.slice(0,5).map(x=>x.name).join(' / ');
+    return exs.map((x,i)=>{
+      const sets=Object.values(x.sets||{}).filter(r=>r&&r.weight!==''&&r.rep!=='');
+      return `<div class="record-exercise" onclick="this.classList.toggle('open')">
+        <div class="record-exercise-head">
+          <strong>${esc(x.name||'種目')}</strong>
+          <span>${sets.length}セット　⌄</span>
+        </div>
+        <div class="record-exercise-detail">
+          ${sets.length?sets.map((r,j)=>`<div class="record-set"><span>Set ${j+1}</span><span>${esc(String(r.weight))} kg × ${esc(String(r.rep))}${r.rpe!==''&&r.rpe!=null?`　RPE ${esc(String(r.rpe))}`:''}</span></div>`).join(''):'<div class="small">記録なし</div>'}
+        </div>
+      </div>`;
+    }).join('');
   };
 
   const rows=arr.map((o,idx)=>{
-    const prog=programOf(o.k), day=dayOf(o.k), sets=countSets(o.h);
+    const prog=programOf(o.k), day=dayOf(o.k);
     return `<div class="history-row">
       <div class="history-top"><strong>${prog}</strong><span>${esc(day)}</span></div>
       <div class="history-date">${esc(o.h.date||'日付未入力')}</div>
-      <div class="history-summary">${esc(summary(o)||'種目記録なし')}</div>
-      <div class="history-bottom"><span>${sets}セット記録</span><button type="button" onclick="openHistory(${idx})">開く</button></div>
+      <div class="history-exercises">${records(o)||'<div class="empty">種目記録なし。</div>'}</div>
+      <div class="history-bottom"><button type="button" onclick="event.stopPropagation();openHistory(${idx})">この記録を開く</button></div>
     </div>`;
   }).join('');
 
   document.getElementById('app').innerHTML=`<div class="card record-page">
     <div class="panel-head">
       <h2>記録</h2>
-      <div class="small">保存した過去のトレーニングだけを表示。トレーニング画面とは完全に分離。</div>
+      <div class="small">種目をタップするとセット記録を展開。</div>
     </div>
     <div class="record-count">${arr.length}件</div>
     <div class="history-list">${rows||'<div class="empty">保存した記録はまだありません。</div>'}</div>
