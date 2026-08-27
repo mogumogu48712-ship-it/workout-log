@@ -3,125 +3,226 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Workout Log V12</title>
+<meta name="theme-color" content="#111">
+<title>Workout Log V13</title>
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f3f3f3;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
-header{background:#111;color:#fff;padding:12px;position:sticky;top:0;z-index:50}h1{font-size:20px;margin:0}header p{font-size:11px;opacity:.7;margin:3px 0 0}main{max-width:560px;margin:auto;padding:6px 8px 70px}
-#nav{position:sticky;top:59px;z-index:40;display:flex;gap:5px;overflow-x:auto;background:#f3f3f3;padding:5px 0 8px}#nav button,.tabs button{flex:0 0 auto;border:1px solid #ccc;background:#fff;border-radius:9px;padding:8px 11px;font-weight:800;font-size:13px}#nav button.active,.tabs button.active{background:#111;color:#fff;border-color:#111}
-.card,.exercise{background:#fff;border:1px solid #d2d2d2;border-radius:13px;margin:8px 0}.card{padding:11px}.exercise{overflow:hidden}.exercise+.exercise{margin-top:9px}
-h2{font-size:18px;margin:0 0 8px}h3{font-size:15px;margin:14px 0 7px}.small{font-size:11px;color:#666}.notice{font-size:12px;line-height:1.55;background:#f7f7f7;border-radius:9px;padding:9px}
-.tabs{display:flex;gap:5px;overflow-x:auto;margin:0 0 8px;padding-bottom:2px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}label{display:block;font-size:11px;color:#666;margin-bottom:3px}input,select,textarea{width:100%;border:1px solid #c8c8c8;border-radius:8px;background:#fff;padding:8px}textarea{min-height:65px;resize:vertical}.choice{display:flex;gap:3px}.choice button{flex:1;border:1px solid #ccc;background:#fff;border-radius:7px;padding:7px 2px}.choice button.on{background:#111;color:#fff}
-.exhead{padding:10px;border-bottom:1px solid #ddd;position:relative}.exname{font-size:16px;font-weight:850;line-height:1.3;padding-right:44px;overflow-wrap:anywhere}.rx{font-size:11px;line-height:1.5;color:#555;margin-top:4px;overflow-wrap:anywhere}.rx strong{color:#111}
-.timer-toggle{position:absolute;right:9px;top:9px;border:1px solid #ccc;background:#f7f7f7;border-radius:8px;padding:5px 7px;font-size:12px;font-weight:850;z-index:3}.timer-toggle.running{background:#111;color:#fff}.timer-panel{margin:8px 10px 0;border:1px solid #d4d4d4;background:#f7f7f7;border-radius:10px;padding:7px}.timer-panel.hidden{display:none}.timer-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.timer-box{background:#fff;border-radius:8px;padding:6px;text-align:center}.timer-label{font-size:9px;color:#666}.timer-clock{font-size:19px;font-weight:850;font-variant-numeric:tabular-nums}.timer-btns{display:flex;gap:4px;margin-top:5px}.timer-btns button{flex:1;border:1px solid #ccc;background:#fff;border-radius:7px;padding:5px 2px;font-size:10px;font-weight:800}.timer-settings{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px}.timer-settings input{text-align:center;padding:5px;font-size:11px}
-.set{padding:8px 9px;border-bottom:1px solid #e7e7e7}.set:last-child{border-bottom:0}.settop{display:grid;grid-template-columns:40px 1fr 1fr 1fr;gap:5px;align-items:end}.setno{font-size:12px;font-weight:850;padding-bottom:8px;overflow-wrap:anywhere}.set input{text-align:center;padding:7px 4px}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px}.set input,.set select{font-size:13px}.setdone{width:100%;border:1px solid #ccc;background:#f5f5f5;border-radius:7px;padding:7px;margin-top:5px;font-size:11px;font-weight:850}.setdone.done{background:#111;color:#fff}.set.drop{background:#f7f7f7;border-left:3px solid #555}.set.extra{background:#fafafa}.settag{font-size:10px;font-weight:850;color:#666;margin-bottom:4px}
-.sectiontitle{padding:8px 10px 3px;background:#fafafa;font-size:11px;font-weight:850;color:#555;border-top:1px solid #eee}.sectiontitle:first-child{border-top:0}.ascbox{background:#fbfbfb;border-bottom:1px solid #ddd}.replace{display:grid;grid-template-columns:34px 1fr;gap:4px 5px;margin-top:7px}.replace label{font-size:10px;align-self:center;margin:0}.replace select{padding:6px;font-size:11px}.countctl{display:flex;align-items:center;gap:6px;margin-top:7px}.countctl button{border:1px solid #ccc;background:#fff;border-radius:7px;width:34px;height:30px;font-size:18px;font-weight:850}.countctl span{min-width:80px;text-align:center;font-size:12px;font-weight:850}.tools{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}.tools button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 7px;font-size:10px;font-weight:800}.exercise-note{padding:8px 10px;border-top:1px solid #ddd}.exercise-note input{font-size:11px}.statsline{font-size:10px;color:#666;margin-top:5px}
-.worktimer{background:#f7f7f7;border-radius:10px;padding:8px;margin:8px 0;display:flex;align-items:center;justify-content:space-between;gap:7px}.workclock{font-size:23px;font-weight:850;font-variant-numeric:tabular-nums}.worktimer button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 7px;font-size:11px;font-weight:800}.worktimer .active{background:#111;color:#fff}
-.summary{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stat{background:#f7f7f7;border-radius:8px;padding:8px}.stat b{display:block;font-size:15px}.stat span{font-size:9px;color:#666}.action{display:flex;gap:6px;margin-top:9px}.action button{flex:1;border:0;border-radius:9px;padding:10px;font-weight:850}.primary{background:#111;color:#fff}.secondary{background:#e8e8e8}.badge{display:inline-block;background:#eee;border-radius:999px;padding:4px 7px;font-size:10px;margin:2px}.history-item{cursor:pointer}.history-date{font-weight:850;font-size:13px}.history-sub{font-size:10px;color:#666;margin-top:3px}.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.home-grid button{border:1px solid #ccc;background:#fff;border-radius:9px;padding:10px;text-align:left;font-weight:800}.home-grid small{display:block;color:#777;font-weight:500;margin-top:3px}
-.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#111;color:#fff;padding:9px 13px;border-radius:999px;font-size:12px;z-index:100;display:none}.toast.show{display:block}
-@media(max-width:390px){.settop{grid-template-columns:35px 1fr 1fr 1fr}.exname{padding-right:42px}.timer-panel{margin-left:7px;margin-right:7px}}
+*{box-sizing:border-box}
+body{margin:0;background:#f2f2f2;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:50;background:#111;color:#fff;padding:12px}
+h1{font-size:20px;margin:0}.sub{font-size:11px;opacity:.7;margin-top:3px}
+main{max-width:600px;margin:auto;padding:7px 9px 70px}
+.tabs{position:sticky;top:61px;z-index:40;background:#f2f2f2;padding:5px 0 8px;display:flex;gap:6px;overflow-x:auto}
+.tabs button,.daytabs button,.weektabs button{white-space:nowrap;border:1px solid #ccc;background:#fff;border-radius:9px;padding:8px 11px;font-weight:750}
+.tabs button.active,.daytabs button.active,.weektabs button.active{background:#111;color:#fff;border-color:#111}
+.card,.exercise{background:#fff;border:1px solid #d1d1d1;border-radius:13px;margin:9px 0}
+.card{padding:11px}.exercise{overflow:hidden}
+h2{font-size:18px;margin:0 0 8px}h3{font-size:15px;margin:13px 0 7px}
+.small{font-size:12px;color:#666}.notice{font-size:12px;line-height:1.5;background:#f7f7f7;border-radius:9px;padding:9px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+label{display:block;font-size:11px;color:#666;margin-bottom:3px}
+input,select,textarea{width:100%;border:1px solid #c8c8c8;border-radius:8px;background:#fff;padding:8px}
+textarea{min-height:64px;resize:vertical}
+.exhead{position:relative;padding:10px;border-bottom:1px solid #ddd}
+.exname{font-size:16px;font-weight:800;line-height:1.3;padding-right:45px;overflow-wrap:anywhere}
+.rx{font-size:12px;color:#555;line-height:1.45;margin-top:4px;overflow-wrap:anywhere}.rx strong{color:#111}
+.timer-btn{position:absolute;right:9px;top:9px;border:1px solid #ccc;background:#f7f7f7;border-radius:8px;padding:5px 8px;font-size:12px;font-weight:800}
+.timer-panel{margin:8px;border:1px solid #d8d8d8;border-radius:10px;background:#f7f7f7;padding:8px}
+.timer-panel.hidden{display:none}
+.timer-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.timer-cell{background:#fff;border:1px solid #ddd;border-radius:8px;padding:7px}
+.timer-display{font-size:25px;font-weight:850;text-align:center;font-variant-numeric:tabular-nums;margin:3px 0 5px}
+.timer-actions{display:flex;gap:5px}.timer-actions button{flex:1;border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px;font-weight:750}
+.timer-actions .go{background:#111;color:#fff}
+.set{padding:8px 9px;border-bottom:1px solid #e8e8e8}.set:last-child{border-bottom:0}
+.settop{display:grid;grid-template-columns:42px 1fr 1fr 1fr;gap:6px;align-items:end}
+.setno{font-size:12px;font-weight:800;padding-bottom:8px}
+.set input{text-align:center;padding:7px 4px}
+.formrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:5px}
+.set-actions{display:flex;gap:5px;margin-top:5px}.set-actions button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:5px 7px;font-size:11px}
+.set-actions button.done{background:#111;color:#fff}
+.sectiontitle{font-size:11px;font-weight:800;color:#666;padding:8px 10px 3px}
+.countctl{display:flex;align-items:center;gap:6px;margin-top:7px}
+.countctl button{width:31px;height:29px;border:1px solid #ccc;background:#fff;border-radius:7px;font-weight:900}
+.countctl span{font-size:12px;font-weight:750}
+.replace{margin-top:7px}
+.tools{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}.tools button{border:1px solid #ccc;background:#fff;border-radius:7px;padding:6px 8px;font-size:11px}
+.dropbox{padding:0 9px 8px}.dropitem{display:grid;grid-template-columns:1fr 1fr auto;gap:5px;margin-top:5px}
+.dropitem button{border:1px solid #ccc;background:#fff;border-radius:7px}
+.daytabs,.weektabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:7px}
+.action{display:flex;gap:7px;margin-top:9px}.action button{flex:1;border:0;border-radius:9px;padding:10px;font-weight:800}.primary{background:#111;color:#fff}.secondary{background:#e7e7e7}
+.badge{display:inline-block;background:#eee;border-radius:999px;padding:4px 7px;font-size:11px;margin:2px}
+.history-item{border-top:1px solid #eee;padding:9px 0}.history-item:first-child{border-top:0}
+.workbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}.worktime{font-variant-numeric:tabular-nums;font-weight:800}.workbar button{border:1px solid #ccc;background:#fff;border-radius:8px;padding:6px 8px;font-size:11px}
+@media(max-width:390px){.meta{grid-template-columns:1fr 1fr}.settop{grid-template-columns:36px 1fr 1fr 1fr}.set input{font-size:14px}.timer-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><h1>Workout Log</h1><p>Power Building｜PRE → BBB → PPP W1〜W8 → TEST</p></header>
-<main><nav id="nav"></nav><div id="app"></div></main><div id="toast" class="toast"></div>
+<header><h1>Workout Log</h1><div class="sub">Power Building｜PRE → BBB → PPP W1〜W8 → TEST</div></header>
+<main><div id="tabs" class="tabs"></div><div id="app"></div></main>
 <script>
-const TABS=["HOME","PRE","BBB","PPP","HISTORY"];
+"use strict";
+const TABS=["HOME","PRE","BBB","PPP W1","PPP W2","PPP W3","PPP W4","PPP W5","PPP W6","PPP W7","PPP W8","HISTORY"];
 const BBB={
- Legs:[["バーベルスクワット",4,"6〜8"],["レッグエクステンション",6,"10〜15"],["ハックスクワット",6,"8〜12"],["レッグプレス",6,"10〜15"],["スミスマシンスクワット",6,"8〜12"],["レッグカール",3,"10〜15"]],
- Chest:[["ベンチプレス",15,"6〜10"],["インクラインベンチプレス",10,"8〜12"],["ダンベルベンチプレス",4,"8〜12"],["ダンベルフライ",5,"10〜15"],["チェストプレスマシン",6,"8〜12"],["ディップチンアシスト",5,"8〜15"]],
- Shoulders:[["OHP",10,"6〜10"],["スミスバックプレス",10,"8〜12"],["ケーブルアップライトロウ",5,"10〜15"],["ダンベルサイドレイズ",10,"12〜20"],["リアデルトフライ",5,"12〜20"],["ショルダープレスマシン",3,"8〜12"]],
- Back:[["デッドリフト",4,"4〜6"],["トップサイドデッドリフト",10,"6〜10"],["バーベルベントオーバーロウ",10,"8〜12"],["Tバーロウマシン",5,"8〜12"],["シーテッドロー",10,"8〜15"],["ラットプルダウン",6,"8〜15"]],
- Arms:[["クローズグリップベンチ",8,""],["JMプレス",8,""],["スミスOHエクステンション",5,""],["バーベルカール",10,"8〜12"],["ケーブルカール",8,"8〜12"],["プリーチャーカール",5,"8〜12"]],
- Forearms:[["リストカール",4,"10〜15"],["リバースリストカール",4,"10〜15"],["リバースカール",3,"8〜12"]],
- Abs:[["アブローラー",4,"8〜15"],["ケーブルクランチ",4,"10〜15"],["ハンギングレッグレイズ",3,"8〜15"]]
+"Legs":[["バーベルスクワット",4,"6〜8"],["レッグエクステンション",6,"10〜15"],["ハックスクワット",6,"8〜12"],["レッグプレス",6,"10〜15"],["スミスマシンスクワット",6,"8〜12"],["レッグカール",3,"10〜15"]],
+"Chest":[["ベンチプレス",15,"6〜10"],["インクラインベンチプレス",10,"8〜12"],["ダンベルベンチプレス",4,"8〜12"],["ダンベルフライ",5,"10〜15"],["チェストプレスマシン",6,"8〜12"],["ディップチンアシスト",5,"8〜15"]],
+"Shoulders":[["OHP",10,"6〜10"],["スミスバックプレス",10,"8〜12"],["ケーブルアップライトロウ",5,"10〜15"],["ダンベルサイドレイズ",10,"12〜20"],["リアデルトフライ",5,"12〜20"],["ショルダープレスマシン",3,"8〜12"]],
+"Back":[["デッドリフト",4,"4〜6"],["トップサイドデッドリフト",10,"6〜10"],["バーベルベントオーバーロウ",10,"8〜12"],["Tバーロウマシン",5,"8〜12"],["シーテッドロー",10,"8〜15"],["ラットプルダウン",6,"8〜15"]],
+"Arms":[["クローズグリップベンチ",8,""],["JMプレス",8,""],["スミスOHエクステンション",5,""],["バーベルカール",10,"8〜12"],["ケーブルカール",8,"8〜12"],["プリーチャーカール",5,"8〜12"]]
 };
-const DAYS=[["月","Legs"],["水","Chest"],["木","Shoulders"],["土","Back"],["日","Arms"]];
-const EXLIB={
- "脚":["バーベルスクワット","ハイバースクワット","ローバースクワット","フロントスクワット","ブルガリアンスクワット","ハックスクワット","レッグプレス","レッグエクステンション","レッグカール","RDL","スティッフレッグデッドリフト"],
- "胸":["ベンチプレス","ポーズベンチプレス","ラーセンベンチ","インクラインベンチプレス","ダンベルベンチプレス","ダンベルフライ","チェストプレスマシン","ディップス"],
- "背中":["デッドリフト","トップサイドデッドリフト","ベントオーバーロウ","ワンハンドロウ","Tバーロウマシン","シーテッドロー","ラットプルダウン","ワイドグリップTバーロウ"],
- "肩":["OHP","スミスバックプレス","ダンベルショルダープレス","ショルダープレスマシン","ダンベルサイドレイズ","ケーブルアップライトロウ","リアデルトフライ","フェイスプル"],
- "三頭":["クローズグリップベンチ","JMプレス","スミスOHエクステンション","ライイングトライセプスエクステンション","ローププレスダウン","ディップス"],
- "二頭":["バーベルカール","EZバーカール","ダンベルカール","インクラインカール","ケーブルカール","プリーチャーカール","ハンマーカール"],
- "前腕":["リストカール","リバースリストカール","リバースカール","ハンマーカール","ケーブルリストカール"],
- "腹筋":["アブローラー","ケーブルクランチ","マシンクランチ","ハンギングレッグレイズ","レッグレイズ","プランク"]
+const PARTS={
+"脚":["バーベルスクワット","ハックスクワット","レッグプレス","レッグエクステンション","レッグカール","ブルガリアンスクワット","RDL","カーフレイズ"],
+"胸":["ベンチプレス","インクラインベンチプレス","ダンベルベンチプレス","ダンベルフライ","チェストプレスマシン","ディップチンアシスト"],
+"背中":["デッドリフト","トップサイドデッドリフト","ベントオーバーロウ","Tバーロウマシン","シーテッドロー","ラットプルダウン","ワイドグリップTバーロウ"],
+"肩":["OHP","スミスバックプレス","ケーブルアップライトロウ","ダンベルサイドレイズ","リアデルトフライ","ショルダープレスマシン"],
+"三頭":["クローズグリップベンチ","JMプレス","スミスOHエクステンション","ナローベンチ","ライイングトライセプスエクステンション"],
+"二頭":["バーベルカール","ケーブルカール","プリーチャーカール","ダンベルカール"],
+"前腕":["リストカール","リバースリストカール","ハンマーカール","リストローラー"],
+"腹筋":["アブローラー","ケーブルクランチ","ハンギングレッグレイズ","アブドミナルマシン"]
 };
-const PRE=[["High-bar SQ","Ascending → Top 135kg × 4〜6","Back-off：Top −5kg × 1"],["Competition BP","Ascending → Top 85kg × 4〜6","Back-off：Top −2.5kg × 1"],["Competition DL","Ascending → Top 180kg × 1","必要なら185〜190kg確認"]];
 const E=(name,sets,rep,rx="",note="")=>({name,sets,rep,rx,note});
 const P={};
 for(let w=1;w<=4;w++)P["PPP W"+w]={
- D1:[E("Competition SQ",3,"2","60〜65% / RPE 5〜6","Technique"),E("Competition BP",3,"2","60〜65% / RPE 5〜6","Technique"),E("Competition DL",2,"2","60〜65% / RPE 5〜6","素手"),E("ブルガリアンスクワット",2,"8/脚","RPE 5〜6")],
- D2:[E("Competition SQ",3,"3","77.5〜82.5% / RPE 7〜8","Main Strength"),E("Competition BP",3,"3","77.5〜82.5% / RPE 7〜8","Main Strength"),E("Stiff-leg DL",3,"4","65〜72.5% / RPE 6〜7","パワーグリップ"),E("RDL",2,"6〜8","RPE 6〜7"),E("ハイローマシン",3,"8〜12","RPE 7〜8")],
- D3:[E("High-bar SQ",3,"4","65〜72.5% / RPE 6〜7","SQ variation"),E("Larsen BP",3,"4","67.5〜75% / RPE 6〜7","BP variation"),E("Competition DL",2,"2","60〜65% / RPE 5〜6","素手"),E("バーベルカール",2,"8〜12","RPE 7〜8")],
- D4:[E("Competition BP",3,"2","82.5〜87.5% / RPE 7.5〜8.5","Heavy / Specificity"),E("Competition DL",3,"1〜2","80〜87.5% / RPE 7〜8.5","パワーグリップ"),E("ナローベンチ",2,"5〜8","RPE 7"),E("OHP",2,"5〜8","RPE 7")],
- D5:[E("Pause SQ",3,"3","60〜70% / RPE 6前後","Drum Protection"),E("ワイドグリップTバーロウ",2,"8〜10","RPE 6〜7","低疲労")]
+D1:[E("Competition SQ",3,"2","60〜65% / RPE 5〜6","Technique"),E("Competition BP",3,"2","60〜65% / RPE 5〜6","Technique"),E("Competition DL",2,"2","60〜65% / RPE 5〜6","素手"),E("ブルガリアンスクワット",2,"8/脚","RPE 5〜6")],
+D2:[E("Competition SQ",3,"3","77.5〜82.5% / RPE 7〜8","Main Strength"),E("Competition BP",3,"3","77.5〜82.5% / RPE 7〜8","Main Strength"),E("Stiff-leg DL",3,"4","65〜72.5% / RPE 6〜7","パワーグリップ"),E("RDL",2,"6〜8","RPE 6〜7"),E("ハイローマシン",3,"8〜12","RPE 7〜8")],
+D3:[E("High-bar SQ",3,"4","65〜72.5% / RPE 6〜7","SQ variation"),E("Larsen BP",3,"4","67.5〜75% / RPE 6〜7","BP variation"),E("Competition DL",2,"2","60〜65% / RPE 5〜6","素手"),E("バーベルカール",2,"8〜12","RPE 7〜8")],
+D4:[E("Competition BP",3,"2","82.5〜87.5% / RPE 7.5〜8.5","Heavy / Specificity"),E("Competition DL",3,"1〜2","80〜87.5% / RPE 7〜8.5","パワーグリップ"),E("ナローベンチ",2,"5〜8","RPE 7"),E("OHP",2,"5〜8","RPE 7")],
+D5:[E("Pause SQ",3,"3","60〜70% / RPE 6前後","Drum Protection"),E("ワイドグリップTバーロウ",2,"8〜10","RPE 6〜7","低疲労")]
 };
 P["PPP W5"]={D1:[E("Competition SQ",4,"4","約70%","Competition volume"),E("Competition BP",4,"4","約70%","Competition volume"),E("Competition DL",2,"3","65〜67.5%","素手")],D2:[E("Competition SQ",4,"4","約75%"),E("Competition BP",4,"4","約75%"),E("Competition DL",3,"3","70〜72.5%","パワーグリップ")],D3:[E("Competition SQ",3,"4","約70%"),E("Competition BP",4,"4","72.5〜75%")],D4:[E("Competition BP",3,"3","77.5〜80%"),E("Competition DL",3,"2","75〜80%","パワーグリップ")],D5:[E("Competition SQ",3,"3","65〜70%"),E("Competition BP",3,"3","65〜70%"),E("Competition DL",2,"3","65〜67.5%","素手")]};
 P["PPP W6"]={D1:[E("Competition SQ",1,"3","80%"),E("Competition SQ",1,"2","85%"),E("Competition SQ",1,"1","90%","状態確認上限"),E("Competition BP",1,"3","80%"),E("Competition BP",1,"2","85%"),E("Competition BP",1,"1","90%","状態確認上限")],D2:[E("Competition DL",1,"2","80%","パワーグリップ"),E("Competition DL",1,"1","87.5%","パワーグリップ"),E("Competition DL",1,"1","90%","状態確認上限"),E("Competition BP",1,"3","80%"),E("Competition BP",1,"2","85%")],D3:[E("Competition SQ",1,"2","80%"),E("Competition SQ",1,"1","85%"),E("Competition BP",2,"3","80%")],D4:[E("Competition DL",1,"2","80%"),E("Competition DL",1,"1","85%"),E("Competition BP",1,"2","80%")]};
 P["PPP W7"]={D1:[E("Competition SQ",3,"2","75%"),E("Competition BP",3,"3","75%")],D2:[E("Competition DL",3,"1","70〜75%")],D3:[E("Competition BP",2,"3","75%")]};
 P["PPP W8"]={"TEST前":[E("Competition SQ",1,"2","50〜60%","動作確認のみ"),E("Competition BP",1,"2","50〜60%","動作確認のみ"),E("Competition DL",1,"1","50〜60%","動作確認のみ")],"TEST":[E("SQ 1RM",3,"試技","SQ → BP → DL"),E("BP 1RM",3,"試技","SQ → BP → DL"),E("DL 1RM",3,"試技","SQ → BP → DL")]};
+const PRE=[["High-bar SQ","Ascending → Top 135kg × 4〜6","Back-off：Top −5kg × 1"],["Competition BP","Ascending → Top 85kg × 4〜6","Back-off：Top −2.5kg × 1"],["Competition DL","Ascending → Top 180kg × 1","必要なら185〜190kg確認"]];
 
-const KEY="pbWorkoutV12";
-let db=JSON.parse(localStorage.getItem(KEY)||"{}");
-let current="HOME",bbbDay=localStorage.getItem("bbbDay")||"Legs",selectedWeek=localStorage.getItem("selectedWeek")||"PPP W1",selectedDay=localStorage.getItem("selectedDay")||"D1";
-let activeKey=null,work={timer:null,elapsed:0,last:0},timers={};
+let current=localStorage.getItem("pbCurrentV13")||"HOME";
+let store=JSON.parse(localStorage.getItem("pbWorkoutV13")||"{}");
+let bbbDay=localStorage.getItem("pbBBBDayV13")||"Legs";
+let timers={};
+let workIntervals={};
+let openTimers=JSON.parse(localStorage.getItem("pbOpenTimersV13")||"{}");
+
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const fmt=s=>{s=Math.max(0,Math.floor(s||0));let h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?String(h).padStart(2,"0")+":":"")+String(m).padStart(2,"0")+":"+String(x).padStart(2,"0")};
-function save(){localStorage.setItem(KEY,JSON.stringify(db))}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1300)}
-function beep(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const c=new A(),o=c.createOscillator(),g=c.createGain();o.frequency.value=880;o.type="sine";g.gain.setValueAtTime(.001,c.currentTime);g.gain.exponentialRampToValueAtTime(.18,c.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.22);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.24);setTimeout(()=>c.close(),500)}catch(e){}}
-function blockKey(){return current==="BBB"?"BBB|"+bbbDay:current==="PRE"?"PRE|D1":selectedWeek+"|"+selectedDay}
-function newLog(type,day){const id=type+"|"+day+"|"+Date.now()+"|"+Math.random().toString(36).slice(2,7);db[id]={id,type,day,date:"",weight:"",sleep:"",fatigue:"",sets:{},counts:{},dropCounts:{},extraCounts:{},exerciseNotes:{},timerSettings:{},note:"",elapsed:0,startedAt:null,finishedAt:null,savedAt:null};save();return id}
-function session(){if(!activeKey)activeKey=newLog(current==="BBB"?"BBB":current==="PRE"?"PRE":selectedWeek,current==="BBB"?bbbDay:current==="PRE"?"D1":selectedDay);if(!db[activeKey])activeKey=newLog(current==="BBB"?"BBB":current==="PRE"?"PRE":selectedWeek,current==="BBB"?bbbDay:current==="PRE"?"D1":selectedDay);return db[activeKey]}
-function ensureLog(){session();}
-function setMeta(f,v){const s=session();s[f]=v;save()}
-function choice(f,v){setMeta(f,v);render()}
-function setSet(id,f,v){const s=session();s.sets[id]??={};s.sets[id][f]=v;save()}
-function setCountDelta(name,delta,base){const s=session();s.counts??={};let n=s.counts[name]??base;n=Math.max(1,n+delta);s.counts[name]=n;save();render()}
-function addSpecial(name,type){const s=session();const key=type==="DROP"?"dropCounts":"extraCounts";s[key]??={};s[key][name]=(s[key][name]||0)+1;save();render()}
-function bodyForDay(day,i){if(day==="Arms")return i<3?"三頭":"二頭";return {Legs:"脚",Chest:"胸",Shoulders:"肩",Back:"背中"}[day]||"胸"}
-function changeBody(i,body){const s=session();s.replacements??={};const arr=programExercises();const old=arr[i]?.name;s.replacements[i]={name:(EXLIB[body]||[])[0]||old,body};save();render()}
-function changeExercise(i,name,body){const s=session();s.replacements??={};s.replacements[i]={name,body};save();render()}
-function programExercises(){if(current==="BBB")return BBB[bbbDay].map((x,i)=>({name:x[0],sets:x[1],rep:x[2],body:bodyForDay(bbbDay,i)}));if(current==="PRE")return PRE.map(x=>({name:x[0],sets:1,rep:x[1],rx:x[2]}));return (P[selectedWeek]?.[selectedDay]||[]).map(e=>({...e}));}
-function resolvedExercise(e,i){const s=session(),r=s.replacements?.[i];return r?{...e,name:r.name,body:r.body}:e}
-function timerState(id,type,initial){const k=id+"|"+type;if(!timers[k])timers[k]={left:initial||0,total:initial||0,running:false,iv:null};return timers[k]}
-function timerSettings(id){const s=session();s.timerSettings??={};s.timerSettings[id]??={rest:90,exercise:180};return s.timerSettings[id]}
-function toggleTimerPanel(id){const k="open|"+id;db.__ui??={};db.__ui[k]=!db.__ui[k];save();const p=document.getElementById("panel_"+safe(id));if(p)p.classList.toggle("hidden",!db.__ui[k])}
-function safe(s){return btoa(unescape(encodeURIComponent(s))).replace(/[^a-zA-Z0-9]/g,"")}
-function startTimer(id,type){const set=timerSettings(id),t=timerState(id,type,Number(set[type])||0);if(t.running)return;if(t.left<=0)t.left=t.total||Number(set[type])||0;if(t.left<=0)return; t.running=true;t.iv=setInterval(()=>{t.left--;updateTimerUI(id,type);if(t.left<=0){clearInterval(t.iv);t.iv=null;t.running=false;beep();navigator.vibrate?.(180);updateTimerUI(id,type);toast(type==="rest"?"セット休憩終了":"種目間休憩終了")}},1000);updateTimerUI(id,type);}
-function pauseTimer(id,type){const t=timerState(id,type,0);if(t.iv)clearInterval(t.iv);t.iv=null;t.running=false;updateTimerUI(id,type)}
-function resetTimer(id,type){const set=timerSettings(id);pauseTimer(id,type);const t=timerState(id,type,Number(set[type])||0);t.total=Math.min(900,Math.max(0,Number(set[type])||0));t.left=t.total;updateTimerUI(id,type)}
-function setTimerSetting(id,type,v){const s=session(),n=Math.min(900,Math.max(0,Number(v)||0));s.timerSettings??={};s.timerSettings[id]??={rest:90,exercise:180};s.timerSettings[id][type]=n;save();resetTimer(id,type)}
-function updateTimerUI(id,type){const t=timerState(id,type,0),el=document.getElementById("clock_"+safe(id)+"_"+type);if(el)el.textContent=fmt(t.left);const b=document.getElementById("tb_"+safe(id));if(b){const r=timerState(id,"rest",0),x=timerState(id,"exercise",0);b.classList.toggle("running",r.running||x.running)}}
-function timerPanel(id){const set=timerSettings(id),r=timerState(id,"rest",Number(set.rest)||0),x=timerState(id,"exercise",Number(set.exercise)||0),open=db.__ui?.["open|"+id];return `<div id="panel_${safe(id)}" class="timer-panel ${open?"":"hidden"}"><div class="timer-grid"><div class="timer-box"><div class="timer-label">SET REST</div><div id="clock_${safe(id)}_rest" class="timer-clock">${fmt(r.left)}</div><div class="timer-btns"><button onclick="startTimer('${esc(id)}','rest')">▶</button><button onclick="pauseTimer('${esc(id)}','rest')">Ⅱ</button><button onclick="resetTimer('${esc(id)}','rest')">↺</button></div></div><div class="timer-box"><div class="timer-label">種目間 REST</div><div id="clock_${safe(id)}_exercise" class="timer-clock">${fmt(x.left)}</div><div class="timer-btns"><button onclick="startTimer('${esc(id)}','exercise')">▶</button><button onclick="pauseTimer('${esc(id)}','exercise')">Ⅱ</button><button onclick="resetTimer('${esc(id)}','exercise')">↺</button></div></div></div><div class="timer-settings"><div><label>セット休憩 秒（最大900）</label><input inputmode="numeric" value="${set.rest}" onchange="setTimerSetting('${esc(id)}','rest',this.value)"></div><div><label>種目間 秒（最大900）</label><input inputmode="numeric" value="${set.exercise}" onchange="setTimerSetting('${esc(id)}','exercise',this.value)"></div></div></div>`}
-function workoutStart(){const s=session();if(work.timer)return;work.elapsed=Number(s.elapsed)||0;work.last=Date.now();s.startedAt=s.startedAt||Date.now()-work.elapsed*1000;work.timer=setInterval(()=>{work.elapsed=(Date.now()-work.last)/1000+(Number(s.elapsed)||0);const e=document.getElementById("workClock");if(e)e.textContent=fmt(work.elapsed)},250);s.finishedAt=null;save();renderWorkButtons()}
-function workoutPause(){const s=session();if(work.timer){clearInterval(work.timer);work.timer=null;s.elapsed=work.elapsed;save();renderWorkButtons()}}
-function workoutReset(){const s=session();if(work.timer)clearInterval(work.timer);work.timer=null;work.elapsed=0;s.elapsed=0;s.startedAt=null;s.finishedAt=null;save();render()}
-function renderWorkButtons(){document.querySelectorAll("[data-work]").forEach(b=>b.classList.toggle("active",b.dataset.work===(work.timer?"start":"pause")))}
-function workTimer(){const s=session();work.elapsed=s.elapsed||0;return `<div class="worktimer"><div><div class="small">トレーニング時間</div><div id="workClock" class="workclock">${fmt(work.elapsed)}</div></div><div><button data-work="start" onclick="workoutStart()">開始</button><button data-work="pause" onclick="workoutPause()">停止</button><button onclick="workoutReset()">リセット</button></div></div>`}
-function inputSet(id,tag,i,kind){const s=session(),r=s.sets[id]||{},drop=kind==="DROP",extra=kind==="EXTRA";return `<div class="set ${drop?"drop":extra?"extra":""}">${kind!=="MAIN"?`<div class="settag">${drop?"DROP SET":"追加セット"}</div>`:""}<div class="settop"><div class="setno">${kind==="ASC"?"ASC":"Set"} ${i+1}</div><div><label>重量 kg</label><input inputmode="decimal" value="${esc(r.weight||"")}" oninput="setSet('${esc(id)}','weight',this.value)"></div><div><label>Rep</label><input inputmode="numeric" value="${esc(r.rep||"")}" oninput="setSet('${esc(id)}','rep',this.value)"></div><div><label>RPE</label><input inputmode="decimal" value="${esc(r.rpe||"")}" oninput="setSet('${esc(id)}','rpe',this.value)"></div></div><div class="formrow"><div><label>フォーム</label><select onchange="setSet('${esc(id)}','form',this.value)"><option value="">—</option><option ${r.form==="◎"?"selected":""}>◎</option><option ${r.form==="○"?"selected":""}>○</option><option ${r.form==="△"?"selected":""}>△</option><option ${r.form==="×"?"selected":""}>×</option></select></div><div><label>メモ</label><input value="${esc(r.memo||"")}" oninput="setSet('${esc(id)}','memo',this.value)"></div></div><button class="setdone ${r.done?"done":""}" onclick="finishSet('${esc(id)}','${esc(tag)}')">${r.done?"✓ 完了":"セット完了 → レスト開始"}</button></div>`}
-function finishSet(id,tag){const s=session();s.sets[id]??={};s.sets[id].done=!s.sets[id].done;save();if(s.sets[id].done)startTimer(tag,"rest");render()}
-function stats(name){const s=session(),a=Object.entries(s.sets||{}).filter(([id])=>id.includes("|"+name+"|"));return {total:a.length,done:a.filter(([,r])=>r.done).length,vol:a.reduce((n,[,r])=>n+(+r.weight||0)*(+r.rep||0),0)}}
-function previous(name){const logs=Object.values(db).filter(v=>v&&v.savedAt&&v!==session()).sort((a,b)=>(b.savedAt||0)-(a.savedAt||0));for(const v of logs){const a=Object.entries(v.sets||{}).filter(([id])=>id.includes("|"+name+"|MAIN|"));if(a.length)return a}return []}
-function copyPrevious(name,count){const s=session(),p=previous(name);if(!p.length){toast("前回記録なし");return}for(let i=0;i<count;i++){const q=p.find(([id])=>id.endsWith("|MAIN|"+i));if(q)s.sets[blockKey()+"|"+name+"|MAIN|"+i]={...q[1],done:false}}save();render();toast("前回をコピー")}
-function exerciseCard(e,i,variable=false){const s=session(),x=resolvedExercise(e,i),count=variable?(s.counts?.[e.name]??e.sets):e.sets,tag=blockKey()+"|"+x.name,id=tag;let asc="",main="";if(current!=="BBB"&&current!=="PRE"){for(let j=0;j<3;j++)asc+=inputSet(tag+"|ASC|"+j,tag,j,"ASC")}for(let j=0;j<count;j++)main+=inputSet(tag+"|MAIN|"+j,tag,j,"MAIN");for(let j=0;j<(s.dropCounts?.[x.name]||0);j++)main+=inputSet(tag+"|DROP|"+j,tag,j,"DROP");for(let j=0;j<(s.extraCounts?.[x.name]||0);j++)main+=inputSet(tag+"|EXTRA|"+j,tag,j,"EXTRA");const body=x.body||bodyForDay(bbbDay,i)||"胸",opts=(EXLIB[body]||[]).map(n=>`<option ${n===x.name?"selected":""}>${esc(n)}</option>`).join("");const selector=current==="BBB"?`<div class="replace"><label>部位</label><select onchange="changeBody(${i},this.value)">${Object.keys(EXLIB).map(b=>`<option ${b===body?"selected":""}>${esc(b)}</option>`).join("")}</select><label>種目</label><select onchange="changeExercise(${i},this.value,'${esc(body)}')">${opts}</select></div>`:"";const st=stats(x.name);return `<div class="exercise"><div class="exhead"><div class="exname">${esc(x.name)}</div><button id="tb_${safe(id)}" class="timer-toggle" onclick="toggleTimerPanel('${esc(id)}')">⏱</button><div class="rx"><strong>処方：</strong>${count}セット × ${esc(x.rep||"")}${x.rx?"｜"+esc(x.rx):""}${x.note?"<br>"+esc(x.note):""}</div>${selector}${variable?`<div class="countctl"><button onclick="setCountDelta('${esc(e.name)}',-1,${e.sets})">−</button><span>${count} Mainセット</span><button onclick="setCountDelta('${esc(e.name)}',1,${e.sets})">＋</button></div>`:""}<div class="tools"><button onclick="copyPrevious('${esc(x.name)}',${count})">↻ 前回コピー</button><button onclick="addSpecial('${esc(x.name)}','DROP')">＋ DROP</button><button onclick="addSpecial('${esc(x.name)}','EXTRA')">＋ 追加</button></div><div class="statsline">完了 ${st.done}/${st.total}｜Volume ${Math.round(st.vol).toLocaleString()}kg</div></div>${timerPanel(id)}${current!=="BBB"&&current!=="PRE"?`<div class="sectiontitle">ASCENDING SET</div><div class="ascbox">${asc}</div>`:""}<div class="sectiontitle">${current==="PRE"?"CALIBRATION / MAIN":"MAIN SET"}</div>${main}<div class="exercise-note"><label>種目メモ</label><input value="${esc(s.exerciseNotes?.[x.name]||"")}" oninput="setExerciseNote('${esc(x.name)}',this.value)" placeholder="次回へのメモ・重量判断など"></div></div>`}
-function setExerciseNote(name,v){const s=session();s.exerciseNotes??={};s.exerciseNotes[name]=v;save()}
-function meta(){const s=session();return `<div class="meta"><div><label>日付</label><input type="date" value="${esc(s.date||"")}" onchange="setMeta('date',this.value)"></div><div><label>体重 kg（任意）</label><input inputmode="decimal" value="${esc(s.weight||"")}" oninput="setMeta('weight',this.value)"></div></div><div class="meta"><div><label>睡眠</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.sleep==n?"on":""}" onclick="choice('sleep',${n})">${n}</button>`).join("")}</div></div><div><label>疲労</label><div class="choice">${[1,2,3,4,5].map(n=>`<button class="${s.fatigue==n?"on":""}" onclick="choice('fatigue',${n})">${n}</button>`).join("")}</div></div></div>`}
-function summary(){const s=session(),a=Object.values(s.sets||{}),v=a.reduce((n,r)=>n+(+r.weight||0)*(+r.rep||0),0);return `<div class="card"><h2>セッションサマリー</h2><div class="summary"><div class="stat"><b>${a.filter(r=>r.done).length}</b><span>完了セット</span></div><div class="stat"><b>${a.length}</b><span>総セット</span></div><div class="stat"><b>${Math.round(v).toLocaleString()}kg</b><span>総ボリューム</span></div><div class="stat"><b>${fmt(s.elapsed||0)}</b><span>トレーニング時間</span></div></div></div>`}
-function end(){const s=session();return summary()+`<label>当日メモ・特記事項</label><textarea oninput="setMeta('note',this.value)">${esc(s.note||"")}</textarea><div class="action"><button class="primary" onclick="commit()">保存</button><button class="secondary" onclick="resetSession()">このログをリセット</button><button class="secondary" onclick="newSession()">新しいログ</button></div>`}
-function commit(){const s=session();if(work.timer)workoutPause();s.finishedAt=Date.now();s.savedAt=Date.now();s.elapsed=work.elapsed||s.elapsed||0;save();toast("保存しました");render()}
-function resetSession(){if(!confirm("このトレーニングログをリセットしますか？"))return;if(work.timer)workoutPause();delete db[activeKey];save();activeKey=null;render()}
-function newSession(){if(work.timer)workoutPause();activeKey=null;work.elapsed=0;render();toast("新しいログ") }
-function navDraw(){document.getElementById("nav").innerHTML=TABS.map(t=>`<button class="${t===current?"active":""}" onclick="go('${t}')">${t}</button>`).join("")}
-function go(t){if(work.timer)workoutPause();current=t;activeKey=null;render();scrollTo(0,0)}
-function selectBBB(n){if(work.timer)workoutPause();bbbDay=n;localStorage.setItem("bbbDay",n);activeKey=null;render()}
-function selectWeek(w){if(work.timer)workoutPause();selectedWeek=w;localStorage.setItem("selectedWeek",w);selectedDay=Object.keys(P[w]||{})[0]||"D1";localStorage.setItem("selectedDay",selectedDay);activeKey=null;render()}
-function selectDay(d){if(work.timer)workoutPause();selectedDay=d;localStorage.setItem("selectedDay",d);activeKey=null;render()}
-function openLog(k){const s=db[k];if(!s)return;activeKey=k;current=s.type==="BBB"?"BBB":s.type==="PRE"?"PRE":"PPP";if(current==="BBB")bbbDay=s.day;if(current==="PPP"){selectedWeek=s.type;selectedDay=s.day}work.elapsed=s.elapsed||0;render();scrollTo(0,0)}
-function history(){const a=Object.values(db).filter(v=>v&&v.savedAt&&v.id).sort((a,b)=>b.savedAt-a.savedAt);return `<div class="card"><h2>履歴</h2><div class="small">同じ種目・同じ曜日でも、日付ごとに別ログとして保存。</div></div>`+(a.length?a.map(v=>`<div class="card history-item" onclick="openLog('${esc(v.id)}')"><div class="history-date">${esc(v.date||"—")}｜${esc(v.type)}｜${esc(v.day)}</div><div class="history-sub">保存：${new Date(v.savedAt).toLocaleString("ja-JP")}｜体重 ${esc(v.weight||"—")}kg｜時間 ${fmt(v.elapsed||0)}</div></div>`).join(""):"<div class='card'>保存履歴なし</div>")}
-function home(){return `<div class="card"><h2>Workout Log</h2><div class="notice">1回のトレーニングを1ログとして保存。週・Dayはタブで切替。種目ごとのセット間／種目間タイマー、Ascending / Main / Drop / 追加セット、トレーニング時間を分離して記録。</div><h3>プログラムを一発で開く</h3><div class="home-grid"><button onclick="go('PRE')">PRE<small>初期キャリブレーション</small></button><button onclick="go('BBB')">BBB<small>曜日メニュー</small></button><button onclick="go('PPP')">PPP<small>W1〜W8 / Day</small></button><button onclick="go('HISTORY')">履歴<small>保存ログ</small></button></div><h3>タイマー</h3><div class="small">セット間・種目間とも0〜900秒（最大15分）。終了時はカウントダウンなしで1回だけ音＋バイブ。</div><h3>BBB部位</h3>${Object.keys(EXLIB).map(b=>`<span class="badge">${b}</span>`).join("")}</div>`}
-function render(){navDraw();if(current==="HOME"){app.innerHTML=home();return}if(current==="HISTORY"){app.innerHTML=history();return}if(current==="PRE"){ensureLog();const arr=programExercises();app.innerHTML=`<div class="card"><h2>PRE Week 1</h2><div class="notice">初期キャリブレーション。固定1RM決定ではなく、BBB初期重量・フォーム・動作を校正。</div>${meta()}${workTimer()}${arr.map((e,i)=>exerciseCard(e,i,false)).join("")}${end()}</div>`;return}if(current==="BBB"){ensureLog();app.innerHTML=`<div class="card"><h2>BBB</h2><div class="tabs">${DAYS.map(([d,n])=>`<button class="${n===bbbDay?"active":""}" onclick="selectBBB('${n}')">${d} ${n}</button>`).join("")}</div><div class="small">Mainセット数は各種目ごとに − / ＋。部位と種目をその場で差し替え可能。</div></div><div class="card"><h2>${DAYS.find(x=>x[1]===bbbDay)[0]}：${bbbDay}</h2>${meta()}${workTimer()}${programExercises().map((e,i)=>exerciseCard(e,i,true)).join("")}${end()}</div>`;return}if(current==="PPP"){ensureLog();const weeks=Object.keys(P),days=Object.keys(P[selectedWeek]||{});app.innerHTML=`<div class="card"><h2>PPP</h2><div class="tabs">${weeks.map(w=>`<button class="${w===selectedWeek?"active":""}" onclick="selectWeek('${w}')">${w.replace("PPP ","W")}</button>`).join("")}</div><div class="tabs">${days.map(d=>`<button class="${d===selectedDay?"active":""}" onclick="selectDay('${d}')">${d}</button>`).join("")}</div><div class="small">週とDayをタブで切替。画面を長くスクロールして週を探す必要なし。</div></div><div class="card"><h2>${selectedWeek}：${selectedDay}</h2>${meta()}${workTimer()}${programExercises().map((e,i)=>exerciseCard(e,i,false)).join("")}${end()}</div>`}}
-render();
+const get=k=>(store[k]??={sets:{},exercises:{},timer:{rest:120,exercise:300}});
+const save=()=>localStorage.setItem("pbWorkoutV13",JSON.stringify(store));
+const tabs=document.getElementById("tabs"),app=document.getElementById("app");
+
+function go(t){current=t;localStorage.setItem("pbCurrentV13",t);drawTabs();render();scrollTo(0,0)}
+function drawTabs(){tabs.innerHTML=TABS.map(t=>`<button class="${t===current?"active":""}" onclick="go('${t}')">${t}</button>`).join("")}
+
+function meta(k){
+ const d=get(k);
+ return `<div class="meta">
+ <div><label>日付</label><input type="date" data-meta="${esc(k)}" data-f="date" value="${esc(d.date||"")}"></div>
+ <div><label>体重 kg（任意）</label><input inputmode="decimal" data-meta="${esc(k)}" data-f="weight" value="${esc(d.weight||"")}"></div>
+ </div>
+ <div class="meta"><div><label>睡眠</label><div class="tools">${[1,2,3,4,5].map(n=>`<button onclick="setMetaNum('${esc(k)}','sleep',${n})">${n}${d.sleep==n?" ✓":""}</button>`).join("")}</div></div>
+ <div><label>疲労</label><div class="tools">${[1,2,3,4,5].map(n=>`<button onclick="setMetaNum('${esc(k)}','fatigue',${n})">${n}${d.fatigue==n?" ✓":""}</button>`).join("")}</div></div></div>`;
+}
+function setMetaNum(k,f,n){get(k)[f]=n;save();render()}
+
+function row(k,id,i,r){
+ return `<div class="set">
+ <div class="settop"><div class="setno">Set ${i+1}</div>
+ <div><label>重量 kg</label><input inputmode="decimal" data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="weight" value="${esc(r.weight||"")}"></div>
+ <div><label>Rep</label><input inputmode="numeric" data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="rep" value="${esc(r.rep||"")}"></div>
+ <div><label>RPE</label><input inputmode="decimal" data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="rpe" value="${esc(r.rpe||"")}"></div></div>
+ <div class="formrow"><div><label>フォーム</label><select data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="form"><option value="">—</option><option ${r.form=="◎"?"selected":""}>◎</option><option ${r.form=="○"?"selected":""}>○</option><option ${r.form=="△"?"selected":""}>△</option><option ${r.form=="×"?"selected":""}>×</option></select></div>
+ <div><label>メモ</label><input data-row="${esc(k)}" data-id="${esc(id)}#${i}" data-f="memo" value="${esc(r.memo||"")}"></div></div>
+ <div class="set-actions"><button class="${r.done?"done":""}" onclick="toggleDone('${esc(k)}','${esc(id)}#${i}')">${r.done?"✓ 完了":"セット完了"}</button></div>
+ </div>`;
+}
+function dropRows(k,id){
+ const d=get(k), arr=d.sets[id+"#drops"]||[];
+ if(!arr.length)return "";
+ return `<div class="dropbox">${arr.map((r,i)=>`<div class="dropitem"><input inputmode="decimal" placeholder="重量 kg" data-row="${esc(k)}" data-id="${esc(id)}#drops#${i}" data-f="weight" value="${esc(r.weight||"")}"><input inputmode="numeric" placeholder="Rep" data-row="${esc(k)}" data-id="${esc(id)}#drops#${i}" data-f="rep" value="${esc(r.rep||"")}"><button onclick="removeDrop('${esc(k)}','${esc(id)}',${i})">×</button></div>`).join("")}</div>`;
+}
+function timerPanel(k,id){
+ const d=get(k), t=d.timer||{};
+ const key=esc(id);
+ return `<div id="tp-${key}" class="timer-panel ${openTimers[id]?"":"hidden"}">
+ <div class="timer-grid">
+ <div class="timer-cell"><label>セット間休憩</label><input type="number" min="0" max="900" step="5" value="${Number(t.rest||0)}" onchange="setTimerValue('${esc(k)}','rest',this.value)"><div id="td-${key}-rest" class="timer-display">--:--</div><div class="timer-actions"><button class="go" onclick="startRest('${esc(k)}','${key}','rest')">▶ Start</button><button onclick="stopTimer('${key}','rest')">■</button></div></div>
+ <div class="timer-cell"><label>種目間休憩</label><input type="number" min="0" max="900" step="5" value="${Number(t.exercise||0)}" onchange="setTimerValue('${esc(k)}','exercise',this.value)"><div id="td-${key}-exercise" class="timer-display">--:--</div><div class="timer-actions"><button class="go" onclick="startRest('${esc(k)}','${key}','exercise')">▶ Start</button><button onclick="stopTimer('${key}','exercise')">■</button></div></div>
+ </div></div>`;
+}
+function exerciseCard(k,e,index,opts={}){
+ const d=get(k), base=e.name, id=(opts.prefix||"EX")+"|"+index+"|"+base.replace(/[|#]/g,"_");
+ const custom=d.exercises[id]||{};
+ const name=custom.name||base;
+ const count=custom.count??e.sets;
+ let rows="";
+ for(let i=0;i<count;i++)rows+=row(k,id,i,d.sets[id+"#"+i]||{});
+ return `<div class="exercise"><div class="exhead"><div class="exname">${esc(name)}</div><button class="timer-btn" onclick="toggleTimer('${esc(id)}')">⏱</button>
+ <div class="rx"><strong>処方：</strong>${count}セット × ${esc(e.rep)}${e.rx?"｜"+esc(e.rx):""}${e.note?"<br>"+esc(e.note):""}</div>
+ ${opts.bbb?replaceUI(k,id,base):""}${opts.bbb?`<div class="countctl"><button onclick="changeCount('${esc(k)}','${esc(id)}',-1)">−</button><span>${count}セット</span><button onclick="changeCount('${esc(k)}','${esc(id)}',1)">＋</button></div>`:""}
+ <div class="tools"><button onclick="addDrop('${esc(k)}','${esc(id)}')">＋ Drop Set</button><button onclick="copyPrevious('${esc(k)}','${esc(id)}',${count})">前回コピー</button></div></div>
+ ${timerPanel(k,id)}${rows}${dropRows(k,id)}</div>`;
+}
+function replaceUI(k,id,base){
+ const d=get(k), custom=d.exercises[id]||{}, part=custom.part||"脚";
+ const opts=PARTS[part]||[];
+ return `<div class="replace"><label>種目差し替え</label><select onchange="replaceExercise('${esc(k)}','${esc(id)}',this.value,'${esc(part)}')"><option value="">部位を選択：${esc(part)}</option>${Object.keys(PARTS).map(x=>`<option value="${esc(x)}" ${x===part?"selected":""}>${esc(x)}</option>`).join("")}</select><select onchange="setExerciseName('${esc(k)}','${esc(id)}',this.value)"><option value="">種目を選択</option>${opts.map(x=>`<option ${x===custom.name?"selected":""}>${esc(x)}</option>`).join("")}</select></div>`;
+}
+function bbbCard(k,x,i){
+ const e={name:x[0],sets:x[1],rep:x[2]};
+ const id="EX|"+i+"|"+e.name.replace(/[|#]/g,"_");
+ const d=get(k), custom=d.exercises[id]||{};
+ if(!custom.part)custom.part=(["Legs","Chest","Shoulders","Back","Arms"].includes(bbbDay)?({Legs:"脚",Chest:"胸",Shoulders:"肩",Back:"背中",Arms:"三頭"}[bbbDay]):"脚");
+ if(!custom.name)custom.name=e.name;
+ d.exercises[id]=custom;save();
+ return exerciseCard(k,e,i,{bbb:true});
+}
+function renderBBB(){
+ const days=[["月","Legs"],["水","Chest"],["木","Shoulders"],["土","Back"],["日","Arms"]];
+ const pair=days.find(x=>x[1]===bbbDay)||days[0],k="BBB|"+pair[1];
+ app.innerHTML=`<div class="card"><h2>BBB</h2><div class="daytabs">${days.map(x=>`<button class="${x[1]===bbbDay?"active":""}" onclick="setBBBDay('${x[1]}')">${x[0]} ${x[1]}</button>`).join("")}</div>${meta(k)}</div>
+ <div class="card"><h2>${pair[0]}：${pair[1]}</h2><div class="workbar">${workbar(k)}</div>${BBB[pair[1]].map((x,i)=>bbbCard(k,x,i)).join("")}${end(k)}</div>`;
+}
+function workbar(k){
+ const d=get(k),sec=Math.floor(d.workSeconds||0),running=!!workIntervals[k];
+ return `<span class="worktime" id="wt-${esc(k)}">${fmt(sec)}</span><button onclick="startWork('${esc(k)}')">▶開始</button><button onclick="stopWork('${esc(k)}')">■停止</button><button onclick="resetWork('${esc(k)}')">↺</button>`;
+}
+function end(k){const d=get(k);return `<label>当日メモ・特記事項</label><textarea data-note="${esc(k)}">${esc(d.note||"")}</textarea><div class="action"><button class="primary" onclick="commit('${esc(k)}')">保存</button><button class="secondary" onclick="resetDay('${esc(k)}')">リセット</button></div>`}
+function renderPPP(){
+ const days=Object.keys(P[current]||{}), week=current;
+ app.innerHTML=`<div class="card"><h2>${esc(week)}</h2><div class="daytabs">${days.map(day=>`<button onclick="document.getElementById('day-${esc(day)}')?.scrollIntoView({behavior:'smooth'})">${esc(day)}</button>`).join("")}</div></div>`+
+ days.map(day=>{const k=week+"|"+day;return `<div class="card" id="day-${esc(day)}"><h2>${esc(day)}</h2>${meta(k)}<div class="workbar">${workbar(k)}</div>${P[week][day].map((e,i)=>exerciseCard(k,e,i)).join("")}${end(k)}</div>`}).join("");
+}
+function renderPRE(){const k="PRE|D1";app.innerHTML=`<div class="card"><h2>PRE Week 1</h2><div class="notice">初期キャリブレーション。固定1RM決定ではなく、BBB初期重量・フォーム・動作を校正。</div>${meta(k)}${PRE.map((x,i)=>exerciseCard(k,{name:x[0],sets:1,rep:x[1],rx:x[2]},{},{})).join("")}${end(k)}</div>`}
+function renderHome(){app.innerHTML=`<div class="card"><h2>Workout Log</h2><div class="notice">処方と実績を分離。種目ごとにセット記録・休憩タイマー・ドロップセット・トレーニング時間を管理。</div><h3>プログラム</h3><span class="badge">PRE</span><span class="badge">BBB</span><span class="badge">PPP W1〜W8</span><h3>現在</h3><div class="meta"><div><label>Week</label><select onchange="go(this.value)"><option>HOME</option>${TABS.slice(1,-1).map(x=>`<option>${x}</option>`).join("")}</select></div><div><label>日付</label><input type="date" onchange="localStorage.setItem('pbHomeDateV13',this.value)"></div></div></div>`}
+function renderHistory(){const arr=Object.entries(store).filter(x=>x[1].savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt);app.innerHTML=`<div class="card"><h2>履歴</h2><div class="small">保存はこの端末のブラウザ内。</div>${arr.length?arr.map(([k,v])=>`<div class="history-item"><b>${esc(k)}</b><div class="small">${new Date(v.savedAt).toLocaleString("ja-JP")}｜体重 ${esc(v.weight||"—")}kg</div></div>`).join(""):"<div class='small' style='margin-top:8px'>保存履歴なし</div>"}</div>`}
+function render(){if(current==="HOME")renderHome();else if(current==="PRE")renderPRE();else if(current==="BBB")renderBBB();else if(current==="HISTORY")renderHistory();else renderPPP();bind();syncWorkBars()}
+
+function bind(){
+ document.querySelectorAll("[data-meta]").forEach(x=>x.oninput=()=>{get(x.dataset.meta)[x.dataset.f]=x.value;save()});
+ document.querySelectorAll("[data-note]").forEach(x=>x.oninput=()=>{get(x.dataset.note).note=x.value;save()});
+ document.querySelectorAll("[data-row]").forEach(x=>x.oninput=()=>{const d=get(x.dataset.row);d.sets[x.dataset.id]??={};d.sets[x.dataset.id][x.dataset.f]=x.value;save()});
+}
+function toggleDone(k,id){const d=get(k);d.sets[id]??={};d.sets[id].done=!d.sets[id].done;save();render()}
+function setBBBDay(v){bbbDay=v;localStorage.setItem("pbBBBDayV13",v);render()}
+function changeCount(k,id,delta){const d=get(k),e=d.exercises[id]??={count:1};e.count=Math.max(1,Math.min(30,(e.count??1)+delta));save();render()}
+function replaceExercise(k,id,val,part){if(!val)return;const d=get(k);d.exercises[id]??={};d.exercises[id].part=val;d.exercises[id].name=(PARTS[val]||[])[0]||"";save();render()}
+function setExerciseName(k,id,name){if(!name)return;const d=get(k);d.exercises[id]??={};d.exercises[id].name=name;save();render()}
+function addDrop(k,id){const d=get(k);d.sets[id+"#drops"]??=[];d.sets[id+"#drops"].push({});save();render()}
+function removeDrop(k,id,i){const d=get(k),a=d.sets[id+"#drops"]||[];a.splice(i,1);save();render()}
+function copyPrevious(k,id,count){const d=get(k),hist=Object.entries(store).filter(([kk,v])=>kk!==k&&v.savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt)[0];if(!hist)return alert("前回保存ログがありません");const src=hist[1].sets||{};for(let i=0;i<count;i++)d.sets[id+"#"+i]={...(src[id+"#"+i]||{})};save();render()}
+function commit(k){get(k).savedAt=Date.now();save();alert("保存しました")}
+function resetDay(k){if(confirm("この日の入力をリセットしますか？")){delete store[k];save();render()}}
+function fmt(s){s=Math.max(0,Math.floor(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function timerKey(id,type){return id+"|"+type}
+function toggleTimer(id){openTimers[id]=!openTimers[id];localStorage.setItem("pbOpenTimersV13",JSON.stringify(openTimers));const e=document.getElementById("tp-"+id);if(e)e.classList.toggle("hidden",!openTimers[id])}
+function setTimerValue(k,type,v){const d=get(k);d.timer??={};d.timer[type]=Math.max(0,Math.min(900,Number(v)||0));save()}
+function beep(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=880;g.gain.value=.16;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.18);setTimeout(()=>c.close(),400)}catch(e){}if(navigator.vibrate)navigator.vibrate(180)}
+function startRest(k,id,type){stopTimer(id,type);const seconds=Math.max(0,Math.min(900,Number(get(k).timer?.[type]||0)));if(seconds<=0)return;const key=timerKey(id,type),end=Date.now()+seconds*1000;timers[key]={end};const tick=()=>{const left=Math.max(0,Math.ceil((timers[key].end-Date.now())/1000));const el=document.getElementById("td-"+id+"-"+type);if(el)el.textContent=fmt(left);if(left<=0){clearInterval(timers[key].iv);delete timers[key];beep();}else timers[key].iv=setTimeout(tick,250)};tick()}
+function stopTimer(id,type){const key=timerKey(id,type);if(timers[key]){clearTimeout(timers[key].iv);delete timers[key]}const el=document.getElementById("td-"+id+"-"+type);if(el)el.textContent="--:--"}
+function startWork(k){if(workIntervals[k])return;const d=get(k);d.workStartedAt=d.workStartedAt||Date.now()-Number(d.workSeconds||0)*1000;workIntervals[k]=setInterval(()=>{d.workSeconds=Math.floor((Date.now()-d.workStartedAt)/1000);const el=document.getElementById("wt-"+k);if(el)el.textContent=fmt(d.workSeconds);save()},1000)}
+function stopWork(k){if(workIntervals[k]){clearInterval(workIntervals[k]);delete workIntervals[k];get(k).workStartedAt=null;save();syncWorkBars()}}
+function resetWork(k){if(workIntervals[k]){clearInterval(workIntervals[k]);delete workIntervals[k]}const d=get(k);d.workSeconds=0;d.workStartedAt=null;save();syncWorkBars()}
+function syncWorkBars(){Object.keys(workIntervals).forEach(k=>{const el=document.getElementById("wt-"+k);if(el)el.textContent=fmt(get(k).workSeconds||0)})}
+
+drawTabs();render();
 </script>
 </body>
 </html>
