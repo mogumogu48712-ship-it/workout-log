@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111">
+<title>Workout Log — Power Building</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f4f4;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+header{position:sticky;top:0;z-index:20;background:#111;color:#fff;padding:14px 14px 10px}
+header h1{font-size:20px;margin:0 0 3px}
+header .sub{font-size:12px;opacity:.75}
+main{max-width:760px;margin:auto;padding:10px 10px 60px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:5px 0 9px;position:sticky;top:66px;z-index:15;background:#f4f4f4}
+nav button{white-space:nowrap;border:1px solid #ccc;border-radius:9px;background:#fff;padding:10px 13px;font-weight:700}
+nav button.active{background:#111;color:#fff}
+.card{background:#fff;border:1px solid #ddd;border-radius:14px;padding:14px;margin:10px 0}
+h2{font-size:18px;margin:0 0 10px}
+h3{font-size:15px;margin:14px 0 8px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+label{display:block;font-size:12px;color:#666;margin-bottom:4px}
+input,select,textarea{width:100%;font:inherit;border:1px solid #ccc;border-radius:9px;padding:10px;background:#fff}
+textarea{min-height:65px;resize:vertical}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+button.primary,button.secondary,button.danger{border:0;border-radius:10px;padding:11px 14px;font-weight:700}
+button.primary{background:#2d7d46;color:#fff}
+button.secondary{background:#eee;color:#111}
+button.danger{background:#b42318;color:#fff}
+.exercise{border:1px solid #ddd;border-radius:12px;padding:10px;margin:9px 0}
+.ex-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.ex-name{font-weight:800}
+.prescription{font-size:12px;color:#666;text-align:right}
+table{width:100%;border-collapse:collapse;margin-top:8px;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid #eee;padding:5px;white-space:nowrap;font-size:12px}
+th{color:#666;text-align:left}
+td input{min-width:65px;padding:7px}
+.badge{display:inline-block;font-size:11px;padding:4px 7px;border-radius:999px;background:#eee;margin:2px 3px 2px 0}
+.small{font-size:12px;color:#666}
+.hidden{display:none}
+.notice{background:#eef6ff;border-left:4px solid #3478c9;padding:10px;border-radius:8px;font-size:13px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.stat{background:#f7f7f7;border-radius:10px;padding:10px;text-align:center}
+.stat b{display:block;font-size:18px}
+@media(max-width:480px){.row{grid-template-columns:1fr}.summary{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>Workout Log</h1>
+<div class="sub">Power Building｜PRE → BBB → PPP W1〜W8 → TEST</div>
+</header>
+<main>
+<nav id="nav"></nav>
+<section id="app"></section>
+</main>
+
+<script>
+const BASE={
+  "SQ":160,"BP":95,"DL":200
+};
+
+const BBB={
+"Legs":[
+ ["バーベルスクワット",4,"4–6"],["レッグエクステンション",6,""],["ハックスクワット",6,""],
+ ["レッグプレス",6,""],["スミスマシンスクワット",6,""],["レッグカール",3,""]
+],
+"Chest":[
+ ["ベンチプレス",15,""],["インクラインベンチプレス",10,""],["ダンベルベンチプレス",4,""],
+ ["ダンベルフライ",5,""],["チェストプレスマシン",6,""],["ディップチンアシスト",5,""]
+],
+"Shoulders":[
+ ["OHP",10,""],["スミスバックプレス",10,""],["ケーブルアップライトロウ",5,""],
+ ["ダンベルサイドレイズ",10,""],["リアデルトフライ",5,""],["ショルダープレスマシン",3,""]
+],
+"Back":[
+ ["デッドリフト",4,""],["トップサイドデッドリフト",10,""],["バーベルベントオーバーロウ",10,""],
+ ["Tバーロウマシン",5,""],["シーテッドロー",10,""],["ラットプルダウン",6,""]
+],
+"Arms":[
+ ["クローズグリップベンチ",8,""],["JMプレス",8,""],["スミスOHエクステンション",5,""],
+ ["バーベルカール",10,""],["ケーブルカール",8,""],["プリーチャーカール",5,""]
+]
+};
+
+function p(name,sets,rep,intensity="",note=""){return {name,sets,rep,intensity,note}}
+const ppp={};
+for(let w=1;w<=4;w++){
+ ppp["PPP W"+w]={
+  "D1":[p("Competition SQ",3,"2","60〜65% / RPE5〜6","技術"),p("Competition BP",3,"2","60〜65% / RPE5〜6","技術"),p("Competition DL",2,"2","60〜65% / RPE5〜6","素手"),p("ブルガリアン",2,"8/脚","RPE5〜6","左右独立コンディショニング")],
+  "D2":[p("Competition SQ",3,"3","77.5〜82.5% / RPE7〜8","メインSQ"),p("Competition BP",3,"3","77.5〜82.5% / RPE7〜8","メインBP"),p("Stiff-leg DL",3,"4","65〜72.5% / RPE6〜7","パワーグリップ"),p("RDL",2,"6–8","RPE6〜7","Stiffの補助"),p("ハイロー",3,"8–12","RPE7〜8","広背・肩甲帯")],
+  "D3":[p("High-bar SQ",3,"4","65〜72.5% / RPE6〜7","SQバリエーション"),p("Larsen BP",3,"4","67.5〜75% / RPE6〜7","BPバリエーション"),p("バーベルカール",2,"8–12","RPE7〜8","二頭・DLなし")],
+  "D4":[p("Competition BP",3,"2","77.5〜80%","Heavy BP"),p("Competition DL",3,"1–2","75〜80%","パワーグリップ"),p("ナローベンチ",2,"5–8","RPE6〜7","補助"),p("OHP",2,"5–8","RPE6〜7","補助")],
+  "D5":[p("Pause SQ",3,"3","65〜70%","動作確認"),p("Competition DL",2,"2","65〜67.5%","素手"),p("ワイドグリップTバーロウ",2,"8–10","RPE6〜7","補助")]
+ };
+}
+ppp["PPP W5"]={
+ "D1":[p("Competition SQ",4,"4","約70%"),p("Competition BP",4,"4","約70%"),p("Competition DL",2,"3","65〜67.5%","素手")],
+ "D2":[p("Competition SQ",4,"4","約75%"),p("Competition BP",4,"4","約75%"),p("Competition DL",3,"3","70〜72.5%","パワーグリップ")],
+ "D3":[p("Competition SQ",3,"4","約70%"),p("Competition BP",4,"4","72.5〜75%")],
+ "D4":[p("Competition BP",3,"3","77.5〜80%"),p("Competition DL",3,"2","75〜80%","パワーグリップ")],
+ "D5":[p("Competition SQ",3,"3","65〜70%"),p("Competition DL",2,"3","65〜67.5%","素手")]
+};
+ppp["PPP W6"]={
+ "D1":[p("Competition SQ",1,"3","80%"),p("Competition SQ",1,"2","85%"),p("Competition SQ",1,"1","90%","確認上限"),
+       p("Competition BP",1,"3","80%"),p("Competition BP",1,"2","85%"),p("Competition BP",1,"1","90%","確認上限")],
+ "D2":[p("Competition DL",1,"2","80%","パワーグリップ"),p("Competition DL",1,"1","87.5%","パワーグリップ"),p("Competition DL",1,"1","90%","確認上限・パワーグリップ"),
+       p("Competition BP",1,"3","80%"),p("Competition BP",1,"2","85%")],
+ "D3":[p("Competition SQ",1,"2","80%"),p("Competition SQ",1,"1","85%"),p("Competition BP",2,"3","80%")],
+ "D4":[p("Competition DL",1,"2","80%"),p("Competition DL",1,"1","85%"),p("Competition BP",1,"2","80%")]
+};
+ppp["PPP W7"]={
+ "D1":[p("Competition SQ",3,"2","75%"),p("Competition BP",3,"3","75%")],
+ "D2":[p("Competition DL",3,"1","70〜75%")],
+ "D3":[p("Competition BP",2,"3","75%")]
+};
+ppp["PPP W8"]={
+ "TEST前（必要な場合）":[p("Competition SQ",1,"2","50〜60%","動作確認のみ"),p("Competition BP",1,"2","50〜60%","動作確認のみ"),p("Competition DL",1,"1","50〜60%","動作確認のみ")],
+ "TEST":[p("SQ 1RM",5,"試技","SQ→BP→DL","成功/失敗を記録"),p("BP 1RM",5,"試技","SQ→BP→DL","成功/失敗を記録"),p("DL 1RM",5,"試技","SQ→BP→DL","成功/失敗を記録")]
+};
+
+const PRE=[
+ ["High-bar SQ",1,"4–6","BBB Top校正","60×5 → 80×3 → 100×2 → 115×1 → 125×1 → 130×1 → 135×4〜6"],
+ ["Competition BP",1,"4–6","BBB Top校正","40×5 → 50×3 → 60×2 → 70×1 → 77.5×1 → 82.5×1 → 85×4〜6"],
+ ["Competition DL",1,"1","BBB重量帯確認","80×3 → 110×2 → 140×1 → 160×1 → 170×1 → 180×1（必要なら185/190）"]
+];
+
+const sections=["HOME","PRE","BBB","PPP W1","PPP W2","PPP W3","PPP W4","PPP W5","PPP W6","PPP W7","PPP W8","HISTORY"];
+
+let state=JSON.parse(localStorage.getItem("workoutLogV2")||"{}");
+let current="HOME";
+const app=document.getElementById("app"),nav=document.getElementById("nav");
+
+function save(){localStorage.setItem("workoutLogV2",JSON.stringify(state));}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+function key(section,day){return section+"|"+day;}
+function setCountTotal(section){
+ if(section==="BBB")return Object.values(BBB).reduce((a,arr)=>a+arr.reduce((x,e)=>x+e[1],0),0);
+ if(section==="PRE")return PRE.reduce((a,e)=>a+e[1],0);
+ if(section.startsWith("PPP")){
+  return Object.values(ppp[section]||{}).reduce((a,arr)=>a+arr.reduce((x,e)=>x+e.sets,0),0);
+ }
+ return 0;
+}
+function navRender(){
+ nav.innerHTML=sections.map(s=>`<button class="${current===s?'active':''}" onclick="go('${s}')">${s}</button>`).join("");
+}
+function go(s){current=s;navRender();render();window.scrollTo(0,0)}
+function metaFields(k){
+ const d=state[k]||{};
+ return `<div class="row">
+ <div><label>日付</label><input type="date" data-meta="${k}" data-field="date" value="${esc(d.date||"")}"></div>
+ <div><label>体重kg（任意）</label><input inputmode="decimal" data-meta="${k}" data-field="bodyweight" value="${esc(d.bodyweight||"")}"></div>
+ </div>
+ <div style="margin-top:8px"><label>疲労・睡眠（異常時のみ）</label><input data-meta="${k}" data-field="fatigue" value="${esc(d.fatigue||"")}"></div>`;
+}
+function rowInputs(k,ex,i,mode="normal"){
+ const d=state[k]||{}, rows=(d.rows||{})[ex.name+"#"+i]||{};
+ if(mode==="test"){
+  return `<tr><td>${i+1}</td><td><input inputmode="decimal" data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="weight" value="${esc(rows.weight||"")}"></td>
+  <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="success" placeholder="成功/失敗" value="${esc(rows.success||"")}"></td>
+  <td><input inputmode="decimal" data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="rpe" value="${esc(rows.rpe||"")}"></td>
+  <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="form" value="${esc(rows.form||"")}"></td></tr>`;
+ }
+ return `<tr><td>${i+1}</td><td><input inputmode="decimal" data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="weight" value="${esc(rows.weight||"")}"></td>
+ <td><input inputmode="numeric" data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="rep" value="${esc(rows.rep||"")}"></td>
+ <td><input inputmode="decimal" data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="rpe" value="${esc(rows.rpe||"")}"></td>
+ <td><input inputmode="decimal" data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="rir" value="${esc(rows.rir||"")}"></td>
+ <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="oneMore" placeholder="YES/NO" value="${esc(rows.oneMore||"")}"></td>
+ <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="form" value="${esc(rows.form||"")}"></td>
+ <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="fatigue" value="${esc(rows.fatigue||"")}"></td>
+ <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="speed" value="${esc(rows.speed||"")}"></td>
+ <td><input data-row="${k}" data-ex="${esc(ex.name+"#"+i)}" data-f="memo" value="${esc(rows.memo||"")}"></td></tr>`;
+}
+function exerciseCard(k,ex,mode="normal"){
+ const isTest=mode==="test";
+ let rows="";
+ const count=ex.sets;
+ for(let i=0;i<count;i++) rows+=rowInputs(k,ex,i,isTest?"test":"normal");
+ return `<div class="exercise">
+ <div class="ex-head"><div class="ex-name">${esc(ex.name)}</div><div class="prescription">${count}セット｜${esc(ex.rep)}${ex.intensity?`｜${esc(ex.intensity)}`:""}</div></div>
+ ${ex.note?`<div class="small">${esc(ex.note)}</div>`:""}
+ <table><thead><tr>${isTest?'<th>試技</th><th>重量kg</th><th>成功?</th><th>RPE</th><th>フォーム</th>':'<th>Set</th><th>重量kg</th><th>Rep</th><th>RPE</th><th>RIR</th><th>あと1rep?</th><th>フォーム</th><th>疲労</th><th>速度感</th><th>メモ</th>'}</tr></thead><tbody>${rows}</tbody></table>
+ </div>`;
+}
+function bottomActions(k){
+ return `<div class="btnrow"><button class="primary" onclick="commit('${esc(k)}')">この日の記録を保存</button><button class="secondary" onclick="clearDay('${esc(k)}')">この日の入力をリセット</button></div>`;
+}
+function renderHome(){
+ let hist=Object.keys(state).filter(k=>k.includes("|")&&state[k]&&state[k].savedAt).length;
+ app.innerHTML=`<div class="card"><h2>Power Building Workout Log</h2>
+ <div class="notice">現行ライブラリの正本を基準に、PRE・BBB・PPP W1〜W8・TESTを一つに統合。セット数・種目・順序はプログラム通り。重量は実測RPE・フォーム・実績を記録して更新する運用。</div>
+ <h3>基準値</h3><div class="summary"><div class="stat"><b>${BASE.SQ}</b>SQ kg</div><div class="stat"><b>${BASE.BP}</b>BP kg</div><div class="stat"><b>${BASE.DL}</b>DL kg</div></div>
+ <h3>構成</h3><span class="badge">PRE</span><span class="badge">BBB 210セット/週</span><span class="badge">PPP W1〜W4</span><span class="badge">W5収束</span><span class="badge">W6強度化</span><span class="badge">W7 Taper</span><span class="badge">W8 TEST</span>
+ <p class="small">保存データ：${hist}セッション。iPhoneのブラウザ内に保存される。GitHubへ保存する必要はない。</p>
+ <div class="btnrow"><button class="primary" onclick="go('PRE')">PREを開く</button><button class="primary" onclick="go('BBB')">BBBを開く</button><button class="primary" onclick="go('PPP W1')">PPP W1を開く</button></div>
+ </div>
+ <div class="card"><h2>記録項目</h2><p class="small">重量・Rep・RPE・RIR・あと1rep・フォーム・疲労・速度感・メモ。体重と疲労/睡眠は必要に応じて記録。</p></div>`;
+}
+function renderPre(){
+ const k="PRE|D1"; app.innerHTML=`<div class="card"><h2>PRE Week 1｜初期キャリブレーション</h2><p class="small">PPPに必要なフォーム・種目確認＋BBB SBDキャリブレーション。固定1RMを決める週ではない。</p>${metaFields(k)}
+ ${PRE.map((x,idx)=>exerciseCard(k,{name:x[0],sets:x[1],rep:x[2],intensity:x[3],note:x[4]})).join("")}
+ <div class="card"><label>異常・特記事項</label><textarea data-note="${k}">${esc((state[k]||{}).note||"")}</textarea></div>${bottomActions(k)}</div>`;
+}
+function renderBBB(){
+ const days=[["月","Legs"],["水","Chest"],["木","Shoulders"],["土","Back"],["日","Arms"]];
+ app.innerHTML=`<div class="card"><h2>BBB｜筋肥大ブロック</h2><p class="small">週間210セット。セット数は規定、目標rep域はガイド。SBD以外はBBB本番でキャリブレーション。高努力を重視し、フォームを崩して重量を維持しない。</p></div>`+
+ days.map(([day,name])=>{const k="BBB|"+name; return `<div class="card"><h2>${day}：${name} <span class="small">${setCountTotal("BBB")>0?BBB[name].reduce((a,e)=>a+e[1],0):0}セット</span></h2>${metaFields(k)}${BBB[name].map(e=>exerciseCard(k,{name:e[0],sets:e[1],rep:e[2]})).join("")}<div class="card"><label>異常・特記事項</label><textarea data-note="${k}">${esc((state[k]||{}).note||"")}</textarea></div>${bottomActions(k)}</div>`}).join("");
+}
+function renderPPP(){
+ const wk=current, days=Object.keys(ppp[wk]||{});
+ app.innerHTML=`<div class="card"><h2>${wk}</h2><p class="small">PPP絶対ルール：種目・セット数・曜日・順序は勝手に変更しない。重量は実測RPE・フォーム・実績に応じて調整。</p></div>`+
+ days.map(day=>{const k=wk+"|"+day; const test=wk==="PPP W8"&&day==="TEST"; return `<div class="card"><h2>${day}</h2>${metaFields(k)}${ppp[wk][day].map(e=>exerciseCard(k,e,test?"test":"normal")).join("")}<div class="card"><label>異常・特記事項</label><textarea data-note="${k}">${esc((state[k]||{}).note||"")}</textarea></div>${bottomActions(k)}</div>`}).join("");
+}
+function renderHistory(){
+ const items=Object.entries(state).filter(([k,v])=>v&&v.savedAt).sort((a,b)=>b[1].savedAt-a[1].savedAt);
+ app.innerHTML=`<div class="card"><h2>保存履歴</h2><p class="small">端末ブラウザ内の保存データ。GitHub Pagesに置いたHTMLそのものにはデータを書き込まない。</p>
+ <div class="btnrow"><button class="secondary" onclick="exportData()">バックアップを書き出す</button><button class="danger" onclick="wipeAll()">全履歴を削除</button></div></div>`+
+ (items.length?items.map(([k,v])=>`<div class="card"><b>${esc(k)}</b><div class="small">${new Date(v.savedAt).toLocaleString("ja-JP")}｜体重 ${esc(v.bodyweight||"—")} kg</div><div class="small">メモ：${esc(v.note||"なし")}</div></div>`).join(""):"<div class='card'>まだ保存された記録はない。</div>");
+}
+function render(){if(current==="HOME")renderHome();else if(current==="PRE")renderPre();else if(current==="BBB")renderBBB();else if(current==="HISTORY")renderHistory();else renderPPP();bindInputs();}
+function ensure(k){if(!state[k])state[k]={rows:{}};if(!state[k].rows)state[k].rows={};return state[k]}
+function bindInputs(){
+ document.querySelectorAll("[data-meta]").forEach(el=>el.addEventListener("input",()=>{const d=ensure(el.dataset.meta);d[el.dataset.field]=el.value;save()}));
+ document.querySelectorAll("[data-note]").forEach(el=>el.addEventListener("input",()=>{ensure(el.dataset.note).note=el.value;save()}));
+ document.querySelectorAll("[data-row]").forEach(el=>el.addEventListener("input",()=>{const d=ensure(el.dataset.row);const id=el.dataset.ex;d.rows[id]=d.rows[id]||{};d.rows[id][el.dataset.f]=el.value;save()}));
+}
+function commit(k){const d=ensure(k);d.savedAt=Date.now();save();alert("保存した。");render();}
+function clearDay(k){if(confirm("この日の入力を全部リセットする？")){delete state[k];save();render();}}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="workout-log-backup.json";a.click();URL.revokeObjectURL(a.href);}
+function wipeAll(){if(confirm("全履歴を削除する？")){state={};save();render();}}
+navRender();render();
+</script>
+</body>
+</html>
