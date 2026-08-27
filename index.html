@@ -114,6 +114,13 @@ button{color:#f3f5f7!important}
 .day-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
 .modal{z-index:500!important}
 .modalbox{max-height:82vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+
+/* Clean final interaction layer */
+html,body{min-height:100%;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch}
+main{overflow:visible!important}
+button{cursor:pointer}
+.meta .choice button{pointer-events:auto!important}
+.exerciseChoices,.modalbox{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 </style></head>
 <body>
 <header><div class="top"><button onclick="goHome()">‹</button><h1 id="title">トレーニング</h1><button class="menu" onclick="toggleNav()">☰</button></div><nav id="nav"></nav></header>
