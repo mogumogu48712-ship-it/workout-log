@@ -121,6 +121,13 @@ main{overflow:visible!important}
 button{cursor:pointer}
 .meta .choice button{pointer-events:auto!important}
 .exerciseChoices,.modalbox{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+
+html,body{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+.modalbox{max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.modal-tabs button{white-space:nowrap}
+.exchoices{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:48vh;overflow-y:auto}
+.exchoices button{text-align:left}
 </style></head>
 <body>
 <header><div class="top"><button onclick="goHome()">‹</button><h1 id="title">トレーニング</h1><button class="menu" onclick="toggleNav()">☰</button></div><nav id="nav"></nav></header>
@@ -131,14 +138,65 @@ const STORAGE='workoutLogV27';
 const LEGACY_STORAGE='workoutLogV25';
 const PARTS=['脚','胸','背中','肩','三頭','二頭','前腕','腹筋'];
 const EXERCISES={
-'脚':['バーベルスクワット','ハックスクワット','レッグプレス','レッグエクステンション','レッグカール','スミスマシンスクワット','ブルガリアンスクワット'],
-'胸':['ベンチプレス','ポーズベンチプレス','ラーセンベンチ','インクラインベンチプレス','ダンベルベンチプレス','ダンベルフライ','チェストプレスマシン','ディップス'],
-'背中':['デッドリフト','トップサイドデッドリフト','バーベルベントオーバーロウ','Tバーロウマシン','シーテッドロー','ラットプルダウン','ハイローマシン'],
-'肩':['OHP','スミスバックプレス','ケーブルアップライトロウ','ダンベルサイドレイズ','リアデルトフライ','ショルダープレスマシン'],
-'三頭':['クローズグリップベンチ','JMプレス','ライイングトライセプスエクステンション','スミスOHエクステンション'],
-'二頭':['バーベルカール','ケーブルカール','プリーチャーカール','インクラインカール','ハンマーカール'],
-'前腕':['リストカール','リバースリストカール','リバースカール','ハンマーカール'],
-'腹筋':['アブドミナルマシン','ケーブルクランチ','ハンギングレッグレイズ']};
+'脚':[
+'バーベルスクワット','ハイバースクワット','ローバースクワット','フロントスクワット','セーフティスクワット',
+'ポーズスクワット','テンポスクワット','ボックススクワット','スミススクワット','ハックスクワット',
+'レッグプレス','45度レッグプレス','ベルトスクワット','ブルガリアンスクワット','リバースランジ',
+'ウォーキングランジ','ステップアップ','レッグエクステンション','シーテッドレッグカール',
+'ライイングレッグカール','スタンディングレッグカール','ルーマニアンデッドリフト',
+'スティッフレッグデッドリフト','グッドモーニング','ヒップスラスト','グルートハムレイズ',
+'スタンディングカーフレイズ','シーテッドカーフレイズ'],
+'胸':[
+'ベンチプレス','コンペティションベンチ','ポーズベンチプレス','テンポベンチプレス','ラーセンベンチ',
+'クローズグリップベンチ','ワイドグリップベンチ','インクラインベンチプレス','ダンベルベンチプレス',
+'ニュートラルグリップダンベルプレス','インクラインダンベルプレス','デクラインベンチプレス',
+'ダンベルフライ','インクラインダンベルフライ','ケーブルフライ','ペックデック',
+'チェストプレス','インクラインチェストプレス','ハンマーストレングスチェストプレス',
+'ディップス','加重ディップス','プッシュアップ','加重プッシュアップ','スミスベンチプレス'],
+'背中':[
+'コンベンショナルデッドリフト','スモウデッドリフト','トップサイドデッドリフト','ラックプル',
+'ルーマニアンデッドリフト','スティッフレッグデッドリフト','バーベルベントオーバーロウ',
+'ペンドレイロウ','Yatesロウ','Tバーロウ','チェストサポートロウ','シーテッドロー',
+'ワンアームダンベルロウ','ワンアームケーブルロウ','ラットプルダウン','ワイドグリップラットプルダウン',
+'クローズグリップラットプルダウン','ニュートラルグリップラットプルダウン',
+'アンダーグリップラットプルダウン','ストレートアームプルダウン','ハイローマシン',
+'ローローマシン','マシンロウ','懸垂','ワイドグリップ懸垂','チンニング','加重チンニング',
+'フェイスプル','ダンベルプルオーバー'],
+'肩':[
+'オーバーヘッドプレス','OHP','バーベルショルダープレス','ダンベルショルダープレス',
+'アーノルドプレス','スミスショルダープレス','スミスバックプレス','マシンショルダープレス',
+'ランドマインプレス','ダンベルサイドレイズ','ケーブルサイドレイズ','マシンサイドレイズ',
+'リーンアウェイサイドレイズ','ワンアームケーブルサイドレイズ','フロントレイズ',
+'ケーブルフロントレイズ','リアレイズ','ベントオーバーリアレイズ','ケーブルリアレイズ',
+'リアデルトフライ','リバースペックデック','フェイスプル','ケーブルアップライトロウ',
+'バーベルアップライトロウ','ダンベルシュラッグ','バーベルシュラッグ'],
+'三頭':[
+'クローズグリップベンチ','JMプレス','ライイングトライセプスエクステンション',
+'EZバートライセプスエクステンション','ダンベルライイングトライセプスエクステンション',
+'ナローベンチプレス','ディップス','加重ディップス','ケーブルプレスダウン','ローププレスダウン',
+'ストレートバープレスダウン','Vバープレスダウン','リバースグリッププレスダウン',
+'ワンアームプレスダウン','クロスボディケーブルエクステンション',
+'オーバーヘッドケーブルエクステンション','ダンベルオーバーヘッドエクステンション',
+'スミスオーバーヘッドエクステンション'],
+'二頭':[
+'バーベルカール','EZバーカール','ストレートバーカール','ダンベルカール',
+'オルタネイトダンベルカール','インクラインダンベルカール','プリーチャーカール',
+'EZバープリーチャーカール','マシンプリーチャーカール','スパイダーカール',
+'コンセントレーションカール','ハンマーカール','クロスボディハンマーカール',
+'ロープハンマーカール','ケーブルカール','ストレートバーケーブルカール',
+'ワンアームケーブルカール','ドラッグカール','リバースカール','ゾットマンカール'],
+'前腕':[
+'リストカール','バーベルリストカール','ダンベルリストカール','ケーブルリストカール',
+'リバースリストカール','バーベルリバースリストカール','ダンベルリバースリストカール',
+'ケーブルリバースリストカール','リストローラー','ファーマーズウォーク','スーツケースキャリー',
+'ハンドグリップ','プレートピンチ','プレートカール','デッドハング'],
+'腹筋':[
+'アブドミナルマシン','ケーブルクランチ','ロープクランチ','バーベルクランチ','ダンベルクランチ',
+'ハンギングレッグレイズ','ハンギングニーレイズ','キャプテンズチェア','レッグレイズ',
+'リバースクランチ','デクラインシットアップ','シットアップ','クランチ','バイシクルクランチ',
+'ロシアンツイスト','ケーブルウッドチョップ','パロフプレス','アブローラー','バーベルアブローラー',
+'プランク','サイドプランク','RKCプランク','デッドバグ','バードドッグ']
+};
 const BBB={
 '脚':[['バーベルスクワット',4,'6〜8'],['レッグエクステンション',6,'10〜15'],['ハックスクワット',6,'8〜12'],['レッグプレス',6,'10〜15'],['スミスマシンスクワット',6,'8〜12'],['レッグカール',3,'10〜15']],
 '胸':[['ベンチプレス',15,'6〜10'],['インクラインベンチプレス',10,'8〜12'],['ダンベルベンチプレス',4,'8〜12'],['ダンベルフライ',5,'10〜15'],['チェストプレスマシン',6,'8〜12'],['ディップス',5,'8〜15']],
@@ -164,7 +222,7 @@ const fmt=s=>String(Math.floor(Math.max(0,s)/60)).padStart(2,'0')+':'+String(Mat
 const fmtLong=s=>String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(Math.floor(s)%60).padStart(2,'0');
 function save(){localStorage.setItem(STORAGE,JSON.stringify(db));localStorage.setItem(STORAGE+'_state',JSON.stringify(state))}
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1200)}
-function navDraw(){document.getElementById('nav').innerHTML=['HOME','PRE','BBB','PPP','HISTORY'].map(t=>`<button class="${state.page===t?'active':''}" onclick="go('${t}')">${t}</button>`).join('')}
+function navDraw(){document.getElementById('nav').innerHTML=['HOME','PRE','BBB','PPP','RECORD'].map(t=>`<button class="${state.page===t?'active':''}" onclick="go('${t}')">${t}</button>`).join('')}
 function toggleNav(){document.getElementById('nav').classList.toggle('show')}
 function go(p){state.page=p;save();navDraw();render();scrollTo(0,0)} function goHome(){if(state.page==='HOME')toggleNav();else go('HOME')}
 function changeBBB(p){state.bbbPart=p;save();render()} function changeBBBDay(d){state.bbbDay=Number(d)||1;save();render()} function changePPPWeek(w){state.pppWeek=w;state.pppDay=Object.keys(PPP[w]||{})[0]||'D1';save();render()} function changePPPDay(d){state.pppDay=d;save();render()}
@@ -215,13 +273,53 @@ function setRow(k,id,i,asc=false){
     ${asc?'':dropHTML(k,id,i)}
   </div>`
 }
-function exerciseCard(k,e,i){const id='ex'+i,x=ensureEx(k,i,e),count=Math.max(1,Math.min(30,Number(x.mainCount)||1)),asc=Math.max(0,Math.min(20,Number(x.ascCount)||0)),b=badge(x.name);return `<section class="exercise"><div class="exhead"><div class="exline"><div class="exname">${esc(x.name)}</div><button class="exswap" onclick="openExerciseModal('${esc(k)}','${esc(id)}')">変更</button><button class="exdelete" title="種目を閉じる" onclick="deleteExercise('${esc(k)}','${esc(id)}')">⋯</button></div><div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?'｜'+esc(e.rx):''}${e.note?'<br>'+esc(e.note):''}</div></div><div class="note-row"><input placeholder="メモを入力" value="${esc(x.note||'')}" oninput="editExerciseNote('${esc(k)}','${esc(id)}',this.value)"><button class="recent" onclick="showRecent('${esc(k)}','${esc(id)}')">最近の記録</button></div><details class="asc" ${x.ascOpen?'open':''} ontoggle="setAscOpen('${esc(k)}','${esc(id)}',this.open)"><summary>Ascending Set <span class="asc-controls"><button type="button" onclick="event.preventDefault();event.stopPropagation();changeAsc('${esc(k)}','${esc(id)}',-1)">−</button><b>${asc}セット</b><button type="button" onclick="event.preventDefault();event.stopPropagation();changeAsc('${esc(k)}','${esc(id)}',1)">＋</button></span></summary>${Array.from({length:asc},(_,j)=>setRow(k,id,j,true)).join('')}</details><div class="section-title">MAIN SET（${count}セット）</div>${Array.from({length:count},(_,j)=>setRow(k,id,j,false)).join('')}</section>`}
+function exerciseCard(k,e,i){const id='ex'+i,x=ensureEx(k,i,e),count=Math.max(1,Math.min(30,Number(x.mainCount)||1)),asc=Math.max(0,Math.min(20,Number(x.ascCount)||0)),b=badge(x.name);return `<section class="exercise"><div class="exhead"><div class="exline"><div class="exname">${esc(x.name)}</div><button class="exswap" onclick="openExerciseModal('${esc(k)}','${esc(id)}')">変更</button></div><div class="rx"><strong>処方：</strong>${e.sets}セット × ${esc(e.rep)}${e.rx?'｜'+esc(e.rx):''}${e.note?'<br>'+esc(e.note):''}</div></div><div class="note-row"><input placeholder="メモを入力" value="${esc(x.note||'')}" oninput="editExerciseNote('${esc(k)}','${esc(id)}',this.value)"></div><details class="asc" ${x.ascOpen?'open':''} ontoggle="setAscOpen('${esc(k)}','${esc(id)}',this.open)"><summary>Ascending Set <span class="asc-controls"><button type="button" onclick="event.preventDefault();event.stopPropagation();changeAsc('${esc(k)}','${esc(id)}',-1)">−</button><b>${asc}セット</b><button type="button" onclick="event.preventDefault();event.stopPropagation();changeAsc('${esc(k)}','${esc(id)}',1)">＋</button></span></summary>${Array.from({length:asc},(_,j)=>setRow(k,id,j,true)).join('')}</details><div class="section-title">MAIN SET（${count}セット）</div>${Array.from({length:count},(_,j)=>setRow(k,id,j,false)).join('')}</section>`}
 function toggleDrop(k,id,i){const r=row(k,id,'main#'+i);r.dropOpen=!r.dropOpen;save();render()}function addDrop(k,id,i){drops(k,id,i).push({});row(k,id,'main#'+i).dropOpen=true;save();render()}function editDrop(k,id,i,j,f,v){drops(k,id,i)[j][f]=v;save()}function removeDrop(k,id,i,j){drops(k,id,i).splice(j,1);save();render()}
 function changeMain(k,id,d){const x=session(k).exercises[id];x.mainCount=Math.max(1,Math.min(30,(Number(x.mainCount)||1)+d));save();render()}function changeAsc(k,id,d){const x=session(k).exercises[id];x.ascCount=Math.max(0,Math.min(20,(Number(x.ascCount)||0)+d));save();render()}function setAscOpen(k,id,v){session(k).exercises[id].ascOpen=!!v;save()}function editExerciseNote(k,id,v){session(k).exercises[id].note=v;save()}
 function deleteExercise(k,id){const x=session(k).exercises[id];if(!x)return;x.hidden=true;save();render();toast('種目を閉じました')}
-function openExerciseModal(k,id){modal={k,id,part:'脚'};document.getElementById('modalTabs').innerHTML=PARTS.map(p=>`<button class="${p===modal.part?'active':''}" onclick="modalPart('${esc(p)}')">${p}</button>`).join('');modalPart('脚');document.getElementById('exerciseModal').classList.add('show')}
-function modalPart(p){modal.part=p;document.getElementById('modalTabs').innerHTML=PARTS.map(a=>`<button class="${a===p?'active':''}" onclick="modalPart('${esc(a)}')">${a}</button>`).join('');document.getElementById('exerciseChoices').innerHTML=(EXERCISES[p]||[]).map(n=>`<button onclick="replaceExercise('${esc(modal.k)}','${esc(modal.id)}','${esc(n)}')">${esc(n)}</button>`).join('')}
-function closeExerciseModal(){document.getElementById('exerciseModal').classList.remove('show');modal={k:null,id:null,part:'脚'}}function replaceExercise(k,id,name){const x=session(k).exercises[id];x.name=name;save();closeExerciseModal();render();toast('種目を変更しました')}
+function exercisePart(name){
+  if(/SQ|スクワット|レッグ|ブルガリア|ランジ|ステップアップ|ヒップスラスト|カーフ|グッドモーニング|RDL|スティッフ/.test(name))return '脚';
+  if(/BP|ベンチ|フライ|ディップ|チェスト|プッシュアップ/.test(name))return '胸';
+  if(/DL|デッド|ロウ|ロー|ラット|懸垂|チンニング|T.?bar|Tバ|プルオーバー|フェイスプル/.test(name))return '背中';
+  if(/OHP|ショルダー|サイド|リア|アップライト|シュラッグ|ランドマイン/.test(name))return '肩';
+  if(/JM|トライセプス|プレスダウン|エクステンション|ナローベンチ/.test(name))return '三頭';
+  if(/カール|プリーチャー|ハンマー|ゾットマン|スパイダー/.test(name))return '二頭';
+  if(/リスト|ファーマーズ|スーツケース|ハンドグリップ|ピンチ|デッドハング/.test(name))return '前腕';
+  if(/腹|アブ|クランチ|レッグレイズ|シットアップ|プランク|アブローラー|ウッドチョップ|パロフ/.test(name))return '腹筋';
+  return '脚';
+}
+function openExerciseModal(k,id){
+  const current=session(k).exercises[id]?.name||'';
+  modal={k,id,part:exercisePart(current),query:''};
+  document.getElementById('exerciseModal').classList.add('show');
+  renderExerciseModal();
+}
+function renderExerciseModal(){
+  const tabs=PARTS.map(p=>`<button type="button" class="${p===modal.part?'active':''}" onclick="modalPart('${esc(p)}')">${p}</button>`).join('');
+  document.getElementById('modalTabs').innerHTML=tabs;
+  const all=EXERCISES[modal.part]||[];
+  const q=(modal.query||'').trim().toLowerCase();
+  const choices=q?all.filter(n=>n.toLowerCase().includes(q)):all;
+  document.getElementById('exerciseChoices').innerHTML=choices.length
+    ?choices.map(n=>`<button type="button" onclick="replaceExercise('${esc(modal.k)}','${esc(modal.id)}','${esc(n)}')">${esc(n)}</button>`).join('')
+    :'<div class="small" style="padding:12px">該当する種目なし</div>';
+  const box=document.querySelector('#exerciseModal .modalbox');
+  if(box && !document.getElementById('exerciseSearch')){
+    const h=box.querySelector('h3');
+    const inp=document.createElement('input');
+    inp.id='exerciseSearch'; inp.placeholder='種目を検索'; inp.style.cssText='width:100%;margin:8px 0;padding:11px;border:1px solid #cfd5dc;border-radius:10px;background:#fff;color:#111';
+    inp.oninput=()=>{modal.query=inp.value;renderExerciseModal()};
+    h.after(inp);
+  }
+  const inp=document.getElementById('exerciseSearch'); if(inp)inp.value=modal.query||'';
+}
+function modalPart(p){modal.part=p;modal.query='';renderExerciseModal()}
+function closeExerciseModal(){document.getElementById('exerciseModal').classList.remove('show');modal={k:null,id:null,part:'脚',query:''}}
+function replaceExercise(k,id,name){
+  const x=session(k).exercises[id];
+  x.name=name;
+  save();closeExerciseModal();render();toast('種目を変更しました');
+}
 function showRecent(k,id){
   const s=session(k),rows=[];
   (s.history||[]).slice().reverse().forEach(v=>{
@@ -236,9 +334,32 @@ function showRecent(k,id){
 }
 function currentExercises(){let list;if(state.page==='PRE')list=[E('High-bar SQ',1,'Ascending → Top 135kg × 4〜6','Back-off：Top −5kg × 1'),E('Competition BP',1,'Ascending → Top 85kg × 4〜6','Back-off：Top −2.5kg × 1'),E('Competition DL',1,'Ascending → Top 180kg × 1','必要なら185〜190kg確認')];else if(state.page==='BBB')list=(BBB[state.bbbPart]||BBB['脚']).map(a=>E(a[0],a[1],a[2]));else list=PPP[state.pppWeek]?.[state.pppDay]||[];const ss=session(key());return list.filter((e,i)=>!ss.exercises?.['ex'+i]?.hidden)}
 function programHeader(){if(state.page==='BBB')return `<div class="panel-head"><h2>BBB　Day ${state.bbbDay}　${esc(state.bbbPart)}</h2></div><div class="tabs">${[1,2,3,4,5,6,7].map(d=>`<button class="${state.bbbDay===d?'active':''}" onclick="changeBBBDay(${d})">Day ${d}</button>`).join('')}</div><div class="tabs">${PARTS.map(p=>`<button class="${state.bbbPart===p?'active':''}" onclick="changeBBB('${esc(p)}')">${p}</button>`).join('')}</div>`;if(state.page==='PPP'){const days=Object.keys(PPP[state.pppWeek]||{});return `<div class="panel-head"><h2>PPP</h2><div class="tabs tight">${[1,2,3,4,5,6,7,8].map(w=>`<button class="${state.pppWeek===w?'active':''}" onclick="changePPPWeek(${w})">W${w}</button>`).join('')}</div><div class="tabs">${days.map(d=>`<button class="${state.pppDay===d?'active':''}" onclick="changePPPDay('${esc(d)}')">${esc(d)}</button>`).join('')}</div></div>`}return `<div class="panel-head"><h2>${state.page==='PRE'?'PRE Week 1':'Training'}</h2></div>`}
-function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="saveAndReset('${esc(k)}')">保存して新規開始</button><button class="secondary" onclick="resetCurrent('${esc(k)}')">現在の記録をリセット</button><button class="secondary" onclick="restoreExercises('${esc(k)}')">閉じた種目を戻す</button></div></div>`}
+function renderProgram(){const k=key(),ex=currentExercises();document.getElementById('title').textContent=state.page==='BBB'?'BBB Day '+state.bbbDay+'　'+state.bbbPart:state.page==='PPP'?'PPP W'+state.pppWeek+' '+state.pppDay:state.page==='PRE'?'PRE Week 1':'Training';document.getElementById('app').innerHTML=`<div class="card">${programHeader()}${metaHTML(k)}${ex.map((e,i)=>exerciseCard(k,e,i)).join('')}<div class="panel-head"><label>当日メモ・特記事項</label><textarea oninput="setMeta('${esc(k)}','note',this.value)">${esc(session(k).note||'')}</textarea></div><div class="day-actions"><button class="primary" onclick="saveDay('${esc(k)}')">記録を保存</button><button class="secondary" onclick="saveAndReset('${esc(k)}')">保存して新規開始</button><button class="secondary" onclick="resetCurrent('${esc(k)}')">現在の記録をリセット</button></div></div>`}
 function renderHome(){document.getElementById('title').textContent=new Date().getMonth()+1+'月'+new Date().getDate()+'日　トレーニング';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>Workout Log</h2><div class="notice">処方と実績を分離。Main / Ascending / セット別Drop / BBB / PPPを一つにまとめたログ。</div><h3>プログラムから一発呼び出し</h3><div class="program-grid"><button onclick="go('PRE')">PRE Week 1</button><button onclick="state.bbbDay=1;state.bbbPart='脚';go('BBB')">BBB</button>${[1,2,3,4,5,6,7,8].map(w=>`<button onclick="state.pppWeek=${w};state.pppDay=Object.keys(PPP[${w}]||{})[0]||'D1';go('PPP')">PPP W${w}</button>`).join('')}</div></div></div>`}
-function renderHistory(){const arr=[];Object.entries(db.sessions).forEach(([k,s])=>{(s.history||[]).forEach((h,i)=>arr.push({k,s,h,i}))});arr.sort((a,b)=>b.h.savedAt-a.h.savedAt);document.getElementById('title').textContent='履歴';document.getElementById('app').innerHTML=`<div class="card"><div class="panel-head"><h2>履歴</h2><div class="small">同じ曜日・同じ種目でも、保存するたびに別ログとして残る。</div>${arr.length?arr.map((o,idx)=>`<div class="history-row"><b>${esc(o.h.label||o.k)}</b><div class="small">${esc(o.h.date||'—')}　保存：${new Date(o.h.savedAt).toLocaleString('ja-JP')}</div><button onclick="openHistory(${idx})">この記録を開く</button></div>`).join(''):'<div class="small" style="margin-top:10px">保存履歴なし</div>'}</div></div>`;window._history=arr}
+function renderHistory(){
+  const arr=[];
+  Object.entries(db.sessions).forEach(([k,s])=>(s.history||[]).forEach((h,i)=>arr.push({k,s,h,i})));
+  arr.sort((a,b)=>b.h.savedAt-a.h.savedAt);
+  document.getElementById('title').textContent='記録';
+  const rows=arr.map((o,idx)=>{
+    const exs=Object.values(o.h.data?.exercises||{}).filter(x=>x&&!x.hidden);
+    const summary=exs.map(x=>{
+      const sets=Object.values(o.h.data?.sets||{}).filter(r=>r&&r.weight!==''&&r.rep!=='');
+      return x.name;
+    }).slice(0,6).join(' / ');
+    return `<div class="history-row">
+      <b>${esc(o.h.label||o.k)}</b>
+      <div class="small">${esc(o.h.date||'—')}　保存：${new Date(o.h.savedAt).toLocaleString('ja-JP')}</div>
+      <div class="small">${esc(summary||'セット記録なし')}</div>
+      <button type="button" onclick="openHistory(${idx})">この記録を開く</button>
+    </div>`;
+  }).join('');
+  document.getElementById('app').innerHTML=`<div class="card">
+    <div class="panel-head"><h2>記録</h2><div class="small">保存したトレーニングをここで管理。トレーニング画面から記録操作を分離。</div></div>
+    ${rows||'<div class="small" style="padding:16px">保存履歴なし</div>'}
+  </div>`;
+  window._history=arr;
+}
 function restoreExercises(k){Object.values(session(k).exercises||{}).forEach(x=>x.hidden=false);save();render();toast('閉じた種目を戻しました')}
 function saveDay(k){
   const s=session(k);
@@ -260,5 +381,5 @@ function resetCurrent(k){
 }
 function openHistory(i){const o=window._history?.[i];if(!o)return;const h=o.h.data;db.sessions[o.k]=JSON.parse(JSON.stringify(h));db.sessions[o.k].history=o.s.history||[];if(o.k.startsWith('BBB|')){const q=o.k.split('|');state.page='BBB';state.bbbDay=Number((q[1]||'D1').replace('D',''))||1;state.bbbPart=q[2]||'脚'}else if(o.k.startsWith('PPP|')){const q=o.k.split('|');state.page='PPP';state.pppWeek=Number(q[1].slice(1));state.pppDay=q[2]}else state.page='PRE';save();render();scrollTo(0,0)}
 
-function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='HISTORY')renderHistory();else renderProgram()}render();
+function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='RECORD')renderHistory();else renderProgram()}render();
 </script></body></html>
