@@ -24,11 +24,11 @@ textarea{min-height:68px}.choice{display:flex;gap:4px}
 .choice button{flex:1;border:1px solid #ccc;background:#fff;border-radius:8px;padding:8px 2px}
 .choice button.on{background:#111;color:#fff}
 .daytabs,.weektabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 9px;padding-bottom:2px}
-.exhead{padding:10px 11px;border-bottom:1px solid #ddd;position:relative}
-.exname{font-size:17px;font-weight:800;padding-right:125px}.rx{font-size:12px;line-height:1.5;color:#555;margin-top:4px;padding-right:125px}.rx strong{color:#111}
+.exhead{padding:10px 11px;border-bottom:1px solid #ddd;position:relative;overflow:visible}
+.exname{font-size:17px;font-weight:800;padding-right:58px;line-height:1.25}.rx{font-size:12px;line-height:1.5;color:#555;margin-top:4px;padding-right:58px}.rx strong{color:#111}
 .set{padding:9px 10px;border-bottom:1px solid #e7e7e7}.set:last-child{border-bottom:0}
 .settop{display:grid;grid-template-columns:44px 1fr 1fr 1fr;gap:6px;align-items:end}
-.setno{font-size:13px;font-weight:800;padding-bottom:9px}.set input{text-align:center;padding:8px 5px}
+.setno{font-size:13px;font-weight:800;padding-bottom:9px;overflow-wrap:anywhere}.set input{text-align:center;padding:8px 5px}
 .formrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
 .action{display:flex;gap:7px;margin-top:10px}.action button{flex:1;border:0;border-radius:10px;padding:11px;font-weight:800;font-size:15px}
 .primary{background:#111;color:#fff}.secondary{background:#e8e8e8}
@@ -36,7 +36,7 @@ textarea{min-height:68px}.choice{display:flex;gap:4px}
 details{border-top:1px solid #e2e2e2}
 details summary{cursor:pointer;padding:9px 0;font-weight:750;font-size:12px}
 .ascbox{padding:0 10px 8px;background:#fafafa}
-.sectiontitle{padding:8px 10px 0;font-size:12px;font-weight:800;color:#555}
+.sectiontitle{padding:8px 10px 0;font-size:12px;font-weight:800;color:#555;line-height:1.3}
 .replace{display:grid;grid-template-columns:45px 1fr;gap:5px;margin-top:7px}.replace label{font-size:10px;margin:0;align-self:center}
 .replace select{padding:6px 7px;font-size:11px}.countctl{display:flex;align-items:center;gap:7px;margin-top:8px}
 .countctl button{border:1px solid #ccc;background:#fff;border-radius:8px;width:36px;height:32px;font-size:19px;font-weight:800}
@@ -45,9 +45,9 @@ details summary{cursor:pointer;padding:9px 0;font-weight:750;font-size:12px}
 .set.done{background:#f0f0f0}
 .drop{background:#fafafa}.drop .setno{font-size:11px}
 .ex-tools{display:flex;gap:5px;margin-top:7px}.ex-tools button{border:1px solid #ccc;background:#fff;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:800}
-.timer-toggle{position:absolute;right:10px;top:9px;border:1px solid #ccc;background:#f7f7f7;border-radius:8px;padding:5px 8px;font-size:12px;font-weight:800;z-index:3}
+.timer-toggle{position:absolute;right:10px;top:9px;border:1px solid #ccc;background:#f7f7f7;border-radius:8px;padding:5px 8px;font-size:12px;font-weight:800;z-index:8}.exhead{padding-top:11px}
 .timer-toggle.running{background:#111;color:#fff}
-.mini-timer{position:absolute;right:9px;top:41px;width:205px;background:#f7f7f7;border:1px solid #d4d4d4;border-radius:10px;padding:7px;z-index:5;box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.mini-timer{position:relative;right:auto;top:auto;width:100%;max-width:245px;margin:8px 0 2px auto;background:#f7f7f7;border:1px solid #d4d4d4;border-radius:10px;padding:7px;z-index:5;box-shadow:none}
 .mini-row{display:grid;grid-template-columns:1fr 1fr;gap:5px}.mini-clock{font-size:18px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
 .mini-label{font-size:9px;color:#666;text-align:center}.mini-buttons{display:flex;gap:4px;margin-top:4px}
 .mini-buttons button{flex:1;border:1px solid #ccc;background:#fff;border-radius:6px;padding:5px 2px;font-size:10px;font-weight:700}
@@ -58,7 +58,7 @@ details summary{cursor:pointer;padding:9px 0;font-weight:750;font-size:12px}
 .program-panel{background:#f7f7f7;border:1px solid #ddd;border-radius:10px;padding:9px;margin:8px 0}
 .history-item{cursor:pointer}.history-sub{font-size:12px;color:#666;margin-top:4px}
 .hidden{display:none!important}
-@media(max-width:390px){.settop{grid-template-columns:37px 1fr 1fr 1fr}.set input{font-size:14px}.mini-timer{width:195px}}
+@media(max-width:390px){.settop{grid-template-columns:37px 1fr 1fr 1fr}.set input{font-size:14px}.mini-timer{max-width:100%}}
 </style>
 </head>
 <body>
@@ -107,7 +107,7 @@ const PRE=[
 let current="HOME",bbbDay=localStorage.getItem("bbbDay")||"Legs",pppWeek=localStorage.getItem("pppWeek")||"PPP W1";
 let store=JSON.parse(localStorage.getItem("pbWorkoutV10")||"{}");
 let records=JSON.parse(localStorage.getItem("pbWorkoutRecordsV10")||"[]");
-let timers={},workTimers={};
+let timers={},workTimers={},openTimers=JSON.parse(localStorage.getItem("pbWorkoutTimerOpenV10")||"{}");
 const nav=document.getElementById("nav"),app=document.getElementById("app");
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const save=()=>localStorage.setItem("pbWorkoutV10",JSON.stringify(store));
@@ -143,15 +143,19 @@ function timerBox(k,id){
     <div class="mini-settings"><input type="number" min="0" max="900" step="15" value="${rest}" onchange="setTimer('${esc(k)}','rest',this.value)"><input type="number" min="0" max="900" step="15" value="${ex}" onchange="setTimer('${esc(k)}','exercise',this.value)"></div>
   </div>`
 }
-function setTimer(k,type,v){v=Math.max(0,Math.min(900,Number(v)||0));get(k).timer??={};get(k).timer[type]=v;save();render()}
-function toggleTimer(id){let e=document.getElementById("timer-"+id);if(e)e.classList.toggle("hidden")}
+function setTimer(k,type,v){v=Math.max(0,Math.min(900,Number(v)||0));get(k).timer??={};get(k).timer[type]=v;save()}
+function toggleTimer(id){
+  const el=document.getElementById("timer-"+id);
+  if(!el)return;
+  el.classList.toggle("hidden");
+}
 function renderTimersOnly(){document.querySelectorAll(".mini-timer").forEach(x=>x.classList.remove("hidden"))}
 
 function workStart(k){
   if(!workTimers[k])workTimers[k]={start:Date.now(),iv:setInterval(()=>updateWork(k),500)};
   updateWork(k);
 }
-function workStop(k){if(workTimers[k]){clearInterval(workTimers[k].iv);workTimers[k].elapsed=(Date.now()-workTimers[k].start)/1000;delete workTimers[k];updateWork(k)}}
+function workStop(k){if(workTimers[k]){clearInterval(workTimers[k].iv);get(k).workSeconds=(Date.now()-workTimers[k].start)/1000;delete workTimers[k];save();updateWork(k)}}
 function updateWork(k){let e=document.querySelector(`[data-workclock="${CSS.escape(k)}"]`);if(!e)return;let w=workTimers[k];e.textContent=fmt(w?((Date.now()-w.start)/1000):Number(get(k).workSeconds||0))}
 function workReset(k){if(workTimers[k])clearInterval(workTimers[k].iv);delete workTimers[k];get(k).workSeconds=0;save();render()}
 function workBox(k){let d=get(k);return `<div class="worktimer"><div><div class="small">トレーニング時間</div><div class="workclock" data-workclock="${esc(k)}">${fmt(d.workSeconds||0)}</div></div><div class="quick"><button onclick="workStart('${esc(k)}')">開始</button><button onclick="workStop('${esc(k)}')">停止</button><button onclick="workReset('${esc(k)}')">リセット</button></div></div>`}
