@@ -232,12 +232,12 @@ const EXERCISES={
 };
 const BBB_DAYS={
 1:{name:'Legs',purpose:'筋肥大・高努力。SBD以外はBBB本番でキャリブレーション。',ex:[['High-bar SQ',4,'4〜6','Top → Back-off：Top −5kg'],['レッグエクステンション',6,'',''],['ハックスクワット',6,'',''],['レッグプレス',6,'',''],['スミスマシンスクワット',6,'',''],['レッグカール',3,'','']]},
-2:{name:'Conga',purpose:'筋トレなし。',ex:[]},
+2:{name:'Rest',purpose:'休養日。',ex:[]},
 3:{name:'Chest',purpose:'筋肥大・高努力。SBD以外はBBB本番でキャリブレーション。',ex:[['ベンチプレス',15,'6〜10','1〜3セット目：Competition BP／4セット目以降：筋肥大用ベンチ'],['インクラインベンチプレス',10,'8〜12',''],['ダンベルベンチプレス',4,'8〜12',''],['ダンベルフライ',5,'10〜15',''],['チェストプレスマシン',6,'8〜12',''],['ディップチンアシスト',5,'8〜15','']]},
 4:{name:'Shoulders',purpose:'肩・腕は独立して重量進行を追う。',ex:[['OHP',10,'6〜10',''],['スミスバックプレス',10,'8〜12',''],['ケーブルアップライトロウ',5,'10〜15',''],['ダンベルサイドレイズ',10,'12〜20',''],['リアデルトフライ',5,'12〜20',''],['ショルダープレスマシン',3,'8〜12','']]},
-5:{name:'Conga',purpose:'筋トレなし。',ex:[]},
-6:{name:'Back + Conga',purpose:'筋肥大・高努力。SBD以外はBBB本番でキャリブレーション。',ex:[['Competition DL',4,'4〜6','Top → Back-off：Top −10kg'],['トップサイドデッドリフト',10,'6〜10',''],['バーベルベントオーバーロウ',10,'8〜12',''],['Tバーロウマシン',5,'8〜12',''],['シーテッドロー',10,'8〜15',''],['ラットプルダウン',6,'8〜15','']]},
-7:{name:'Arms + Timbales',purpose:'肩・腕は独立して重量進行を追う。',ex:[['クローズグリップベンチ',8,'',''],['JMプレス',8,'',''],['スミスOHエクステンション',5,'',''],['バーベルカール',10,'6〜10',''],['ケーブルカール',8,'8〜15',''],['プリーチャーカール',5,'10〜15','']]}
+5:{name:'Rest',purpose:'休養日。',ex:[]},
+6:{name:'Back',purpose:'筋肥大・高努力。SBD以外はBBB本番でキャリブレーション。',ex:[['Competition DL',4,'4〜6','Top → Back-off：Top −10kg'],['トップサイドデッドリフト',10,'6〜10',''],['バーベルベントオーバーロウ',10,'8〜12',''],['Tバーロウマシン',5,'8〜12',''],['シーテッドロー',10,'8〜15',''],['ラットプルダウン',6,'8〜15','']]},
+7:{name:'Arms',purpose:'肩・腕は独立して重量進行を追う。',ex:[['クローズグリップベンチ',8,'',''],['JMプレス',8,'',''],['スミスOHエクステンション',5,'',''],['バーベルカール',10,'6〜10',''],['ケーブルカール',8,'8〜15',''],['プリーチャーカール',5,'10〜15','']]}
 };
 const E=(name,sets,rep,rx='',note='')=>({name,sets,rep,rx,note});
 const PPP={};
@@ -262,8 +262,10 @@ const fmtLong=s=>String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floo
 function save(){localStorage.setItem(STORAGE,JSON.stringify(db));localStorage.setItem(STORAGE+'_state',JSON.stringify(state))}
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1200)}
 function navDraw(){
-  const tabs=[['HOME','ホーム'],['PRE','PRE'],['BBB','BBB'],['PPP','PPP'],['RECORD','記録']];
-  document.getElementById('nav').innerHTML=tabs.map(([key,label])=>`<button class="${state.page===key?'active':''}" onclick="go('${key}')">${label}</button>`).join('');
+  const tabs=[['HOME','ホーム'],['PRE','PRE'],['BBB','BBB'],['PPP','PPP'],['RECORD','履歴']];
+  document.getElementById('nav').innerHTML=tabs.map(function(t){
+    return `<button class="${state.page===t[0]?'active':''}" onclick="go('${t[0]}')">${t[1]}</button>`;
+  }).join('');
 }
 function toggleNav(){document.getElementById('nav').classList.toggle('show')}
 function go(p){state.page=p;save();navDraw();render();scrollTo(0,0)} function goHome(){if(state.page==='HOME')toggleNav();else go('HOME')}
@@ -383,7 +385,7 @@ function currentExercises(){
 }
 function programHeader(){
   if(state.page==='BBB'){
-    const dayNames={1:'Legs',2:'Conga',3:'Chest',4:'Shoulders',5:'Conga',6:'Back + Conga',7:'Arms + Timbales'};
+    const dayNames={1:'Legs',2:'Rest',3:'Chest',4:'Shoulders',5:'Rest',6:'Back',7:'Arms'};
     return `<div class="panel-head"><h2>BBB　Day ${state.bbbDay}　${esc(dayNames[state.bbbDay]||'')}</h2><div class="small">${esc(BBB_DAYS[state.bbbDay]?.purpose||'')}</div></div><div class="tabs">${[1,2,3,4,5,6,7].map(d=>`<button class="${state.bbbDay===d?'active':''}" onclick="changeBBBDay(${d})">Day ${d}</button>`).join('')}</div>`;
   }
   if(state.page==='PPP'){
@@ -428,7 +430,7 @@ function renderHistory(){
       <div class="history-top"><strong>${prog}</strong><span>${esc(day)}</span></div>
       <div class="history-date">${esc(o.h.date||'日付未入力')}</div>
       <div class="history-exercises">${records(o)||'<div class="empty">種目記録なし。</div>'}</div>
-      <div class="history-bottom"><button type="button" onclick="event.stopPropagation();openHistory(${idx})">この記録を開く</button></div>
+      
     </div>`;
   }).join('');
 
@@ -461,7 +463,12 @@ function resetCurrent(k){
   db.sessions[k]={date:'',weight:'',note:'',exercises:{},savedAt:0,history};
   save();render();scrollTo(0,0);
 }
-function openHistory(i){const o=window._history?.[i];if(!o)return;const h=o.h.data;db.sessions[o.k]=JSON.parse(JSON.stringify(h));db.sessions[o.k].history=o.s.history||[];if(o.k.startsWith('BBB|')){const q=o.k.split('|');state.page='BBB';state.bbbDay=Number((q[1]||'D1').replace('D',''))||1;state.bbbPart=q[2]||BBB_DAYS[state.bbbDay]?.name||'Legs'}else if(o.k.startsWith('PPP|')){const q=o.k.split('|');state.page='PPP';state.pppWeek=Number(q[1].slice(1));state.pppDay=q[2]}else state.page='PRE';save();render();scrollTo(0,0)}
 
-function render(){navDraw();if(state.page==='HOME')renderHome();else if(state.page==='RECORD')renderHistory();else renderProgram()}render();
+
+function render(){
+  navDraw();
+  if(state.page==='HOME'){renderHome();return;}
+  if(state.page==='RECORD'){renderHistory();return;}
+  renderProgram();
+}render();
 </script></body></html>
