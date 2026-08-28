@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "active_program": {
+    "file": "筋トレログアプリ_UI展開テスト用サンプル.json",
+    "id": "example_program_v1",
+    "name": "UI展開テスト用サンプル",
+    "version": "1.0"
+  },
+  "bbb_master": {
+    "file": "筋トレログアプリ_UI展開テスト用サンプル.json",
+    "path": "bbb.exercise_master"
+  },
+  "replacement_rule": {
+    "program": "active_program.file を差し替えるだけで現在のプログラムを変更",
+    "bbb": "同一ファイル内の bbb.exercise_master / bbb.schedule を使用",
+    "history": "既存のSESSION/RESULT/HISTORYはプログラム差し替えで変更しない"
+  }
+}
